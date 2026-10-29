@@ -2,7 +2,7 @@ FROM php:8.2-apache
 
 WORKDIR /opt/devatlas
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git unzip libpq-dev libicu-dev libzip-dev libpng-dev libjpeg62-turbo-dev libfreetype6-dev \
+    git unzip libpq-dev libicu-dev libonig-dev libzip-dev libpng-dev libjpeg62-turbo-dev libfreetype6-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j"$(nproc)" pdo_pgsql pgsql intl mbstring zip gd \
     && a2enmod rewrite headers expires deflate \
