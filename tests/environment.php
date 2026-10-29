@@ -61,6 +61,9 @@ $results = [
     Environment::Get('ENV_TEST_NULL') === 'null',
     Environment::Get('ENV_TEST_EMPTY', true) === '',
     Environment::Boolean('ENV_TEST_FLAG') === false,
+    Environment::Boolean('ENV_TEST_FLAG', true) === false,
+    Environment::Boolean('ENV_TEST_OPTIONAL', true) === true,
+    Environment::Boolean('ENV_TEST_OPTIONAL', false) === false,
     Environment::Get('ENV_TEST_OVERRIDE') === 'process-value',
     Environment::Get('ENV_TEST_NESTED') === 'https://fixture.example.invalid/path/',
 ];
@@ -68,7 +71,7 @@ foreach (['ENV_TEST_MISSING', 'ENV_TEST_EMPTY', 'ENV_TEST_BAD_FLAG'] as $name)
 {
     try
     {
-        $name === 'ENV_TEST_BAD_FLAG' ? Environment::Boolean($name) : Environment::Get($name);
+        $name === 'ENV_TEST_BAD_FLAG' ? Environment::Boolean($name, true) : Environment::Get($name);
         $results[] = false;
     }
     catch (RuntimeException $error)
@@ -78,6 +81,15 @@ foreach (['ENV_TEST_MISSING', 'ENV_TEST_EMPTY', 'ENV_TEST_BAD_FLAG'] as $name)
 }
 Environment::Load('/a/directory/that/does/not/exist');
 $results[] = Environment::Get('ENV_TEST_OVERRIDE') === 'process-value';
+try
+{
+    Environment::Boolean('ENV_TEST_EMPTY', true);
+    $results[] = false;
+}
+catch (RuntimeException $error)
+{
+    $results[] = str_contains($error->getMessage(), 'ENV_TEST_EMPTY');
+}
 echo json_encode($results, JSON_THROW_ON_ERROR);
 PHP
     );
@@ -106,6 +118,7 @@ echo json_encode([
     $db->default['password'] === DB_PASS,
     $db->target['password'] === TARGET_DB_PASS,
     $db->default['DBDebug'] === false,
+    $db->target['DBDebug'] === false,
     $db->default['port'] === 6543,
     $app->baseURL === 'https://fixture.example.invalid/AnalystToolkit/',
     $app->appTimezone === APP_TIMEZONE,
@@ -119,6 +132,24 @@ PHP
     {
         EnvCheck($value === true, 'Application and native framework configuration must agree.');
     }
+
+    // Existing installations may predate DB_DEBUG. Both connections must still bootstrap.
+    $configuration = preg_replace('/^DB_DEBUG = false\R/m', '', $configuration);
+    file_put_contents($fixture . '/.env', $configuration);
+    file_put_contents($fixture . '/database.php', '<?php require ' . var_export($root . '/config/Environment.php', true) . '; Environment::Load(__DIR__); require ' . var_export($root . '/lib/Framework.php', true) . '; Framework::Boot();' . <<<'PHP'
+$db = config('Database');
+echo json_encode([$db->default['DBDebug'], $db->target['DBDebug']], JSON_THROW_ON_ERROR);
+PHP
+    );
+    $result = EnvRun([PHP_BINARY, $fixture . '/database.php']);
+    EnvCheck($result['code'] === 0, 'Existing .env files without DB_DEBUG must bootstrap.');
+    EnvCheck(json_decode($result['output'], true, 16, JSON_THROW_ON_ERROR) === [true, true], 'Missing DB_DEBUG must retain database exceptions for both connections.');
+
+    $configuration .= "\ndatabase.default.DBDebug = false\ndatabase.target.DBDebug = false\n";
+    file_put_contents($fixture . '/.env', $configuration);
+    $result = EnvRun([PHP_BINARY, $fixture . '/database.php']);
+    EnvCheck($result['code'] === 0, 'Native database debug overrides must bootstrap without DB_DEBUG.');
+    EnvCheck(json_decode($result['output'], true, 16, JSON_THROW_ON_ERROR) === [false, false], 'Native database debug overrides must take precedence over the compatibility default.');
 
     // Run the actual migration entry point in an isolated installation skeleton.
     $installation = $fixture . '/installation';

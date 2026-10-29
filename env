@@ -17,6 +17,7 @@ DB_PASS = ''
 DB_SCHEMA = 'toolkit'
 # Keep database exceptions enabled for application constraint validation.
 # CI_ENVIRONMENT controls whether errors are shown to the browser.
+# Defaults to true when omitted from an existing .env file.
 DB_DEBUG = true
 
 # Legacy default target connection; interactive imports can use saved DB profiles.

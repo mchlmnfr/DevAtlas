@@ -34,8 +34,14 @@ final class Environment
         return $value;
     }
 
-    public static function Boolean(string $name): bool
+    public static function Boolean(string $name, ?bool $default = null): bool
     {
+        self::Load();
+        // Defaults cover omitted optional settings; explicit empty/invalid values still fail.
+        if ($default !== null && getenv($name) === false)
+        {
+            return $default;
+        }
         $value = filter_var(self::Get($name), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         if ($value === null)
         {

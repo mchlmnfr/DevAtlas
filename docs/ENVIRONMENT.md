@@ -45,7 +45,18 @@ but their variables must still exist. Missing required settings and invalid
 errors. Restart long-running PHP/worker processes after changing configuration.
 Keep the template's `DB_DEBUG = true`: the domain services rely on database
 exceptions for constraint validation. Production error visibility is controlled
-by `CI_ENVIRONMENT`, independently of this database setting.
+by `CI_ENVIRONMENT`, independently of this database setting. Existing `.env`
+files that omit `DB_DEBUG` retain the same `true` behavior. An explicit `false`
+is honored, and empty or invalid values still fail validation. Native
+`database.default.DBDebug` and `database.target.DBDebug` overrides take precedence.
+
+If an older build logs `Required environment setting DB_DEBUG is missing` from
+`config/Environment.php` (and a subsequent audit finalization error), add
+`DB_DEBUG = true` to the existing root `.env` and restart PHP/Apache. On a Wamp
+installation at `C:\wamp64\www\AnalystToolkit`, the file is
+`C:\wamp64\www\AnalystToolkit\.env`, alongside `composer.json`. Preserve all
+existing credentials and the vault encryption key. The updated build accepts
+the omitted setting, so this startup error no longer blocks database access.
 
 ## Existing encrypted installation
 
@@ -87,8 +98,10 @@ bootstrap, so maintenance scripts, scheduled notifications and Spark use the sam
 configuration. Unit-style configuration tests use disposable files and do not
 modify the installed `.env` or contact external services.
 
-Current validation: 33 dotenv/migration assertions pass; all PHP suites together
-have 16 passes with 716 assertions. The two previously failing suites
+Current configuration validation: 42 dotenv/migration assertions pass, including
+older `.env` files without `DB_DEBUG`, explicit `false`, invalid values and native
+database overrides. The previous full PHP suite run had 16 passes with 738
+assertions. The two previously failing suites
 (`data-dictionary.php` and `qms-maintenance.php`) still try to instantiate the
 abstract framework `BaseConnection` and require a separate fix. HTTP checks verify
 DevAtlas branding, logos and favicons on public and authenticated pages using a

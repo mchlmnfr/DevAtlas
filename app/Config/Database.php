@@ -29,7 +29,8 @@ class Database extends Config
             'DBDriver' => 'App\\Database\\Postgre',
             'DBPrefix' => '',
             'pConnect' => false,
-            'DBDebug' => \Environment::Boolean('DB_DEBUG'),
+            // Older .env files omit DB_DEBUG; retain exceptions required by domain validation.
+            'DBDebug' => \Environment::Boolean('DB_DEBUG', true),
             'charset' => 'utf8',
             'schema' => DB_SCHEMA,
             'port' => (int) DB_PORT,
