@@ -18,11 +18,11 @@ require_once __DIR__ . '/LocalSecrets.php';
 require_once __DIR__ . '/../lib/RouteUrls.php';
 
 // ---- PostgreSQL connection (the app's OWN metadata database) --------
-define('DB_HOST', '127.0.0.1');
-define('DB_PORT', '5432');
-define('DB_NAME', 'analyst_toolkit');
-define('DB_USER', 'postgres');
-define('DB_PASS', LocalSecrets::Get('DB_PASS'));
+define('DB_HOST', getenv('DEVATLAS_DB_HOST') ?: '127.0.0.1');
+define('DB_PORT', getenv('DEVATLAS_DB_PORT') ?: '5432');
+define('DB_NAME', getenv('DEVATLAS_DB_NAME') ?: 'analyst_toolkit');
+define('DB_USER', getenv('DEVATLAS_DB_USER') ?: 'postgres');
+define('DB_PASS', getenv('DEVATLAS_DB_PASS') !== false ? getenv('DEVATLAS_DB_PASS') : LocalSecrets::Get('DB_PASS'));
 // Installation secrets are maintained with bin/configure-secrets.php.
 define('DB_SCHEMA', 'toolkit');
 
@@ -30,7 +30,7 @@ define('DB_SCHEMA', 'toolkit');
 // Used by lib/Crypto.php (AES-256-CBC) to encrypt passwords stored in
 // server_credentials. The existing value is retained in encrypted installation
 // configuration. Preserve it when moving the installation or restoring a backup.
-define('APP_ENCRYPTION_KEY', LocalSecrets::Get('APP_ENCRYPTION_KEY'));
+define('APP_ENCRYPTION_KEY', getenv('DEVATLAS_VAULT_KEY') !== false ? getenv('DEVATLAS_VAULT_KEY') : LocalSecrets::Get('APP_ENCRYPTION_KEY'));
 
 // ---- Legacy / no longer used by the app ----
 // Previously the Data Dictionary's "Import from DB" feature always connected
@@ -38,11 +38,11 @@ define('APP_ENCRYPTION_KEY', LocalSecrets::Get('APP_ENCRYPTION_KEY'));
 // the UI (pick engine/host/port/user/password/dbname/schema, or save a named
 // connection profile) — see modules/datadict/index.php → "Import from DB".
 // These constants are kept only in case other code you add wants a default.
-define('TARGET_DB_HOST', '127.0.0.1');
-define('TARGET_DB_PORT', '5432');
-define('TARGET_DB_NAME', 'analyst_toolkit');
-define('TARGET_DB_USER', 'postgres');
-define('TARGET_DB_PASS', LocalSecrets::Get('TARGET_DB_PASS'));
+define('TARGET_DB_HOST', getenv('DEVATLAS_DB_HOST') ?: '127.0.0.1');
+define('TARGET_DB_PORT', getenv('DEVATLAS_DB_PORT') ?: '5432');
+define('TARGET_DB_NAME', getenv('DEVATLAS_DB_NAME') ?: 'analyst_toolkit');
+define('TARGET_DB_USER', getenv('DEVATLAS_DB_USER') ?: 'postgres');
+define('TARGET_DB_PASS', getenv('DEVATLAS_DB_PASS') !== false ? getenv('DEVATLAS_DB_PASS') : LocalSecrets::Get('TARGET_DB_PASS'));
 define('TARGET_DB_SCHEMA', 'public');
 
 // ---- App ----
