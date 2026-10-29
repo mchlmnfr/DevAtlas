@@ -1,0 +1,770 @@
+[
+  {
+    "url": "/",
+    "controller": "App\\Controllers\\HomeController",
+    "action": "Index",
+    "view": "home/index"
+  },
+  {
+    "url": "email-details",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "AuthEmailPreview",
+    "view": "authentication/authemailpreview"
+  },
+  {
+    "url": "auth_email_preview.php",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "AuthEmailPreview",
+    "view": "authentication/authemailpreview"
+  },
+  {
+    "url": "change-password",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "ChangePassword",
+    "view": "authentication/changepassword"
+  },
+  {
+    "url": "change_password.php",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "ChangePassword",
+    "view": "authentication/changepassword"
+  },
+  {
+    "url": "forgot-password",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "ForgotPassword",
+    "view": "authentication/forgotpassword"
+  },
+  {
+    "url": "forgot_password.php",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "ForgotPassword",
+    "view": "authentication/forgotpassword"
+  },
+  {
+    "url": "index.php",
+    "controller": "App\\Controllers\\HomeController",
+    "action": "Index",
+    "view": "home/index"
+  },
+  {
+    "url": "login",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "Login",
+    "view": "authentication/login"
+  },
+  {
+    "url": "login.php",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "Login",
+    "view": "authentication/login"
+  },
+  {
+    "url": "logout",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "Logout"
+  },
+  {
+    "url": "logout.php",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "Logout"
+  },
+  {
+    "url": "reset-password",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "ResetPassword",
+    "view": "authentication/resetpassword"
+  },
+  {
+    "url": "reset_password.php",
+    "controller": "App\\Controllers\\AuthenticationController",
+    "action": "ResetPassword",
+    "view": "authentication/resetpassword"
+  },
+  {
+    "url": "modules/account/search",
+    "controller": "App\\Controllers\\AccountController",
+    "action": "Search"
+  },
+  {
+    "url": "modules/account/search.php",
+    "controller": "App\\Controllers\\AccountController",
+    "action": "Search"
+  },
+  {
+    "url": "modules/account/upload-avatar",
+    "controller": "App\\Controllers\\AccountController",
+    "action": "UploadAvatar"
+  },
+  {
+    "url": "modules/account/upload_avatar.php",
+    "controller": "App\\Controllers\\AccountController",
+    "action": "UploadAvatar"
+  },
+  {
+    "url": "modules/applications/api",
+    "controller": "App\\Controllers\\ApplicationsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/applications/api.php",
+    "controller": "App\\Controllers\\ApplicationsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/applications",
+    "controller": "App\\Controllers\\ApplicationsController",
+    "action": "Index",
+    "view": "applications/index"
+  },
+  {
+    "url": "modules/applications/index.php",
+    "controller": "App\\Controllers\\ApplicationsController",
+    "action": "Index",
+    "view": "applications/index"
+  },
+  {
+    "url": "modules/audit/api",
+    "controller": "App\\Controllers\\AuditController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/audit/api.php",
+    "controller": "App\\Controllers\\AuditController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/audit/client",
+    "controller": "App\\Controllers\\AuditController",
+    "action": "Client"
+  },
+  {
+    "url": "modules/audit/client.php",
+    "controller": "App\\Controllers\\AuditController",
+    "action": "Client"
+  },
+  {
+    "url": "modules/audit/export",
+    "controller": "App\\Controllers\\AuditController",
+    "action": "Export"
+  },
+  {
+    "url": "modules/audit/export.php",
+    "controller": "App\\Controllers\\AuditController",
+    "action": "Export"
+  },
+  {
+    "url": "modules/audit",
+    "controller": "App\\Controllers\\AuditController",
+    "action": "Index",
+    "view": "audit/index"
+  },
+  {
+    "url": "modules/audit/index.php",
+    "controller": "App\\Controllers\\AuditController",
+    "action": "Index",
+    "view": "audit/index"
+  },
+  {
+    "url": "modules/bookmarks/api",
+    "controller": "App\\Controllers\\BookmarksController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/bookmarks/api.php",
+    "controller": "App\\Controllers\\BookmarksController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/bookmarks",
+    "controller": "App\\Controllers\\BookmarksController",
+    "action": "Index",
+    "view": "bookmarks/index"
+  },
+  {
+    "url": "modules/bookmarks/index.php",
+    "controller": "App\\Controllers\\BookmarksController",
+    "action": "Index",
+    "view": "bookmarks/index"
+  },
+  {
+    "url": "modules/codereview/api",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/codereview/api.php",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/codereview/export",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "Export"
+  },
+  {
+    "url": "modules/codereview/export.php",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "Export"
+  },
+  {
+    "url": "modules/codereview/history",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "History",
+    "view": "codereview/history"
+  },
+  {
+    "url": "modules/codereview/history.php",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "History",
+    "view": "codereview/history"
+  },
+  {
+    "url": "modules/codereview/history-api",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "HistoryApi"
+  },
+  {
+    "url": "modules/codereview/history_api.php",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "HistoryApi"
+  },
+  {
+    "url": "modules/codereview/history-export",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "HistoryExport"
+  },
+  {
+    "url": "modules/codereview/history_export.php",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "HistoryExport"
+  },
+  {
+    "url": "modules/codereview",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "Index",
+    "view": "codereview/index"
+  },
+  {
+    "url": "modules/codereview/index.php",
+    "controller": "App\\Controllers\\CodereviewController",
+    "action": "Index",
+    "view": "codereview/index"
+  },
+  {
+    "url": "modules/dailylogs/api",
+    "controller": "App\\Controllers\\DailylogsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/dailylogs/api.php",
+    "controller": "App\\Controllers\\DailylogsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/dailylogs",
+    "controller": "App\\Controllers\\DailylogsController",
+    "action": "Index",
+    "view": "dailylogs/index"
+  },
+  {
+    "url": "modules/dailylogs/index.php",
+    "controller": "App\\Controllers\\DailylogsController",
+    "action": "Index",
+    "view": "dailylogs/index"
+  },
+  {
+    "url": "modules/datadict/api",
+    "controller": "App\\Controllers\\DatadictController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/datadict/api.php",
+    "controller": "App\\Controllers\\DatadictController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/datadict/excel-export",
+    "controller": "App\\Controllers\\DatadictController",
+    "action": "ExcelExport"
+  },
+  {
+    "url": "modules/datadict/excel_export.php",
+    "controller": "App\\Controllers\\DatadictController",
+    "action": "ExcelExport"
+  },
+  {
+    "url": "modules/datadict",
+    "controller": "App\\Controllers\\DatadictController",
+    "action": "Index",
+    "view": "datadict/index"
+  },
+  {
+    "url": "modules/datadict/index.php",
+    "controller": "App\\Controllers\\DatadictController",
+    "action": "Index",
+    "view": "datadict/index"
+  },
+  {
+    "url": "modules/diagrams/api",
+    "controller": "App\\Controllers\\DiagramsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/diagrams/api.php",
+    "controller": "App\\Controllers\\DiagramsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/diagrams/excel-export",
+    "controller": "App\\Controllers\\DiagramsController",
+    "action": "ExcelExport"
+  },
+  {
+    "url": "modules/diagrams/excel_export.php",
+    "controller": "App\\Controllers\\DiagramsController",
+    "action": "ExcelExport"
+  },
+  {
+    "url": "modules/diagrams/excel-import",
+    "controller": "App\\Controllers\\DiagramsController",
+    "action": "ExcelImport"
+  },
+  {
+    "url": "modules/diagrams/excel_import.php",
+    "controller": "App\\Controllers\\DiagramsController",
+    "action": "ExcelImport"
+  },
+  {
+    "url": "modules/diagrams/graphml-export",
+    "controller": "App\\Controllers\\DiagramsController",
+    "action": "GraphmlExport"
+  },
+  {
+    "url": "modules/diagrams/graphml_export.php",
+    "controller": "App\\Controllers\\DiagramsController",
+    "action": "GraphmlExport"
+  },
+  {
+    "url": "modules/diagrams",
+    "controller": "App\\Controllers\\DiagramsController",
+    "action": "Index",
+    "view": "diagrams/index"
+  },
+  {
+    "url": "modules/diagrams/index.php",
+    "controller": "App\\Controllers\\DiagramsController",
+    "action": "Index",
+    "view": "diagrams/index"
+  },
+  {
+    "url": "modules/directory/api",
+    "controller": "App\\Controllers\\DirectoryController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/directory/api.php",
+    "controller": "App\\Controllers\\DirectoryController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/directory",
+    "controller": "App\\Controllers\\DirectoryController",
+    "action": "Index",
+    "view": "directory/index"
+  },
+  {
+    "url": "modules/directory/index.php",
+    "controller": "App\\Controllers\\DirectoryController",
+    "action": "Index",
+    "view": "directory/index"
+  },
+  {
+    "url": "modules/holidays/api",
+    "controller": "App\\Controllers\\HolidaysController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/holidays/api.php",
+    "controller": "App\\Controllers\\HolidaysController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/holidays",
+    "controller": "App\\Controllers\\HolidaysController",
+    "action": "Index",
+    "view": "holidays/index"
+  },
+  {
+    "url": "modules/holidays/index.php",
+    "controller": "App\\Controllers\\HolidaysController",
+    "action": "Index",
+    "view": "holidays/index"
+  },
+  {
+    "url": "modules/leaves/api",
+    "controller": "App\\Controllers\\LeavesController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/leaves/api.php",
+    "controller": "App\\Controllers\\LeavesController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/leaves",
+    "controller": "App\\Controllers\\LeavesController",
+    "action": "Index",
+    "view": "leaves/index"
+  },
+  {
+    "url": "modules/leaves/index.php",
+    "controller": "App\\Controllers\\LeavesController",
+    "action": "Index",
+    "view": "leaves/index"
+  },
+  {
+    "url": "modules/logs/api",
+    "controller": "App\\Controllers\\LogsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/logs/api.php",
+    "controller": "App\\Controllers\\LogsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/logs/download",
+    "controller": "App\\Controllers\\LogsController",
+    "action": "Download"
+  },
+  {
+    "url": "modules/logs/download.php",
+    "controller": "App\\Controllers\\LogsController",
+    "action": "Download"
+  },
+  {
+    "url": "modules/logs",
+    "controller": "App\\Controllers\\LogsController",
+    "action": "Index",
+    "view": "logs/index"
+  },
+  {
+    "url": "modules/logs/index.php",
+    "controller": "App\\Controllers\\LogsController",
+    "action": "Index",
+    "view": "logs/index"
+  },
+  {
+    "url": "modules/notifications/api",
+    "controller": "App\\Controllers\\NotificationsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/notifications/api.php",
+    "controller": "App\\Controllers\\NotificationsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/notifications",
+    "controller": "App\\Controllers\\NotificationsController",
+    "action": "Index",
+    "view": "notifications/index"
+  },
+  {
+    "url": "modules/notifications/index.php",
+    "controller": "App\\Controllers\\NotificationsController",
+    "action": "Index",
+    "view": "notifications/index"
+  },
+  {
+    "url": "modules/organization/api",
+    "controller": "App\\Controllers\\OrganizationController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/organization/api.php",
+    "controller": "App\\Controllers\\OrganizationController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/organization",
+    "controller": "App\\Controllers\\OrganizationController",
+    "action": "Index",
+    "view": "organization/index"
+  },
+  {
+    "url": "modules/organization/index.php",
+    "controller": "App\\Controllers\\OrganizationController",
+    "action": "Index",
+    "view": "organization/index"
+  },
+  {
+    "url": "modules/permissions/api",
+    "controller": "App\\Controllers\\PermissionsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/permissions/api.php",
+    "controller": "App\\Controllers\\PermissionsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/permissions",
+    "controller": "App\\Controllers\\PermissionsController",
+    "action": "Index",
+    "view": "permissions/index"
+  },
+  {
+    "url": "modules/permissions/index.php",
+    "controller": "App\\Controllers\\PermissionsController",
+    "action": "Index",
+    "view": "permissions/index"
+  },
+  {
+    "url": "modules/proginventory/export",
+    "controller": "App\\Controllers\\ProginventoryController",
+    "action": "Export"
+  },
+  {
+    "url": "modules/proginventory/export.php",
+    "controller": "App\\Controllers\\ProginventoryController",
+    "action": "Export"
+  },
+  {
+    "url": "modules/proginventory/export-client",
+    "controller": "App\\Controllers\\ProginventoryController",
+    "action": "ExportClient"
+  },
+  {
+    "url": "modules/proginventory/export_client.php",
+    "controller": "App\\Controllers\\ProginventoryController",
+    "action": "ExportClient"
+  },
+  {
+    "url": "modules/proginventory",
+    "controller": "App\\Controllers\\ProginventoryController",
+    "action": "Index",
+    "view": "proginventory/index"
+  },
+  {
+    "url": "modules/proginventory/index.php",
+    "controller": "App\\Controllers\\ProginventoryController",
+    "action": "Index",
+    "view": "proginventory/index"
+  },
+  {
+    "url": "modules/reports/api",
+    "controller": "App\\Controllers\\ReportsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/reports/api.php",
+    "controller": "App\\Controllers\\ReportsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/reports/export",
+    "controller": "App\\Controllers\\ReportsController",
+    "action": "Export"
+  },
+  {
+    "url": "modules/reports/export.php",
+    "controller": "App\\Controllers\\ReportsController",
+    "action": "Export"
+  },
+  {
+    "url": "modules/reports",
+    "controller": "App\\Controllers\\ReportsController",
+    "action": "Index",
+    "view": "reports/index"
+  },
+  {
+    "url": "modules/reports/index.php",
+    "controller": "App\\Controllers\\ReportsController",
+    "action": "Index",
+    "view": "reports/index"
+  },
+  {
+    "url": "modules/requirements/api",
+    "controller": "App\\Controllers\\RequirementsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/requirements/api.php",
+    "controller": "App\\Controllers\\RequirementsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/requirements/excel-export",
+    "controller": "App\\Controllers\\RequirementsController",
+    "action": "ExcelExport"
+  },
+  {
+    "url": "modules/requirements/excel_export.php",
+    "controller": "App\\Controllers\\RequirementsController",
+    "action": "ExcelExport"
+  },
+  {
+    "url": "modules/requirements",
+    "controller": "App\\Controllers\\RequirementsController",
+    "action": "Index",
+    "view": "requirements/index"
+  },
+  {
+    "url": "modules/requirements/index.php",
+    "controller": "App\\Controllers\\RequirementsController",
+    "action": "Index",
+    "view": "requirements/index"
+  },
+  {
+    "url": "modules/reviewlogs/api",
+    "controller": "App\\Controllers\\ReviewlogsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/reviewlogs/api.php",
+    "controller": "App\\Controllers\\ReviewlogsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/reviewlogs",
+    "controller": "App\\Controllers\\ReviewlogsController",
+    "action": "Index"
+  },
+  {
+    "url": "modules/reviewlogs/index.php",
+    "controller": "App\\Controllers\\ReviewlogsController",
+    "action": "Index"
+  },
+  {
+    "url": "modules/servers/api",
+    "controller": "App\\Controllers\\ServersController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/servers/api.php",
+    "controller": "App\\Controllers\\ServersController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/servers",
+    "controller": "App\\Controllers\\ServersController",
+    "action": "Index",
+    "view": "servers/index"
+  },
+  {
+    "url": "modules/servers/index.php",
+    "controller": "App\\Controllers\\ServersController",
+    "action": "Index",
+    "view": "servers/index"
+  },
+  {
+    "url": "modules/servers/rdp-download",
+    "controller": "App\\Controllers\\ServersController",
+    "action": "RdpDownload"
+  },
+  {
+    "url": "modules/servers/rdp_download.php",
+    "controller": "App\\Controllers\\ServersController",
+    "action": "RdpDownload"
+  },
+  {
+    "url": "modules/settings/api",
+    "controller": "App\\Controllers\\SettingsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/settings/api.php",
+    "controller": "App\\Controllers\\SettingsController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/settings",
+    "controller": "App\\Controllers\\SettingsController",
+    "action": "Index",
+    "view": "settings/index"
+  },
+  {
+    "url": "modules/settings/index.php",
+    "controller": "App\\Controllers\\SettingsController",
+    "action": "Index",
+    "view": "settings/index"
+  },
+  {
+    "url": "modules/teammonitoring/api",
+    "controller": "App\\Controllers\\TeammonitoringController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/teammonitoring/api.php",
+    "controller": "App\\Controllers\\TeammonitoringController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/teammonitoring",
+    "controller": "App\\Controllers\\TeammonitoringController",
+    "action": "Index",
+    "view": "teammonitoring/index"
+  },
+  {
+    "url": "modules/teammonitoring/index.php",
+    "controller": "App\\Controllers\\TeammonitoringController",
+    "action": "Index",
+    "view": "teammonitoring/index"
+  },
+  {
+    "url": "modules/updates/api",
+    "controller": "App\\Controllers\\UpdatesController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/updates/api.php",
+    "controller": "App\\Controllers\\UpdatesController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/usermgmt/api",
+    "controller": "App\\Controllers\\UsermgmtController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/usermgmt/api.php",
+    "controller": "App\\Controllers\\UsermgmtController",
+    "action": "Api"
+  },
+  {
+    "url": "modules/usermgmt",
+    "controller": "App\\Controllers\\UsermgmtController",
+    "action": "Index",
+    "view": "usermgmt/index"
+  },
+  {
+    "url": "modules/usermgmt/index.php",
+    "controller": "App\\Controllers\\UsermgmtController",
+    "action": "Index",
+    "view": "usermgmt/index"
+  },
+  {
+    "url": "modules/wiki",
+    "controller": "App\\Controllers\\WikiController",
+    "action": "Index",
+    "view": "wiki/index"
+  },
+  {
+    "url": "modules/wiki/index.php",
+    "controller": "App\\Controllers\\WikiController",
+    "action": "Index",
+    "view": "wiki/index"
+  },
+  {
+    "url": "modules/approvals",
+    "controller": "App\\Controllers\\ApprovalsController",
+    "action": "Index"
+  },
+  {
+    "url": "modules/approvals/index.php",
+    "controller": "App\\Controllers\\ApprovalsController",
+    "action": "Index"
+  }
+]

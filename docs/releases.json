@@ -1,0 +1,165 @@
+[
+  {
+    "id": "2026-10-29.14",
+    "order": 14,
+    "date": "2026-10-29",
+    "title": "Project maintenance cleanup",
+    "changes": [
+      "Removed completed migration tooling, temporary browser profiles, intermediate snapshots and download caches.",
+      "Archived unused legacy layouts, code-review reference pages and the replaced Inter font while retaining application workflows, compatibility routes, uploads and installation recovery files."
+    ]
+  },
+  {
+    "id": "2026-10-29.13",
+    "order": 13,
+    "date": "2026-10-29",
+    "title": "Clean application URLs",
+    "changes": [
+      "Module navigation now uses extensionless CodeIgniter URLs.",
+      "Existing .php page bookmarks redirect to the clean location and preserve filters and query parameters.",
+      "Legacy API and form submissions remain supported with the same permissions and CSRF protection."
+    ]
+  },
+  {
+    "id": "2026-10-29.12",
+    "order": 12,
+    "date": "2026-10-29",
+    "title": "CodeIgniter foundation and readable views",
+    "changes": [
+      "Moved module pages and endpoints into CodeIgniter 4 controllers and views while preserving existing links, permissions and workflows.",
+      "Added local HTMX record-search fragments, Alpine shared controls and compiled Tailwind styling. Light, Dark and System modes remain available.",
+      "Formatted first-party view templates with aligned HTML tags and repeatable formatting checks. Installed libraries, plugins and generated assets are excluded from source reviews."
+    ]
+  },
+  {
+    "id": "2026-10-28.11",
+    "order": 11,
+    "date": "2026-10-28",
+    "title": "Leave ranges, unified approvals and calendar birthdays",
+    "changes": [
+      "Leave applications now accept Date From and Date To. Weekends and organization holidays are excluded, and one approval covers the whole working-day range.",
+      "Approvals is a separate module with Daily Logs and Leave tabs. Each keeps its own permissions and review rules; the leave calendar contains application controls.",
+      "User creation and editing now include an optional Birthday field. Birthdays appear annually on the department calendar without exposing birth years or ages.",
+      "Department visibility, section-only leave approval, Section Head self-approval, existing leave history and report totals are preserved."
+    ]
+  },
+  {
+    "id": "2026-10-28.10",
+    "order": 10,
+    "date": "2026-10-28",
+    "title": "Department leave calendar and section approvals",
+    "changes": [
+      "Leave and undertime applications now have their own Leaves module with a department calendar, personal requests and a section approval queue.",
+      "Personnel can see submitted and approved leave across their department. Application remarks are limited to the applicant and authorized section approvers.",
+      "Grant Leaves Review to a chosen role in Roles & Permissions. Approvers are restricted to their own section, and Section Heads may approve their own leave.",
+      "Weekly daily-log approval now covers work activities only. Existing leave records, team hour totals and report exports are preserved."
+    ]
+  },
+  {
+    "id": "2026-10-28.9",
+    "order": 9,
+    "date": "2026-10-28",
+    "title": "Edit submitted daily logs",
+    "changes": [
+      "Personnel with Daily Logs Edit permission can now update their own submitted work and leave entries while awaiting weekly approval.",
+      "Submitted entries use Save Changes and remain submitted. Reviewers must refresh a changed weekly snapshot before approving; reviewed entries remain locked.",
+      "Existing ownership, record version, working-day and daily-hour validation still apply. Deleting entries remains limited to Draft and Returned logs."
+    ]
+  },
+  {
+    "id": "2026-10-28.8",
+    "order": 8,
+    "date": "2026-10-28",
+    "title": "QMS standards and maintenance checks",
+    "changes": [
+      "Applied QMS source headers, naming, vertical braces, four-space layout and separate statements throughout first-party modules and shared code.",
+      "Moved static inline module styles into an external stylesheet and separated metadata connection setup from catalog processing.",
+      "Installation secrets now use authenticated encrypted local configuration. Existing connection values and the vault key are preserved.",
+      "Added repeatable QMS audits, module validation reports and matching named migration logs. Existing database and API names remain compatible.",
+      "Corrected QMS diagnostics for nested JavaScript templates, boolean expressions, markup and logical switch indentation."
+    ]
+  },
+  {
+    "id": "2026-10-28.7",
+    "order": 7,
+    "date": "2026-10-28",
+    "title": "Larger project reviews and activity guidance",
+    "changes": [
+      "Code Review now scans up to 3,000 supported source files from a computer or server folder, with a 48 MB total source allowance and the existing 256 KB per-file limit.",
+      "Large project reviews continue to save their history and export to Excel or ODS. Existing folder exclusions and displayed finding limits apply.",
+      "All 20 Activity Types now show their full reference descriptions directly below the selector when adding or editing daily logs."
+    ]
+  },
+  {
+    "id": "2026-10-28.6",
+    "order": 6,
+    "date": "2026-10-28",
+    "title": "Your next actions, reminders and record search",
+    "changes": [
+      "The dashboard now prioritizes missing hours, returned logs, pending employee-week approvals, section completion and renewals.",
+      "Daily-log and weekly-approval digests run on working days with configurable timing, lookback and approval delay. New log-reminder email is off by default.",
+      "Search workspace finds personnel, servers, dictionary tables and fields, ERDs, saved reviews, contacts, links and your own daily logs. Results follow permissions and section scope.",
+      "Dashboard actions and search results open the relevant record or filtered workflow. Applications and Requirements remain hidden."
+    ]
+  },
+  {
+    "id": "2026-10-28.5",
+    "order": 5,
+    "date": "2026-10-28",
+    "title": "Consistent typography, icons and feedback",
+    "changes": [
+      "Poppins typography is applied across the interface using locally hosted font files.",
+      "Lucide is the shared icon library for navigation, controls, empty states and feedback.",
+      "SweetAlert2 now provides confirmations and notifications across all modules, with Light and Dark appearance.",
+      "Confirmation actions wait for your decision and remain accessible above open editors."
+    ]
+  },
+  {
+    "id": "2026-10-27.4",
+    "order": 4,
+    "date": "2026-10-27",
+    "title": "Poppins typography",
+    "changes": [
+      "Poppins is now the interface font across DevAtlas, including navigation, forms, dashboards and documentation.",
+      "Font files are hosted locally and work in Light, Dark and System appearance."
+    ]
+  },
+  {
+    "id": "2026-10-27.3",
+    "order": 3,
+    "date": "2026-10-27",
+    "title": "Introducing DevAtlas",
+    "changes": [
+      "The system is now DevAtlas, with a modern enterprise IT management identity.",
+      "A unified electric-blue, navy and cyan design covers the dashboard, modules, sign-in and documentation.",
+      "Choose Light, Dark or System appearance. System follows your device and responds when its color preference changes.",
+      "Inter typography and Lucide icons are bundled locally. Existing data, approvals, exports, permissions and workflows are retained.",
+      "The login page now presents a DevAtlas workspace overview, with Call Directory and Quick Links in the header. Email sign-in and recovery no longer display protected-email fallback messages.",
+      "Appearance controls are in the account menu and standalone-page footers, keeping headers focused.",
+      "Applications and Requirements are temporarily hidden from navigation, search and the permission matrix. Existing data and grants are retained."
+    ]
+  },
+  {
+    "id": "2026-10-27.2",
+    "order": 2,
+    "date": "2026-10-27",
+    "title": "Head approvals, standalone help and update history",
+    "changes": [
+      "Holidays is now in the Parameter sidebar group and permission-matrix group.",
+      "Section Head and Department Head roles can approve their own submitted employee weeks. Reviewing other employees still requires a section reviewer assignment.",
+      "Documents Wiki now opens as a separate page from the top-bar Help menu and no longer appears in the sidebar.",
+      "What's New opens in a modal with newest-first history. It appears for each new release and remembers dismissal for each user."
+    ]
+  },
+  {
+    "id": "2026-10-27.1",
+    "order": 1,
+    "date": "2026-10-27",
+    "title": "Module guides and the organization holiday calendar",
+    "changes": [
+      "Added searchable guides for every module and a roadmap separating delivered features from planned work.",
+      "Moved Holidays into a separate module with organization-wide dates, a year filter and administrator editing.",
+      "Grouped Users, Organization, Roles & Permissions and Parameters under Parameter in the sidebar and permission matrix."
+    ]
+  }
+]

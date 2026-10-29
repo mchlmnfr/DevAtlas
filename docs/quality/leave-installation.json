@@ -1,0 +1,25 @@
+{
+    "before": {
+        "logs": {
+            "total": 0,
+            "fingerprint": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "users": {
+            "total": 2,
+            "fingerprint": "75346eac199f895c7ea1ec8c71a6c384"
+        }
+    },
+    "after": {
+        "logs": {
+            "total": 0,
+            "fingerprint": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "users": {
+            "total": 2,
+            "fingerprint": "75346eac199f895c7ea1ec8c71a6c384"
+        }
+    },
+    "preserved": true,
+    "verified_at": "2026-10-28T09:12:36+00:00",
+    "grouped_leave_applications": 0
+}

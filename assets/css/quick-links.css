@@ -1,0 +1,353 @@
+/**
+ * Filename: quick-links.css
+ * Purpose: Style the quick links interface using the shared DevAtlas design system.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ */
+
+.links-public
+{
+    min-height: 100dvh;
+}
+
+.links-public-header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px max(24px, calc((100vw - 1360px)/2));
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+}
+
+.links-public-brand
+{
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: var(--text);
+    font-size: 17px;
+    font-weight: 750;
+}
+
+.links-public-brand:hover
+{
+    text-decoration: none;
+}
+
+.links-public-brand small
+{
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 3px;
+}
+
+.links-public-main
+{
+    max-width: 1410px;
+    margin: 0 auto;
+    padding: 30px 26px;
+}
+
+.links-public-footer
+{
+    text-align: center;
+    color: var(--muted);
+    font-size: 10px;
+    padding: 15px 20px 30px;
+}
+
+.links-summary
+{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    color: var(--muted);
+    font-size: 11px;
+    margin-bottom: 25px;
+}
+
+.links-summary strong
+{
+    color: var(--text);
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.links-browser
+{
+    padding: 22px;
+}
+
+.links-toolbar
+{
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.links-toolbar .form-row
+{
+    margin: 0;
+    min-width: 160px;
+    flex: 1;
+}
+
+.links-toolbar .links-search
+{
+    flex: 3;
+}
+
+.links-toolbar .links-sort
+{
+    max-width: 190px;
+}
+
+.links-tabs
+{
+    display: flex;
+    gap: 8px;
+    margin: 20px 0 0;
+    flex-wrap: wrap;
+}
+
+.links-tabs button
+{
+    border: 1px solid var(--border);
+    padding: 7px 11px;
+    border-radius: 7px;
+    background: var(--card);
+    color: var(--muted);
+    cursor: pointer;
+    font: 500 11px var(--font);
+}
+
+.links-tabs button[aria-pressed="true"]
+{
+    color: var(--ws-accent);
+    background: var(--ws-soft);
+    border-color: var(--ws-accent);
+}
+
+.links-grid
+{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin: 22px 0;
+}
+
+.link-card
+{
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.link-card:hover
+{
+    border-color: var(--muted);
+    box-shadow: 0 5px 20px #35497008;
+}
+
+.link-card-header
+{
+    display: flex;
+    align-items: start;
+    gap: 13px;
+    margin-bottom: 17px;
+}
+
+.link-site-icon
+{
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border);
+    background: var(--ws-soft);
+    color: var(--ws-accent);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    flex: none;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.link-card-title
+{
+    min-width: 0;
+    flex: 1;
+}
+
+.link-card-title h3
+{
+    font-size: 14px;
+    font-weight: 650;
+    margin: 0 0 6px;
+    overflow-wrap: anywhere;
+}
+
+.link-card-title h3 a
+{
+    color: var(--text);
+}
+
+.link-card-title small
+{
+    color: var(--muted);
+    display: block;
+    font-size: 10px;
+    overflow-wrap: anywhere;
+}
+
+.link-pin
+{
+    border: 0;
+    background: transparent;
+    border-radius: 6px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 3px 5px;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.link-pin[aria-pressed="true"]
+{
+    color: #ba8b38;
+}
+
+.link-card-description
+{
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+    margin: 0 0 17px;
+}
+
+.link-tags
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0 0 18px;
+}
+
+.link-tag
+{
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--bg);
+    color: var(--muted);
+    padding: 3px 7px;
+    font: 10px var(--font);
+    cursor: pointer;
+    overflow-wrap: anywhere;
+}
+
+.link-card-footer
+{
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.link-card-footer .btn
+{
+    font-size: 11px;
+    padding: 7px 10px;
+}
+
+.link-card-footer .link-manage
+{
+    display: flex;
+    gap: 9px;
+    margin-left: auto;
+}
+
+.links-pagination
+{
+    padding: 0 2px 20px;
+    border: 0;
+}
+
+.links-readonly
+{
+    margin-top: 8px;
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.links-help
+{
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+@media(max-width:1150px)
+{
+    .links-grid
+    {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media(max-width:700px)
+{
+    .links-grid
+    {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .links-public-header
+    {
+        align-items: start;
+        flex-wrap: wrap;
+        padding: 18px 20px;
+    }
+
+    .links-public-header .ws-actions
+    {
+        gap: 7px;
+    }
+
+    .links-public-main
+    {
+        padding: 25px 16px;
+    }
+
+    .links-browser
+    {
+        padding: 17px;
+    }
+
+    .links-toolbar .form-row,
+    .links-toolbar .links-sort
+    {
+        min-width: 0;
+        flex-basis: 100%;
+        max-width: none;
+    }
+
+    .links-summary
+    {
+        gap: 15px;
+    }
+}

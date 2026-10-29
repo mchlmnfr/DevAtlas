@@ -1,0 +1,40 @@
+{
+  "server": "Local XAMPP Apache",
+  "checks": [
+    {
+      "path": "/login.php?mode=code",
+      "status": 302,
+      "location": "/AnalystToolkit/login?mode=code"
+    },
+    {
+      "path": "/login",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/modules/dailylogs/index.php?week_start=2026-10-26&new=1",
+      "status": 302,
+      "location": "/AnalystToolkit/modules/dailylogs/?week_start=2026-10-26&new=1"
+    },
+    {
+      "path": "/modules/directory/",
+      "status": 200,
+      "location": null
+    },
+    {
+      "path": "/modules/account/search?q=test",
+      "status": 401,
+      "location": null
+    },
+    {
+      "path": "/modules/dailylogs/",
+      "status": 302,
+      "location": "/AnalystToolkit/login?redirect=%2FAnalystToolkit%2Fmodules%2Fdailylogs%2F"
+    },
+    {
+      "path": "/config/config.php",
+      "status": 403,
+      "location": null
+    }
+  ]
+}

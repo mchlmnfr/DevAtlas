@@ -1,0 +1,3 @@
+Cannot use object of type PgSql\Connection as array
+#0 C:\xampp\htdocs\AnalystToolkit\tests\action-center.php(138): Notifications::Generate(Object(App\Database\Postgre\Connection), true, Object(DateTimeImmutable))
+#1 {main}

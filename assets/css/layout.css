@@ -1,0 +1,141 @@
+/**
+ * Filename: layout.css
+ * Purpose: Share static presentation rules formerly embedded in module markup.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Moved module layout, password feedback and clipboard styles into an external stylesheet.
+ */
+.clipboard-fallback
+{
+    position: fixed;
+    opacity: 0;
+}
+
+body .layout-d4b8c4fc,
+body.layout-d4b8c4fc
+{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body .layout-b582d723
+{
+    width: min(420px, calc(100% - 32px));
+}
+
+body .layout-11805da5
+{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+body .layout-2e628134
+{
+    background: rgba(31, 157, 85, .12);
+    color: var(--green);
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+body .layout-3dc9c801
+{
+    justify-content: center;
+}
+
+body .layout-e82ab5d8
+{
+    background: rgba(200, 134, 13, .12);
+    color: var(--amber);
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+body .layout-18f0c06d
+{
+    background: rgba(214, 69, 69, .1);
+    color: var(--red);
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+body .layout-97f3fd96
+{
+    justify-content: center;
+    margin-top: 6px;
+}
+
+body .layout-f8774ad5
+{
+    text-align: center;
+    margin-top: 14px;
+}
+
+body .layout-38965f9b
+{
+    margin: 0;
+}
+
+body .layout-d6241da4
+{
+    display: flex;
+    gap: 8px;
+}
+
+body .layout-bb78a856
+{
+    flex: 1;
+    min-width: 220px;
+}
+
+body .layout-022bc9ae
+{
+    align-items: start;
+}
+
+body .layout-76977cc9
+{
+    margin-top: 16px;
+}
+
+body .layout-e467eac5
+{
+    width: 640px;
+}
+
+body .layout-834fd7b3
+{
+    white-space: pre-wrap;
+}
+
+body .layout-8d842990
+{
+    margin-top: 14px;
+}
+
+body .layout-63215236
+{
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+body .layout-4154b960
+{
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+body .layout-4d31fe90
+{
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 12px;
+}

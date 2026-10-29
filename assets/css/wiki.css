@@ -1,0 +1,337 @@
+/**
+ * Filename: wiki.css
+ * Purpose: Style the wiki interface using the shared DevAtlas design system.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ */
+
+.wiki-start
+{
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 24px
+}
+
+.wiki-kicker
+{
+    display: block;
+    color: var(--ws-accent);
+    font-size: 10px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 8px
+}
+
+.wiki-start h3
+{
+    font-size: 18px;
+    margin: 0 0 8px
+}
+
+.wiki-start p,
+.wiki-start li span
+{
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7
+}
+
+.wiki-start ol
+{
+    margin: 0;
+    padding-left: 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 28px
+}
+
+.wiki-start li a
+{
+    font-size: 13px;
+    font-weight: 700
+}
+
+.wiki-start li span
+{
+    display: block;
+    margin-top: 4px
+}
+
+.wiki-layout
+{
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start
+}
+
+.wiki-contents
+{
+    position: sticky;
+    top: 20px;
+    max-height: calc(100vh - 50px);
+    overflow: auto
+}
+
+.wiki-search
+{
+    padding: 18px;
+    border-bottom: 1px solid var(--border)
+}
+
+.wiki-search input
+{
+    width: 100%;
+    min-width: 0;
+    font-size: 12px
+}
+
+.wiki-search p
+{
+    font-size: 11px;
+    color: var(--muted);
+    margin: 10px 0 0
+}
+
+.wiki-contents nav
+{
+    padding: 8px 12px 16px
+}
+
+.wiki-nav-group
+{
+    padding: 8px 0
+}
+
+.wiki-nav-group h3
+{
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    padding: 4px 8px;
+    margin: 0 0 4px
+}
+
+.wiki-contents nav a
+{
+    display: block;
+    padding: 7px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text)
+}
+
+.wiki-contents nav a:hover,
+.wiki-contents nav a:focus-visible
+{
+    background: var(--ws-soft);
+    color: var(--ws-accent)
+}
+
+.wiki-roadmap-link
+{
+    border-top: 1px solid var(--border);
+    margin-top: 10px
+}
+
+.wiki-guide
+{
+    padding: 26px;
+    scroll-margin-top: 20px;
+    overflow-wrap: anywhere
+}
+
+.wiki-guide-heading
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px
+}
+
+.wiki-guide h3
+{
+    font-size: 20px;
+    margin: 0
+}
+
+.wiki-guide h4
+{
+    font-size: 12px;
+    margin: 20px 0 8px
+}
+
+.wiki-purpose
+{
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin: 16px 0
+}
+
+.wiki-guide ol
+{
+    padding-left: 20px;
+    margin: 0
+}
+
+.wiki-guide li
+{
+    font-size: 13px;
+    line-height: 1.9;
+    padding-left: 4px;
+    margin: 5px 0
+}
+
+.wiki-rule
+{
+    border-top: 1px solid var(--border);
+    margin-top: 20px
+}
+
+.wiki-rule p,
+.wiki-roadmap p
+{
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin: 8px 0 0
+}
+
+.wiki-roadmap
+{
+    margin-top: 32px;
+    scroll-margin-top: 20px
+}
+
+.wiki-delivered
+{
+    padding: 26px
+}
+
+.wiki-roadmap h3
+{
+    font-size: 16px;
+    margin: 14px 0 0
+}
+
+.wiki-planned
+{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px
+}
+
+.wiki-planned .ws-card
+{
+    padding: 22px;
+    margin: 0
+}
+
+#wikiCount
+{
+    min-height: 16px
+}
+
+@media(max-width:1000px)
+{
+    .wiki-planned
+    {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
+    .wiki-start
+    {
+        grid-template-columns: 1fr
+    }
+
+    .wiki-layout
+    {
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 16px
+    }
+}
+
+@media(max-width:700px)
+{
+
+    .wiki-layout,
+    .wiki-planned
+    {
+        grid-template-columns: 1fr
+    }
+
+    .wiki-contents
+    {
+        position: static;
+        max-height: none
+    }
+
+    .wiki-contents nav
+    {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        max-height: 260px;
+        overflow: auto
+    }
+
+    .wiki-nav-group
+    {
+        flex: 1 1 130px
+    }
+
+    .wiki-guide,
+    .wiki-start,
+    .wiki-delivered
+    {
+        padding: 20px
+    }
+
+    .wiki-start ol
+    {
+        grid-template-columns: 1fr
+    }
+
+    .wiki-guide-heading
+    {
+        flex-wrap: wrap
+    }
+
+    .wiki-guide h3
+    {
+        font-size: 18px
+    }
+}
+
+@media print
+{
+
+    .wiki-contents,
+    .wiki-search,
+    .wiki-guide .btn,
+    .wiki-roadmap .btn
+    {
+        display: none
+    }
+
+    .wiki-layout,
+    .wiki-planned
+    {
+        display: block
+    }
+
+    .wiki-guide[hidden]
+    {
+        display: block !important
+    }
+
+    .wiki-guide
+    {
+        break-inside: avoid
+    }
+}

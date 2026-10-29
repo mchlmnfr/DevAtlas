@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-29",
+  "scanned_first_party_files": 372,
+  "active_references": [],
+  "explicit_routes_checked": 142,
+  "composer_autoload_checked": true,
+  "layout_updates": "The shared application and documentation layouts now resolve config/lib from ROOTPATH directly. The former includes/../ dependency has been removed.",
+  "decision": "Archive unused source and the replaced Inter font in the protected private recovery area; preserve legacy HTTP compatibility entry points.",
+  "folders": [
+    {
+      "path": "includes",
+      "files": [
+        {
+          "path": ".htaccess",
+          "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+        },
+        {
+          "path": "auth_layout.php",
+          "sha256": "021ef8651bbcc48e918e1aa56b22969960f7447410f8f5c03fe8c5439dbb89ad"
+        },
+        {
+          "path": "docs_footer.php",
+          "sha256": "739b821b89d9fd8d9d9fc02f971f81218659719121c2b105d031bd6e95e96974"
+        },
+        {
+          "path": "docs_header.php",
+          "sha256": "e53080a3a3abeb138d5ff92301c78e8201782211a6da276eb4a2f80265ea1dac"
+        },
+        {
+          "path": "footer.php",
+          "sha256": "a04e6985ceef32d146b56fa1d05bc5be7cc377ad9661c82bc6972ccd52778958"
+        },
+        {
+          "path": "header.php",
+          "sha256": "fb0ffdbd6d1743b83f86e333a9957f02790309705513a1aa76d3ce09cdddd42c"
+        },
+        {
+          "path": "theme_control.php",
+          "sha256": "b64fe20dd31c18bc50086371d6463eaa361820883496821c28f25a5fe2ac0d1a"
+        },
+        {
+          "path": "ui_assets.php",
+          "sha256": "d272266d07582e5b4148c70c6c918bbb703d4da80f480ed1500637ea3937f349"
+        },
+        {
+          "path": "updates_dialog.php",
+          "sha256": "9413aad563ece8410429a11b5119143a4f4cbaa3ef9e605eb9bf8021fd0a4895"
+        },
+        {
+          "path": "user_menu.php",
+          "sha256": "995b38a24ecd319effda0b00fc04e6b3cbb8fd273ec75cfeabee21040ec07d58"
+        }
+      ]
+    },
+    {
+      "path": "codereview",
+      "files": [
+        {
+          "path": ".htaccess",
+          "sha256": "c185743c9c955c1dd2a0502b4e4f3d135aba68023c00f99e80f882baa6550c6f"
+        },
+        {
+          "path": "code-review-engine.php",
+          "sha256": "f3aa4745c98172545d0b045b4d699e88000c8a912797af72c496d09cb5c744db"
+        },
+        {
+          "path": "code-review.php",
+          "sha256": "c5827969fa1833d3061289c0652624ceeea7d95af4971da439861d2c8d3a93f2"
+        },
+        {
+          "path": "source-code-inventory-new.php",
+          "sha256": "0d3932b8b34fb18ca04596a89e95841c3c84195edef00951089e47be1f07b0fc"
+        },
+        {
+          "path": "source-code-inventory-ui.php",
+          "sha256": "81555697e3a4305c5b4cfb976a4cefc4c4af79e756ba628004ec1603a10945a8"
+        },
+        {
+          "path": "source-code-inventory-xls.php",
+          "sha256": "685b1867caed21ffe586f55ea1ebb852b780c502ddb2968b01d202f7b4aa920f"
+        },
+        {
+          "path": "source-code-inventory.php",
+          "sha256": "612e8601cd5c9ebade5384886e227c0a6f768ed67432e34d653df68c5629a07d"
+        },
+        {
+          "path": "source-code-parser.php",
+          "sha256": "9344b46683eb6ac90aca0f930e41e5414639ae452396a198561a95b9f1a17703"
+        }
+      ]
+    },
+    {
+      "path": "assets/vendor/inter",
+      "files": [
+        {
+          "path": "InterVariable.woff2",
+          "sha256": "693b77d4f32ee9b8bfc995589b5fad5e99adf2832738661f5402f9978429a8e3"
+        },
+        {
+          "path": "OFL.txt",
+          "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a"
+        }
+      ]
+    }
+  ]
+}

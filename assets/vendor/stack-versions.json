@@ -1,0 +1,23 @@
+{
+  "htmx.org": {
+    "version": "2.0.11",
+    "url": "https://registry.npmjs.org/htmx.org/-/htmx.org-2.0.11.tgz",
+    "integrity": "sha512-Thx/WtpeOQqSrqBCw/A1cwGJGg4UrVa3+sW0GmrM3p4gJgO89ecH4qtbnyzDDWFvBTqjnIMCgELTNt636dtamA==",
+    "asset_sha256": "d6fdc75f204e6bdefa99b69bf1e6d4ac69b8a364f77929f45c13476b4000f717"
+  },
+  "alpinejs": {
+    "version": "3.17.5",
+    "url": "https://registry.npmjs.org/alpinejs/-/alpinejs-3.17.5.tgz",
+    "integrity": "sha512-XewMqRC6zjy8iaUPn86dxjvooAsNai3hUtQbdn0A5H2w7Jt10xHGZ1SczN5+Dvp3UKkuSEt9moy/UaUWOwKdnQ==",
+    "asset_sha256": "b4036e9e9ac22fa6f6ae1ba292e015e1f3e9c85d0d79e73e4c8eb9bb139b522e"
+  },
+  "tailwindcss": {
+    "version": "4.3.3",
+    "url": "https://github.com/tailwindlabs/tailwindcss/releases/download/v4.3.3/tailwindcss-windows-x64.exe",
+    "digest": "sha256:e0e260ce048014e9268f6237ff18f8ccf02cef521cbd0ae04e82c2cdf7aa3955",
+    "compiler": "@tailwindcss/cli@4.3.3",
+    "source": "resources/css/app.css",
+    "output": "assets/css/tailwind.css",
+    "lockfile": "package-lock.json"
+  }
+}

@@ -1,0 +1,164 @@
+/**
+ * Filename: leaves.css
+ * Purpose: Style the responsive department leave calendar and application forms.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Support shared light and dark themes with accessible leave status labels.
+ */
+.leave-legend
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.approval-tabs
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.leave-birthday
+{
+    padding: 7px;
+    margin-bottom: 6px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 7px;
+    background: var(--primary-soft);
+    color: var(--text);
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+.leave-birthday strong, .leave-birthday small
+{
+    display: block;
+}
+.leave-birthday .lucide
+{
+    width: 13px;
+    height: 13px;
+    vertical-align: middle;
+}
+.leave-calendar-scroll
+{
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+.leave-calendar
+{
+    min-width: 700px;
+}
+.leave-calendar-row
+{
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+.leave-calendar-head
+{
+    background: var(--hover-bg);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+.leave-calendar-head > div
+{
+    padding: 10px;
+    text-align: center;
+}
+.leave-calendar-day
+{
+    min-height: 118px;
+    padding: 8px;
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+}
+.leave-calendar-day:last-child
+{
+    border-right: 0;
+}
+.leave-calendar-day.is-outside
+{
+    background: var(--bg);
+    color: var(--muted);
+}
+.leave-calendar-day.is-today
+{
+    box-shadow: inset 0 0 0 2px var(--primary);
+}
+.leave-calendar-date
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 4px;
+}
+.leave-calendar-date button
+{
+    min-width: 28px;
+    min-height: 28px;
+    padding: 2px;
+}
+.leave-calendar-holiday
+{
+    font-size: 10px;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+    margin-bottom: 6px;
+}
+.leave-event
+{
+    display: block;
+    width: 100%;
+    margin-bottom: 6px;
+    padding: 7px;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--primary);
+    border-radius: 7px;
+    background: var(--card);
+    color: var(--text);
+    font: inherit;
+    font-size: 11px;
+    cursor: pointer;
+}
+.leave-event.is-approved
+{
+    border-left-color: var(--green);
+}
+.leave-event strong, .leave-event small
+{
+    display: block;
+}
+.leave-event small
+{
+    color: var(--muted);
+    margin-top: 3px;
+}
+.leave-event:hover
+{
+    background: var(--hover-bg);
+}
+.leave-event:focus-visible
+{
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+@media (max-width: 600px)
+{
+    #leavesApp .ws-hero
+    {
+        align-items: stretch;
+        flex-direction: column;
+    }
+    .leave-legend .wf-muted
+    {
+        flex-basis: 100%;
+    }
+}

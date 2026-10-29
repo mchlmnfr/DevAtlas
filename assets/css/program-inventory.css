@@ -1,0 +1,395 @@
+/**
+ * Filename: program-inventory.css
+ * Purpose: Style the program inventory interface using the shared DevAtlas design system.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ */
+
+.inventory-layout
+{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 310px;
+    gap: 24px;
+    align-items: start;
+}
+
+.inventory-fields
+{
+    min-width: 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.inventory-step-heading
+{
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.inventory-step
+{
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--ws-accent);
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 9px;
+    flex: none;
+}
+
+.inventory-source-options
+{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.inventory-source
+{
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 17px 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--muted);
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+    min-width: 0;
+}
+
+.inventory-source[aria-pressed="true"]
+{
+    border-color: var(--ws-accent);
+    background: var(--ws-soft);
+    color: var(--ws-accent);
+}
+
+.inventory-source strong
+{
+    display: block;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.inventory-source small
+{
+    display: block;
+    font-size: 9px;
+    margin-top: 5px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.inventory-source i
+{
+    margin-left: auto;
+    font-style: normal;
+    font-size: 10px;
+    color: var(--ws-accent);
+    visibility: hidden;
+}
+
+.inventory-source[aria-pressed="true"] i
+{
+    visibility: visible;
+}
+
+.inventory-folder-picker
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 25px 15px;
+    border: 1px dashed var(--muted);
+    border-radius: 11px;
+    background: var(--ws-soft);
+    color: var(--text);
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.inventory-folder-picker:hover
+{
+    border-color: var(--ws-accent);
+}
+
+.inventory-folder-icon
+{
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 3px;
+    border-radius: 13px;
+    background: var(--card);
+    color: var(--ws-accent);
+    box-shadow: 0 5px 10px var(--primary-soft);
+}
+
+.inventory-folder-icon .ws-icon
+{
+    width: 25px;
+    height: 25px;
+}
+
+.inventory-folder-picker strong
+{
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.inventory-folder-picker>span:not(.inventory-folder-icon):not(.btn)
+{
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.inventory-folder-picker .btn
+{
+    margin-top: 5px;
+    font-size: 10px;
+}
+
+.inventory-privacy
+{
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin: 13px 0 0;
+    text-align: center;
+}
+
+.inventory-report
+{
+    position: sticky;
+    top: calc(var(--app-topbar-height, 0px) + 20px);
+}
+
+.inventory-report-format
+{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding-bottom: 21px;
+    border-bottom: 1px solid var(--border);
+}
+
+.inventory-xlsx
+{
+    display: grid;
+    place-items: center;
+    width: 41px;
+    height: 48px;
+    border: 1px solid #439c7d33;
+    border-radius: 9px;
+    background: #439c7d0b;
+    color: #32886c;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.inventory-report-format strong
+{
+    display: block;
+    font-size: 12px;
+}
+
+.inventory-report-format small
+{
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+.inventory-report-meta
+{
+    font-size: 11px;
+    margin: 21px 0 25px;
+}
+
+.inventory-report-meta>div
+{
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.inventory-report-meta dt
+{
+    color: var(--muted);
+}
+
+.inventory-report-meta dd
+{
+    margin: 0;
+    font-weight: 600;
+    max-width: 145px;
+    overflow-wrap: anywhere;
+    text-align: right;
+}
+
+.inventory-export
+{
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+}
+
+.inventory-export-hint
+{
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.8;
+    margin: 12px 0 0;
+}
+
+#inventorySuccess
+{
+    margin-top: 16px;
+}
+
+.inventory-columns summary
+{
+    cursor: pointer;
+    list-style: none;
+    padding: 17px 20px;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inventory-columns summary::-webkit-details-marker
+{
+    display: none;
+}
+
+.inventory-columns ol
+{
+    padding: 0 22px 0 40px;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 2.2;
+}
+
+.inventory-columns p
+{
+    padding: 0 20px 15px;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+.inventory-table
+{
+    min-width: 570px;
+}
+
+.inventory-table td
+{
+    font-size: 11px;
+}
+
+.inventory-table td:first-child
+{
+    overflow-wrap: anywhere;
+    min-width: 150px;
+    max-width: 330px;
+}
+
+.inventory-table td:first-child small
+{
+    word-break: break-all;
+}
+
+.inventory-table td:last-child
+{
+    white-space: nowrap;
+}
+
+.inventory-page .form-grid
+{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media(max-width:1150px)
+{
+    .inventory-layout
+    {
+        grid-template-columns: minmax(0, 1fr) 270px;
+        gap: 18px;
+    }
+
+    .inventory-source-options
+    {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+    }
+}
+
+@media(max-width:900px)
+{
+    .inventory-layout
+    {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .inventory-report
+    {
+        position: static;
+    }
+
+    .inventory-source-options
+    {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .inventory-report-meta dd
+    {
+        max-width: 70%;
+    }
+}
+
+@media(max-width:550px)
+{
+
+    .inventory-page .form-grid,
+    .inventory-source-options
+    {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .inventory-source-options
+    {
+        gap: 9px;
+    }
+
+    .inventory-step-heading
+    {
+        gap: 10px;
+    }
+
+    .inventory-step
+    {
+        width: 28px;
+        height: 28px;
+    }
+}

@@ -1,0 +1,51 @@
+/**
+ * Filename: app.css
+ * Purpose: Compile the DevAtlas Tailwind design system without resetting module widgets.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-29
+ * Recent updates: Add Tailwind utilities and shared enterprise components for all modules.
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@source "../../app/Views";
+@source "../../assets/js";
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline
+{
+    --font-sans: var(--font);
+    --color-brand: var(--primary);
+    --color-surface: var(--card);
+    --color-canvas: var(--bg);
+    --color-ink: var(--text);
+    --color-muted: var(--muted);
+    --color-outline: var(--border);
+}
+
+@layer components
+{
+    .card,
+    .ws-card
+    {
+        @apply bg-surface text-ink border-outline rounded-xl;
+    }
+    .btn-primary
+    {
+        @apply bg-brand text-white font-semibold;
+    }
+    .app-shell
+    {
+        @apply min-h-screen font-sans antialiased;
+    }
+    .main,
+    .content
+    {
+        @apply min-w-0;
+    }
+}
+
+[x-cloak]
+{
+    display: none !important;
+}

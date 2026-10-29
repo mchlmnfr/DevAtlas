@@ -1,0 +1,15 @@
+/vendor/
+/node_modules/
+/tests/.tmp-*/
+**/__pycache__/
+*.py[cod]
+/.stack-work/
+/.tools/
+/writable/cache/*
+/writable/logs/*
+/writable/session/*
+/config/.local-key
+/config/.local-secrets.json
+/logs/
+/uploads/
+/.env

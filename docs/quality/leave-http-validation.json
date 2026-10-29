@@ -1,0 +1,7 @@
+{
+  "login.php": 200,
+  "modules/leaves/index.php": 302,
+  "modules/approvals/index.php?tab=leaves": 302,
+  "modules/leaves/api.php?action=calendar": 401,
+  "docs/quality/leave-installation.json": 403
+}

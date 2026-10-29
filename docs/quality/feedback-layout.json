@@ -1,0 +1,296 @@
+{
+  "date": "2026-10-29",
+  "observed_before_short_toast_height": 1020.390625,
+  "cause": "The icon spans internal grid rows; a row gap multiplied across those rows stretched toasts down the right side.",
+  "change": "Use column-gap for toast spacing and zero row-gap.",
+  "cases": [
+    {
+      "width": 1440,
+      "kind": "confirm",
+      "rect": {
+        "left": 500,
+        "right": 940,
+        "top": 325.390625,
+        "width": 440,
+        "height": 249.1875
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "390px",
+        "boxSizing": "border-box",
+        "width": "440px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 1440,
+        "grid": "0px 1400px 0px"
+      },
+      "overflow": false,
+      "documentWidth": 1440
+    },
+    {
+      "width": 1440,
+      "kind": "alert",
+      "rect": {
+        "left": 500,
+        "right": 940,
+        "top": 325.390625,
+        "width": 440,
+        "height": 249.1875
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "390px",
+        "boxSizing": "border-box",
+        "width": "440px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 1440,
+        "grid": "0px 1400px 0px"
+      },
+      "overflow": false,
+      "documentWidth": 1440
+    },
+    {
+      "width": 1440,
+      "kind": "toast",
+      "rect": {
+        "left": 1073.75,
+        "right": 1416.25,
+        "top": 8.75,
+        "width": 342.5,
+        "height": 58
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "32px 256.5px 0px",
+        "boxSizing": "border-box",
+        "width": "342.5px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 360,
+        "grid": "0px 0px 342.5px"
+      },
+      "overflow": false,
+      "documentWidth": 1425
+    },
+    {
+      "width": 1440,
+      "kind": "long-toast",
+      "rect": {
+        "left": 1073.75,
+        "right": 1416.25,
+        "top": 8.75,
+        "width": 342.5,
+        "height": 376.640625
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "32px 256.5px 0px",
+        "boxSizing": "border-box",
+        "width": "342.5px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 360,
+        "grid": "0px 0px 342.5px"
+      },
+      "overflow": false,
+      "documentWidth": 1425
+    },
+    {
+      "width": 768,
+      "kind": "confirm",
+      "rect": {
+        "left": 164,
+        "right": 604,
+        "top": 325.390625,
+        "width": 440,
+        "height": 249.1875
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "390px",
+        "boxSizing": "border-box",
+        "width": "440px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 768,
+        "grid": "0px 728px 0px"
+      },
+      "overflow": false,
+      "documentWidth": 768
+    },
+    {
+      "width": 768,
+      "kind": "alert",
+      "rect": {
+        "left": 164,
+        "right": 604,
+        "top": 325.390625,
+        "width": 440,
+        "height": 249.1875
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "390px",
+        "boxSizing": "border-box",
+        "width": "440px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 768,
+        "grid": "0px 728px 0px"
+      },
+      "overflow": false,
+      "documentWidth": 768
+    },
+    {
+      "width": 768,
+      "kind": "toast",
+      "rect": {
+        "left": 416.75,
+        "right": 759.25,
+        "top": 8.75,
+        "width": 342.5,
+        "height": 58
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "32px 256.5px 0px",
+        "boxSizing": "border-box",
+        "width": "342.5px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 360,
+        "grid": "0px 0px 342.5px"
+      },
+      "overflow": false,
+      "documentWidth": 768
+    },
+    {
+      "width": 768,
+      "kind": "long-toast",
+      "rect": {
+        "left": 416.75,
+        "right": 759.25,
+        "top": 8.75,
+        "width": 342.5,
+        "height": 376.640625
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "32px 256.5px 0px",
+        "boxSizing": "border-box",
+        "width": "342.5px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 360,
+        "grid": "0px 0px 342.5px"
+      },
+      "overflow": false,
+      "documentWidth": 768
+    },
+    {
+      "width": 320,
+      "kind": "confirm",
+      "rect": {
+        "left": 20,
+        "right": 300,
+        "top": 325.390625,
+        "width": 280,
+        "height": 249.1875
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "230px",
+        "boxSizing": "border-box",
+        "width": "280px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 320,
+        "grid": "0px 280px 0px"
+      },
+      "overflow": false,
+      "documentWidth": 320
+    },
+    {
+      "width": 320,
+      "kind": "alert",
+      "rect": {
+        "left": 20,
+        "right": 300,
+        "top": 325.390625,
+        "width": 280,
+        "height": 249.1875
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "230px",
+        "boxSizing": "border-box",
+        "width": "280px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 320,
+        "grid": "0px 280px 0px"
+      },
+      "overflow": false,
+      "documentWidth": 320
+    },
+    {
+      "width": 320,
+      "kind": "toast",
+      "rect": {
+        "left": 8.75,
+        "right": 311.25,
+        "top": 8.75,
+        "width": 302.5,
+        "height": 58
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "32px 216.5px 0px",
+        "boxSizing": "border-box",
+        "width": "302.5px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 320,
+        "grid": "0px 0px 302.5px"
+      },
+      "overflow": false,
+      "documentWidth": 320
+    },
+    {
+      "width": 320,
+      "kind": "long-toast",
+      "rect": {
+        "left": 8.75,
+        "right": 311.25,
+        "top": 8.75,
+        "width": 302.5,
+        "height": 437.8125
+      },
+      "popup": {
+        "display": "grid",
+        "grid": "32px 216.5px 0px",
+        "boxSizing": "border-box",
+        "width": "302.5px",
+        "maxWidth": "100%"
+      },
+      "container": {
+        "width": 320,
+        "grid": "0px 0px 302.5px"
+      },
+      "overflow": false,
+      "documentWidth": 320
+    }
+  ]
+}

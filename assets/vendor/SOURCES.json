@@ -1,0 +1,47 @@
+{
+  "revisions": {
+    "lucide-icons/lucide": "555cc952b1f6dee39e5c65bde1d3a11f44832600"
+  },
+  "lucide_aliases": {
+    "history": "rotate-ccw",
+    "clock-3": "clock",
+    "circle-help": "circle-question-mark",
+    "circle-check": "circle-check-big"
+  },
+  "poppins": {
+    "repository": "google/fonts",
+    "revision": "8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5",
+    "css_source": "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap",
+    "files": {
+      "Poppins-400-italic-devanagari.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiGyp8kv8JHgFVrJJLucXtAKPY.woff2",
+      "Poppins-400-italic-latin-ext.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiGyp8kv8JHgFVrJJLufntAKPY.woff2",
+      "Poppins-400-italic-latin.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiGyp8kv8JHgFVrJJLucHtA.woff2",
+      "Poppins-400-normal-devanagari.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrJJbecmNE.woff2",
+      "Poppins-400-normal-latin-ext.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrJJnecmNE.woff2",
+      "Poppins-400-normal-latin.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiEyp8kv8JHgFVrJJfecg.woff2",
+      "Poppins-500-normal-devanagari.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLGT9Z11lFc-K.woff2",
+      "Poppins-500-normal-latin-ext.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLGT9Z1JlFc-K.woff2",
+      "Poppins-500-normal-latin.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2",
+      "Poppins-600-normal-devanagari.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6Z11lFc-K.woff2",
+      "Poppins-600-normal-latin-ext.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.woff2",
+      "Poppins-600-normal-latin.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2",
+      "Poppins-700-normal-devanagari.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7Z11lFc-K.woff2",
+      "Poppins-700-normal-latin-ext.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7Z1JlFc-K.woff2",
+      "Poppins-700-normal-latin.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2",
+      "Poppins-800-normal-devanagari.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLDD4Z11lFc-K.woff2",
+      "Poppins-800-normal-latin-ext.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLDD4Z1JlFc-K.woff2",
+      "Poppins-800-normal-latin.woff2": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLDD4Z1xlFQ.woff2"
+    },
+    "local_css_sha256": "331f161259e96574d067f6c1e4fdefcffafb242a09a43ddbc6f6f360efb91a58"
+  },
+  "sweetalert2": {
+    "repository": "sweetalert2/sweetalert2",
+    "version": "11.26.25",
+    "release": "https://github.com/sweetalert2/sweetalert2/releases/tag/v11.26.25",
+    "files": {
+      "LICENSE": "879aa33feba35b3428c6485fc17cddd8c820d7a8780281aa945e60582a28c4b4",
+      "sweetalert2.min.css": "a1173e56fd474be04ddbefa81bd75cc465627ef2f5db261792e7d25fb7871743",
+      "sweetalert2.min.js": "520341374aa1ee4387d6564e46c0fb0485addc98431ee246cd1be6368fedb1b0"
+    }
+  }
+}

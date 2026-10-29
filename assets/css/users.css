@@ -1,0 +1,237 @@
+/**
+ * Filename: users.css
+ * Purpose: Style the users interface using the shared DevAtlas design system.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ */
+
+.users-table
+{
+    min-width: 760px;
+}
+
+.users-table td:first-child
+{
+    min-width: 190px;
+}
+
+.users-table td:nth-child(3)
+{
+    overflow-wrap: anywhere;
+    max-width: 230px;
+}
+
+.users-table .users-row-actions
+{
+    display: flex;
+    justify-content: end;
+    gap: 7px;
+}
+
+.users-statuses
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.users-table .users-identity-name
+{
+    font-size: 12px;
+}
+
+.users-sort
+{
+    max-width: 160px;
+}
+
+.users-fieldset
+{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+}
+
+.users-placement-hint
+{
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+    margin: 0 0 18px;
+}
+
+.users-enabled-control
+{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: var(--bg);
+    cursor: pointer;
+}
+
+.users-enabled-control input
+{
+    width: 17px;
+    height: 17px;
+    accent-color: var(--primary);
+}
+
+.users-enabled-control strong
+{
+    display: block;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.users-enabled-control small
+{
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.users-account-actions
+{
+    display: grid;
+    gap: 10px;
+}
+
+.users-account-actions button
+{
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.users-account-actions button:hover
+{
+    background: var(--bg);
+}
+
+.users-account-actions button:disabled
+{
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.users-account-actions strong
+{
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.users-account-actions small
+{
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.7;
+}
+
+.users-account-actions button[data-op="delete"] strong
+{
+    color: var(--red);
+}
+
+.users-reset-note
+{
+    margin-bottom: 22px;
+}
+
+.users-editor-retry
+{
+    margin-bottom: 18px;
+}
+
+.users-visually-hidden
+{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+@media(max-width:700px)
+{
+    .users-sort
+    {
+        max-width: none;
+    }
+
+    .users-table,
+    .users-table tbody
+    {
+        display: block;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .users-table thead
+    {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+    }
+
+    .users-table tr
+    {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        padding: 17px 18px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .users-table td,
+    .users-table td:first-child,
+    .users-table td:nth-child(3)
+    {
+        display: block;
+        padding: 6px 0;
+        border: 0;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .users-table td[data-label]:before
+    {
+        content: attr(data-label);
+        display: block;
+        font-size: 9px;
+        color: var(--muted);
+        letter-spacing: .5px;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+    }
+
+    .users-table .users-row-actions
+    {
+        justify-content: start;
+        padding-top: 7px;
+    }
+
+    .users-table td[colspan]
+    {
+        text-align: center;
+    }
+}

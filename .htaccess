@@ -1,0 +1,63 @@
+# DevAtlas :: secured compatibility document root
+# Basic hardening for Apache under WAMP. Ensure mod_rewrite/mod_headers are enabled if you extend this.
+
+Options -Indexes
+
+<Files ".php-cs-fixer.dist.php">
+  Require all denied
+</Files>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Block direct access to raw sql/config backups if ever placed under webroot
+<FilesMatch "\.(sql|env|log|md)$">
+  Require all denied
+</FilesMatch>
+
+# Composer's vendor/ (e.g. PhpSpreadsheet, used by the Diagram Generator's
+# Excel import/export) is included server-side only — never served directly.
+<IfModule mod_alias.c>
+  RedirectMatch 403 ^/AnalystToolkit/vendor/
+  RedirectMatch 403 ^/AnalystToolkit/logs/
+</IfModule>
+
+# ---------------------------------------------------------------------
+# Performance: compress text-based responses and let the browser cache
+# static assets (CSS/JS/images) instead of re-fetching them on every
+# page load. All local — no effect on the zero-internet-dependency goal.
+# ---------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json application/xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpg "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+# CodeIgniter owns routes; source, tooling, secrets and dependencies are private.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule (^|/)\. - [F,L]
+  RewriteRule ^(?:app|lib|includes|config|vendor|node_modules|writable|resources|bin|tests|docs)(?:/|$) - [F,L]
+  RewriteRule ^(?:composer\.(?:json|lock)|package(?:-lock)?\.json|spark|phpunit.*)$ - [F,L]
+  RewriteRule ^(?:assets|uploads)/.*\.php$ - [F,L,NC]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ public/index.php [L,QSA]
+</IfModule>

@@ -1,0 +1,143 @@
+{
+  "generated_at": "2026-10-29T01:12:56.368888+00:00",
+  "environment": "Disposable PostgreSQL schemas, temporary files and Edge profiles; SMTP fixtures use loopback.",
+  "assertions": 608,
+  "suites": [
+    {
+      "suite": "action-center.php",
+      "passed": false,
+      "exit_code": 1,
+      "assertions": 0,
+      "seconds": 1.88,
+      "log": "validation/action-center.php.log"
+    },
+    {
+      "suite": "audit.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 35,
+      "seconds": 1.55,
+      "log": "validation/audit.php.log"
+    },
+    {
+      "suite": "branding.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 7,
+      "seconds": 1.42,
+      "log": "validation/branding.php.log"
+    },
+    {
+      "suite": "code-review-limits.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 31,
+      "seconds": 8.28,
+      "log": "validation/code-review-limits.php.log"
+    },
+    {
+      "suite": "config-secrets.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 7,
+      "seconds": 0.11,
+      "log": "validation/config-secrets.php.log"
+    },
+    {
+      "suite": "custom-roles.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 45,
+      "seconds": 1.38,
+      "log": "validation/custom-roles.php.log"
+    },
+    {
+      "suite": "daily-logs.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 84,
+      "seconds": 2.28,
+      "log": "validation/daily-logs.php.log"
+    },
+    {
+      "suite": "data-dictionary.php",
+      "passed": false,
+      "exit_code": 255,
+      "assertions": 0,
+      "seconds": 0.17,
+      "log": "validation/data-dictionary.php.log"
+    },
+    {
+      "suite": "email-auth.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 72,
+      "seconds": 4.0,
+      "log": "validation/email-auth.php.log"
+    },
+    {
+      "suite": "erd-generator.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 47,
+      "seconds": 0.33,
+      "log": "validation/erd-generator.php.log"
+    },
+    {
+      "suite": "head-reviews-updates.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 31,
+      "seconds": 1.77,
+      "log": "validation/head-reviews-updates.php.log"
+    },
+    {
+      "suite": "leaves.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 59,
+      "seconds": 1.47,
+      "log": "validation/leaves.php.log"
+    },
+    {
+      "suite": "log-viewer.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 51,
+      "seconds": 0.31,
+      "log": "validation/log-viewer.php.log"
+    },
+    {
+      "suite": "qms-codesniffer.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 101,
+      "seconds": 0.22,
+      "log": "validation/qms-codesniffer.php.log"
+    },
+    {
+      "suite": "qms-maintenance.php",
+      "passed": false,
+      "exit_code": 255,
+      "assertions": 0,
+      "seconds": 0.12,
+      "log": "validation/qms-maintenance.php.log"
+    },
+    {
+      "suite": "route-urls.php",
+      "passed": true,
+      "exit_code": 0,
+      "assertions": 38,
+      "seconds": 0.12,
+      "log": "validation/route-urls.php.log"
+    },
+    {
+      "suite": "workflows.php",
+      "passed": false,
+      "exit_code": 1,
+      "assertions": 0,
+      "seconds": 1.38,
+      "log": "validation/workflows.php.log"
+    }
+  ]
+}

@@ -1,0 +1,480 @@
+/**
+ * Filename: dashboard-actions.css
+ * Purpose: Style the dashboard actions interface using the shared DevAtlas design system.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ */
+
+.action-dashboard
+{
+    max-width: 1500px
+}
+
+.action-period
+{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 22px;
+    color: var(--muted);
+    font-size: 11px
+}
+
+.action-period strong
+{
+    color: var(--text);
+    font-weight: 500
+}
+
+.action-period small
+{
+    margin-left: auto;
+    font-size: 10px
+}
+
+.action-period>.lucide
+{
+    width: 16px;
+    height: 16px;
+    color: var(--link)
+}
+
+.action-metrics
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    margin-bottom: 22px
+}
+
+.action-metric
+{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0;
+    color: var(--text);
+    position: relative;
+    min-width: 0
+}
+
+.action-metric:hover
+{
+    text-decoration: none;
+    border-color: var(--primary);
+    background: var(--hover-bg)
+}
+
+.action-metric>span:not(.action-icon)
+{
+    font-size: 11px;
+    font-weight: 500;
+    padding-right: 26px
+}
+
+.action-metric>strong
+{
+    font-size: 30px;
+    letter-spacing: -1px;
+    margin: 12px 0 4px;
+    font-variant-numeric: tabular-nums
+}
+
+.action-metric small
+{
+    font-size: 10px;
+    color: var(--muted)
+}
+
+.action-icon
+{
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    display: grid;
+    place-items: center;
+    width: 27px;
+    height: 27px;
+    border-radius: 7px;
+    color: var(--link);
+    background: var(--primary-soft)
+}
+
+.action-metric.needs-attention .action-icon
+{
+    color: var(--amber);
+    background: color-mix(in srgb, var(--amber) 12%, var(--card))
+}
+
+.action-columns
+{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 20px
+}
+
+.action-panel
+{
+    padding: 22px;
+    min-width: 0;
+    margin-bottom: 20px
+}
+
+.action-columns>.action-panel
+{
+    margin: 0
+}
+
+.action-panel-head
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap
+}
+
+.action-panel-head h2
+{
+    font-size: 15px;
+    margin: 4px 0 0;
+    font-weight: 600
+}
+
+.action-panel-head a
+{
+    font-size: 11px;
+    white-space: nowrap
+}
+
+.action-panel-head a>.lucide
+{
+    width: 14px;
+    height: 14px
+}
+
+.action-hours
+{
+    display: flex;
+    flex-direction: column;
+    gap: 7px
+}
+
+.action-hours strong
+{
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -.7px
+}
+
+.action-hours strong small
+{
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0
+}
+
+.action-hours>span
+{
+    font-size: 11px;
+    color: var(--muted)
+}
+
+.action-progress
+{
+    width: 100%;
+    height: 8px;
+    accent-color: var(--primary);
+    margin: 18px 0 4px
+}
+
+.action-note
+{
+    font-size: 11px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin: 12px 0
+}
+
+.action-inline
+{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 16px
+}
+
+.action-success
+{
+    font-size: 10px;
+    color: var(--green);
+    display: flex;
+    gap: 6px;
+    align-items: center
+}
+
+.action-success .lucide
+{
+    width: 15px;
+    height: 15px
+}
+
+.action-list
+{
+    margin-top: 10px
+}
+
+.action-list>a
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    border-top: 1px solid var(--border);
+    padding: 14px 0;
+    color: var(--text);
+    font-size: 11px
+}
+
+.action-list>a:hover
+{
+    color: var(--link);
+    text-decoration: none
+}
+
+.action-list strong
+{
+    font-weight: 500;
+    display: block
+}
+
+.action-list small
+{
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 5px;
+    line-height: 1.7
+}
+
+.action-list>a>span
+{
+    min-width: 0;
+    overflow-wrap: anywhere
+}
+
+.action-row-meta
+{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    color: var(--muted);
+    font-size: 10px;
+    flex: none
+}
+
+.action-empty
+{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 26px 12px;
+    gap: 12px
+}
+
+.action-empty>.lucide
+{
+    color: var(--link);
+    width: 26px;
+    height: 26px
+}
+
+.action-empty strong
+{
+    font-weight: 500;
+    font-size: 12px
+}
+
+.action-empty p
+{
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin: 0;
+    max-width: 320px
+}
+
+.action-team-stats
+{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px
+}
+
+.action-team-stats strong
+{
+    font-size: 26px;
+    font-weight: 600;
+    display: block
+}
+
+.action-team-stats span
+{
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.7;
+    display: block
+}
+
+.action-record-counts
+{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px
+}
+
+.action-record-counts a,
+.action-links a
+{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: var(--text);
+    font-size: 11px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    min-width: 0
+}
+
+.action-record-counts a:hover,
+.action-links a:hover
+{
+    color: var(--link);
+    background: var(--hover-bg);
+    text-decoration: none
+}
+
+.action-record-counts strong
+{
+    margin-left: auto;
+    font-size: 20px
+}
+
+.action-links
+{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px
+}
+
+.action-links a>span
+{
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere
+}
+
+.action-links .lucide
+{
+    color: var(--link);
+    width: 16px;
+    height: 16px
+}
+
+.action-dashboard .dashboard-overline
+{
+    font-size: 9px
+}
+
+@media(max-width:1000px)
+{
+    .action-metrics
+    {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
+    .action-period small
+    {
+        margin-left: 0;
+        flex-basis: 100%
+    }
+}
+
+@media(max-width:760px)
+{
+    .action-columns
+    {
+        grid-template-columns: minmax(0, 1fr)
+    }
+
+    .action-panel
+    {
+        padding: 18px
+    }
+
+    .action-record-counts
+    {
+        grid-template-columns: minmax(0, 1fr)
+    }
+}
+
+@media(max-width:440px)
+{
+    .action-metrics
+    {
+        gap: 10px
+    }
+
+    .action-metric
+    {
+        padding: 16px
+    }
+
+    .action-metric>span:not(.action-icon)
+    {
+        padding: 0;
+        margin-top: 34px;
+        font-size: 10px
+    }
+
+    .action-icon
+    {
+        left: 16px;
+        right: auto;
+        top: 14px
+    }
+
+    .action-metric>strong
+    {
+        font-size: 27px
+    }
+
+    .action-links
+    {
+        grid-template-columns: minmax(0, 1fr)
+    }
+
+    .action-team-stats
+    {
+        gap: 8px
+    }
+
+    .action-panel-head
+    {
+        gap: 10px
+    }
+
+    .action-panel-head>a
+    {
+        font-size: 10px
+    }
+}

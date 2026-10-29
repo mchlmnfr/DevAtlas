@@ -1,0 +1,670 @@
+/**
+ * Filename: datadict.css
+ * Purpose: Style the data dictionary interface using the shared DevAtlas design system.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ */
+
+.dictionary-page [hidden]
+{
+    display: none !important;
+}
+
+.dd-heading,
+.dd-actions,
+.dd-pagination,
+.dd-dialog-header,
+.dd-dialog-footer,
+.dd-selection-tools,
+.dd-tabs,
+.dd-export-bar
+{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.dd-heading
+{
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.dd-heading h2,
+.dd-heading p,
+.dictionary-page .card-header h2,
+.dd-dialog h2
+{
+    margin: 0;
+}
+
+.dd-heading h2
+{
+    font-size: 21px;
+}
+
+.dd-heading p
+{
+    margin-top: 4px;
+}
+
+.dd-stats
+{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.dd-stats .stat-card
+{
+    padding: 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.dd-stats .num
+{
+    font-size: 26px;
+}
+
+.dd-workspace
+{
+    display: grid;
+    grid-template-columns: 330px minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.dd-workspace .card
+{
+    margin-bottom: 0;
+    min-width: 0;
+}
+
+.dd-filter-pair
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.dd-filter-pair>*
+{
+    min-width: 0;
+}
+
+.dd-export-bar .btn
+{
+    font-size: 11px;
+}
+
+.dictionary-page a[aria-disabled="true"]
+{
+    opacity: .5;
+    pointer-events: none;
+}
+
+.dd-table-list
+{
+    max-height: 680px;
+    overflow: auto;
+    margin: 14px -6px 0;
+    padding: 0 6px;
+}
+
+.dd-table-item
+{
+    display: block;
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+}
+
+.dd-table-item:hover
+{
+    background: var(--hover-bg);
+}
+
+.dd-table-item.active
+{
+    border-color: var(--primary);
+    box-shadow: inset 3px 0 var(--primary);
+    background: var(--hover-bg);
+}
+
+.dd-table-item strong
+{
+    display: block;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.dd-table-item small
+{
+    display: block;
+    color: var(--muted);
+    margin-top: 3px;
+    overflow-wrap: anywhere;
+}
+
+.dd-table-meta
+{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 9px;
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.dd-meter
+{
+    display: block;
+    width: 100%;
+    height: 4px;
+    border: 0;
+    background: var(--border);
+    border-radius: 4px;
+    margin-top: 10px;
+    overflow: hidden;
+    accent-color: var(--primary);
+}
+
+.dd-meter::-webkit-progress-bar
+{
+    background: var(--border);
+}
+
+.dd-meter::-webkit-progress-value
+{
+    background: var(--primary);
+}
+
+.dd-pagination
+{
+    justify-content: space-between;
+    margin-top: 14px;
+}
+
+.dd-welcome
+{
+    display: flex;
+    min-height: 400px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+}
+
+.dd-welcome-icon
+{
+    font-size: 44px;
+    color: var(--primary);
+}
+
+.dd-detail-header
+{
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.dd-detail-header h2
+{
+    margin: 4px 0;
+    overflow-wrap: anywhere;
+}
+
+.dd-detail-header .hint
+{
+    overflow-wrap: anywhere;
+}
+
+.dd-tabs
+{
+    border-bottom: 1px solid var(--border);
+    margin: 18px 0;
+    gap: 16px;
+}
+
+.dd-tabs button
+{
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: none;
+    padding: 10px 2px;
+    color: var(--muted);
+    font: inherit;
+    cursor: pointer;
+}
+
+.dd-tabs button.active
+{
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .dd-tabs button.active
+{
+    color: var(--primary-light);
+    border-bottom-color: var(--primary-light);
+}
+
+.dd-overview-grid
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 20px 0;
+}
+
+.dd-overview-grid dt
+{
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.dd-overview-grid dd
+{
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.dd-description
+{
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 13px;
+}
+
+.dd-column-tools
+{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 14px 0;
+}
+
+.dd-column-tools input[type="search"]
+{
+    flex: 1;
+    min-width: 160px;
+}
+
+.dd-columns-table
+{
+    min-width: 650px;
+}
+
+.dd-columns-table td
+{
+    vertical-align: top;
+}
+
+.dd-columns-table td:first-child
+{
+    max-width: 200px;
+    overflow-wrap: anywhere;
+}
+
+.dd-columns-table code
+{
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.dd-column-description
+{
+    min-width: 200px;
+    max-width: 450px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.dd-column-flags
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.dd-subtext
+{
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.dd-relationship
+{
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    overflow-wrap: anywhere;
+}
+
+.dd-relationship p
+{
+    margin: 4px 0;
+}
+
+.dd-dialog
+{
+    padding: 0;
+    width: min(700px, calc(100vw - 28px));
+    max-width: none;
+    max-height: calc(100dvh - 32px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--card);
+    color: var(--text);
+    box-shadow: 0 20px 70px #0004;
+}
+
+.dd-dialog::backdrop
+{
+    background: #15223e88;
+}
+
+.dd-dialog-header
+{
+    padding: 18px 22px;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+}
+
+.dd-dialog-header h2
+{
+    font-size: 18px;
+}
+
+.dd-dialog-header p
+{
+    margin: 4px 0 0;
+}
+
+.dd-dialog-body
+{
+    padding: 20px 22px;
+}
+
+.dd-dialog-footer
+{
+    border-top: 1px solid var(--border);
+    padding: 14px 22px;
+    position: sticky;
+    bottom: 0;
+    background: var(--card);
+}
+
+.dd-dialog-footer .hint
+{
+    max-width: 380px;
+}
+
+.dd-spacer
+{
+    flex: 1;
+}
+
+.dd-import-dialog
+{
+    width: min(950px, calc(100vw - 28px));
+}
+
+.dd-dialog .form-grid
+{
+    align-items: start;
+}
+
+.dd-check
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    margin: 12px 0;
+}
+
+.dd-check input[type="checkbox"]
+{
+    width: auto;
+    flex: none;
+}
+
+.dd-check label
+{
+    margin: 0;
+}
+
+.dd-boolean-grid
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 18px;
+}
+
+.dd-driver-info,
+.dd-profile-summary
+{
+    padding: 12px;
+    border-radius: 7px;
+    background: var(--hover-bg);
+    color: var(--muted);
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.dd-connect-actions
+{
+    margin: 16px 0;
+}
+
+.dd-import-status
+{
+    font-size: 13px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.dd-import-status.error
+{
+    color: var(--red);
+}
+
+.dd-editor-error
+{
+    color: var(--red);
+    padding: 10px;
+    border-left: 3px solid var(--red);
+    background: var(--hover-bg);
+}
+
+.dd-selection-tools
+{
+    margin-bottom: 12px;
+}
+
+.dd-selection-tools input
+{
+    flex: 1;
+    min-width: 140px;
+}
+
+.dd-object-list
+{
+    max-height: 280px;
+    overflow: auto;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+}
+
+.dd-object-row
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.dd-object-row label
+{
+    flex: 1;
+    margin: 0;
+    overflow-wrap: anywhere;
+    font-size: 13px;
+}
+
+.dd-object-row input
+{
+    width: auto;
+}
+
+.dd-object-row .badge
+{
+    flex: none;
+}
+
+#ddImportProgress progress
+{
+    width: 100%;
+    margin-top: 18px;
+    accent-color: var(--primary);
+}
+
+.dd-import-results
+{
+    max-height: 220px;
+    overflow: auto;
+    font-size: 12px;
+}
+
+.dd-import-result
+{
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+    overflow-wrap: anywhere;
+}
+
+.dd-import-result.error
+{
+    color: var(--red);
+}
+
+.dd-editor details
+{
+    margin: 14px 0;
+}
+
+.dd-editor summary
+{
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+@media (max-width:1200px)
+{
+    .dd-workspace
+    {
+        grid-template-columns: 290px minmax(0, 1fr);
+    }
+}
+
+@media (max-width:1000px)
+{
+    .dd-workspace
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .dd-table-list
+    {
+        max-height: 350px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .dd-table-item
+    {
+        margin-bottom: 0;
+    }
+
+    .dd-filter-pair
+    {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width:600px)
+{
+    .dd-stats
+    {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .dd-stats .stat-card
+    {
+        padding: 12px;
+    }
+
+    .dd-table-list
+    {
+        display: block;
+    }
+
+    .dd-table-item
+    {
+        margin-bottom: 8px;
+    }
+
+    .dd-heading .dd-actions
+    {
+        width: 100%;
+    }
+
+    .dd-overview-grid,
+    .dd-dialog .form-grid
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .dd-dialog-body,
+    .dd-dialog-header,
+    .dd-dialog-footer
+    {
+        padding: 14px;
+    }
+
+    .dd-dialog-footer .hint
+    {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .dd-boolean-grid
+    {
+        grid-template-columns: 1fr;
+    }
+}

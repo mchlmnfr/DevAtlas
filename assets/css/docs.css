@@ -1,0 +1,115 @@
+/**
+ * Filename: docs.css
+ * Purpose: Style the docs interface using the shared DevAtlas design system.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ */
+
+.docs-header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 20px max(24px, calc((100% - 1400px)/2));
+    background: var(--card);
+    border-bottom: 1px solid var(--border)
+}
+
+.docs-brand
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 750
+}
+
+.docs-brand small
+{
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400
+}
+
+.docs-header nav
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap
+}
+
+.docs-header nav a,
+.docs-header nav button
+{
+    border: 0;
+    background: none;
+    font-family: inherit;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 9px 12px;
+    text-decoration: none;
+    border-radius: 7px
+}
+
+.docs-header nav a[aria-current=page],
+.docs-header nav a:hover,
+.docs-header nav button:hover
+{
+    background: var(--ws-soft);
+    color: var(--ws-accent)
+}
+
+.docs-content
+{
+    max-width: 1448px;
+    margin: 0 auto;
+    padding: 32px 24px
+}
+
+.docs-footer
+{
+    max-width: 1448px;
+    margin: 0 auto;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 11px;
+    border-top: 1px solid var(--border)
+}
+
+@media(max-width:650px)
+{
+    .docs-header
+    {
+        padding: 16px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px
+    }
+
+    .docs-header nav
+    {
+        gap: 3px
+    }
+
+    .docs-header nav a,
+    .docs-header nav button
+    {
+        border: 0;
+        background: none;
+        font-family: inherit;
+        cursor: pointer;
+        padding: 7px 8px
+    }
+
+    .docs-content
+    {
+        padding: 24px 16px
+    }
+}

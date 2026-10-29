@@ -1,0 +1,194 @@
+{
+  "date": "2026-10-29",
+  "purpose": "Remove stale test profiles, download caches and completed migration tooling; preserve application sources and installation recovery snapshot.",
+  "targets": [
+    {
+      "path": ".stack-work/clean-urls-before",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\clean-urls-before",
+      "files": 200,
+      "bytes": 1804649,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/views-before-format",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\views-before-format",
+      "files": 44,
+      "bytes": 246503,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/composer-cache",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\composer-cache",
+      "files": 59,
+      "bytes": 5316173,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/composer-home",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\composer-home",
+      "files": 4,
+      "bytes": 9278,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/tools",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\tools",
+      "files": 1,
+      "bytes": 112503296,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/cli-sessions",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\cli-sessions",
+      "files": 1,
+      "bytes": 0,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/clean-urls.py",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\clean-urls.py",
+      "files": 1,
+      "bytes": 6861,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/finish-bootstrap.py",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\finish-bootstrap.py",
+      "files": 1,
+      "bytes": 7592,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/frontend-stack.py",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\frontend-stack.py",
+      "files": 1,
+      "bytes": 7037,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/migrate-stack.py",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\migrate-stack.py",
+      "files": 1,
+      "bytes": 9425,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/rebuild-views.py",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\rebuild-views.py",
+      "files": 1,
+      "bytes": 4888,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/rewrite-view-includes.php",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\rewrite-view-includes.php",
+      "files": 1,
+      "bytes": 863,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/verify-installation.php",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\verify-installation.php",
+      "files": 1,
+      "bytes": 577,
+      "status": "removed"
+    },
+    {
+      "path": ".stack-work/progress.json",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\progress.json",
+      "files": 1,
+      "bytes": 237,
+      "status": "removed"
+    },
+    {
+      "path": ".tools/npm-cache",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\.tools\\npm-cache",
+      "files": 288,
+      "bytes": 75410517,
+      "status": "removed"
+    },
+    {
+      "path": "tests/.tmp-daily-logs-s91gqxne",
+      "absolute_path": "C:\\xampp\\htdocs\\AnalystToolkit\\tests\\.tmp-daily-logs-s91gqxne",
+      "files": 1250,
+      "bytes": 509046810,
+      "status": "removed"
+    }
+  ],
+  "archived": [
+    {
+      "path": "includes",
+      "source": "C:\\xampp\\htdocs\\AnalystToolkit\\includes",
+      "destination": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\retired-source\\includes",
+      "archive": ".stack-work/retired-source/includes",
+      "files": 10,
+      "status": "archived"
+    },
+    {
+      "path": "codereview",
+      "source": "C:\\xampp\\htdocs\\AnalystToolkit\\codereview",
+      "destination": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\retired-source\\codereview",
+      "archive": ".stack-work/retired-source/codereview",
+      "files": 8,
+      "status": "archived"
+    },
+    {
+      "path": "assets/vendor/inter",
+      "source": "C:\\xampp\\htdocs\\AnalystToolkit\\assets\\vendor\\inter",
+      "destination": "C:\\xampp\\htdocs\\AnalystToolkit\\.stack-work\\retired-source\\inter",
+      "archive": ".stack-work/retired-source/inter",
+      "files": 2,
+      "status": "archived"
+    }
+  ],
+  "removed_files": 1855,
+  "removed_bytes": 704374706,
+  "archived_files": 20,
+  "preserved": [
+    "Encrypted installation settings and database schema/migrations",
+    "User uploads and application/audit logs",
+    "Framework runtime storage",
+    "Root/module compatibility entry points",
+    "Composer/npm dependencies and portable Node build/formatting tools",
+    "Original installation recovery snapshot and protected retired-source archive",
+    "Current source, tests and documentation"
+  ],
+  "live_apache_checks": [
+    {
+      "path": "/login",
+      "status": 200
+    },
+    {
+      "path": "/modules/directory/",
+      "status": 200
+    },
+    {
+      "path": "/.stack-work/retired-source/includes/header.php",
+      "status": 403
+    },
+    {
+      "path": "/.stack-work/retired-source/codereview/code-review.php",
+      "status": 403
+    },
+    {
+      "path": "/.stack-work/baseline/config/config.php",
+      "status": 403
+    },
+    {
+      "path": "/.tools/node-location.txt",
+      "status": 403
+    },
+    {
+      "path": "/config/config.php",
+      "status": 403
+    },
+    {
+      "path": "/assets/vendor/poppins/fonts.css",
+      "status": 200
+    },
+    {
+      "path": "/assets/css/tailwind.css",
+      "status": 200
+    }
+  ]
+}

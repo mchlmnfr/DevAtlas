@@ -1,0 +1,15 @@
+{
+    "name": "devatlas",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "build:css": "tailwindcss -i resources/css/app.css -o assets/css/tailwind.css --minify",
+        "format:views": "node bin/format-views.js",
+        "check:views": "node bin/format-views.js --check"
+    },
+    "devDependencies": {
+        "@tailwindcss/cli": "4.3.3",
+        "js-beautify": "2.0.3",
+        "tailwindcss": "4.3.3"
+    }
+}

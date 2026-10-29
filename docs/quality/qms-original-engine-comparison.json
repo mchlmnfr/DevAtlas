@@ -1,0 +1,8 @@
+{
+    "baseline_files": 218,
+    "baseline_findings": 11858,
+    "current_files": 218,
+    "additional_current_files": 14,
+    "current_findings": 3856,
+    "note": "Uses the same original engine before and after source changes; corrected current-engine results are separate."
+}

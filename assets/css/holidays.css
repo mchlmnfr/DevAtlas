@@ -1,0 +1,45 @@
+/**
+ * Filename: holidays.css
+ * Purpose: Style the holidays interface using the shared DevAtlas design system.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ */
+
+.holiday-editor #holidayForm
+{
+    padding: 0 24px 24px
+}
+
+.holiday-editor .form-grid
+{
+    grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr)
+}
+
+#holidayYear
+{
+    max-width: 130px
+}
+
+#holidayRows td
+{
+    overflow-wrap: anywhere
+}
+
+#holidayRows .ws-actions
+{
+    flex-wrap: wrap
+}
+
+@media(max-width:600px)
+{
+    .holiday-editor #holidayForm
+    {
+        padding: 0 16px 16px
+    }
+
+    .holiday-editor .form-grid
+    {
+        grid-template-columns: 1fr
+    }
+}

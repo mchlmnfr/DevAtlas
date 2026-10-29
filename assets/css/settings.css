@@ -1,0 +1,304 @@
+/**
+ * Filename: settings.css
+ * Purpose: Style the settings interface using the shared DevAtlas design system.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ */
+
+.settings-layout
+{
+    display: grid;
+    grid-template-columns: 245px minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+}
+
+.settings-layout>aside
+{
+    position: sticky;
+    top: calc(var(--app-topbar-height, 0px) + 20px);
+}
+
+.settings-nav
+{
+    padding: 8px;
+}
+
+.settings-tab
+{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px 12px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    color: var(--muted);
+    background: transparent;
+    font-family: inherit;
+}
+
+.settings-tab+.settings-tab
+{
+    margin-top: 3px;
+}
+
+.settings-tab:hover
+{
+    background: var(--bg);
+}
+
+.settings-tab[aria-selected="true"]
+{
+    background: var(--ws-soft);
+    color: var(--ws-accent);
+    border-color: var(--border);
+}
+
+.settings-tab>.ws-icon
+{
+    width: 19px;
+    height: 19px;
+}
+
+.settings-tab strong
+{
+    font-size: 12px;
+    font-weight: 600;
+    display: block;
+}
+
+.settings-tab small
+{
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+.settings-tab i
+{
+    font-style: normal;
+    font-size: 8px;
+    color: var(--amber);
+    margin-left: auto;
+}
+
+.settings-fields
+{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+}
+
+.settings-fields .form-grid
+{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.settings-fields .form-row
+{
+    margin-bottom: 23px;
+}
+
+.settings-panels .ws-card-heading
+{
+    padding: 23px 25px;
+}
+
+.settings-panels .ws-card-body
+{
+    padding: 25px;
+}
+
+.settings-save-bar
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 18px 25px;
+    border-top: 1px solid var(--border);
+    background: var(--ws-soft);
+    border-radius: 0 0 12px 12px;
+}
+
+.settings-save-bar>span
+{
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.settings-save-bar>span.is-dirty
+{
+    color: var(--amber);
+}
+
+.settings-test-row
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 16px;
+    background: var(--bg);
+}
+
+.settings-test-row strong
+{
+    font-size: 12px;
+}
+
+.settings-test-row p
+{
+    color: var(--muted);
+    font-size: 10px;
+    margin: 5px 0 0;
+}
+
+.settings-link-example
+{
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 19px;
+    margin: 0 0 20px;
+}
+
+.settings-link-example>span
+{
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 9px;
+}
+
+.settings-link-example code
+{
+    font-size: 12px;
+    color: var(--ws-accent);
+    overflow-wrap: anywhere;
+}
+
+.settings-recovery-help
+{
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    font-size: 12px;
+}
+
+.settings-recovery-help>.ws-icon
+{
+    color: var(--ws-accent);
+}
+
+.settings-recovery-help p
+{
+    color: var(--muted);
+    line-height: 1.9;
+    font-size: 11px;
+    margin: 6px 0 0;
+}
+
+.settings-page .ws-stat strong
+{
+    font-size: 20px;
+}
+
+@media(max-width:1100px)
+{
+    .settings-layout
+    {
+        grid-template-columns: 210px minmax(0, 1fr);
+        gap: 18px;
+    }
+}
+
+@media(max-width:850px)
+{
+    .settings-layout
+    {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .settings-layout>aside
+    {
+        position: static;
+    }
+
+    .settings-nav
+    {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .settings-tab
+    {
+        flex: 1;
+        width: auto;
+        min-width: 150px;
+    }
+
+    .settings-tab+.settings-tab
+    {
+        margin: 0;
+    }
+
+    .settings-layout>aside>.ws-note
+    {
+        display: none;
+    }
+}
+
+@media(max-width:580px)
+{
+    .settings-fields .form-grid
+    {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .settings-panels .ws-card-heading,
+    .settings-panels .ws-card-body
+    {
+        padding: 20px 18px;
+    }
+
+    .settings-save-bar
+    {
+        padding: 17px 18px;
+    }
+
+    .settings-test-row
+    {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .settings-tab
+    {
+        padding: 12px;
+        min-width: 135px;
+    }
+
+    .settings-tab small
+    {
+        display: none;
+    }
+
+    .settings-tab>.ws-icon
+    {
+        width: 15px;
+        height: 15px;
+    }
+}

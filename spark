@@ -1,0 +1,22 @@
+<?php
+/**
+ * Filename: spark
+ * Purpose: Run the CodeIgniter command line tools.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-29
+ * Recent updates: Integrate CodeIgniter with preserved DevAtlas security contracts.
+ */
+
+use CodeIgniter\Boot;
+use Config\Paths;
+
+if (PHP_SAPI !== 'cli')
+{
+    http_response_code(404);
+    exit;
+}
+define('FCPATH', __DIR__ . '/public/');
+require __DIR__ . '/app/Config/Paths.php';
+$paths = new Paths();
+require $paths->systemDirectory . '/Boot.php';
+exit(Boot::bootSpark($paths));

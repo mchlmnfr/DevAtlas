@@ -1,0 +1,27 @@
+[
+    {
+        "path":  "login.php",
+        "status":  200,
+        "passed":  true
+    },
+    {
+        "path":  "config/.local-key",
+        "status":  403,
+        "passed":  true
+    },
+    {
+        "path":  "config/.local-secrets.json",
+        "status":  403,
+        "passed":  true
+    },
+    {
+        "path":  "docs/quality/qms-current.json",
+        "status":  403,
+        "passed":  true
+    },
+    {
+        "path":  ".php-cs-fixer.dist.php",
+        "status":  403,
+        "passed":  true
+    }
+]

@@ -1,0 +1,574 @@
+[
+    {
+        "path": ".php-cs-fixer.dist.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "bin/configure-secrets.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "bin/install-brand.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "bin/install-daily-logs.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "bin/install-notification-task.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "bin/install-updates.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "bin/install-wiki.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "bin/notifications.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "bin/qms-audit.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "bin/qms-layout.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "config/Database.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "config/LocalSecrets.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "config/MetadataConnection.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "config/config.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "database/migration_003_dd_connections.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_004_simplify_bookmarks.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_006_department_contacts.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_007_dd_auto_increment.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_008_units_positions_users.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_009_password_policy_and_smtp.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_010_server_fields_and_system_env.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_011_server_vault_and_expiry.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_012_user_profile_picture.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_013_requirements_traceability.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_014_dictionary_engines.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_015_email_auth.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_016_erd_generator.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_018_workflow.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_019_custom_roles.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_020_daily_logs.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_021_daily_log_reviewers.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_023_reports_module.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_024_weekly_approval_holidays.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_025_wiki_holidays_modules.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_026_head_reviews_updates.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_027_devatlas_brand.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "database/migration_028_action_reminders.sql",
+        "method": "SQL tokens and quoted values unchanged"
+    },
+    {
+        "path": "includes/docs_footer.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "includes/docs_header.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "includes/theme_control.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "includes/ui_assets.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "includes/updates_dialog.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "index.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/AccessLinks.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/ActionCenter.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/Applications.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/Audit.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/AuditQuery.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/Auth.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/CodeReview.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/Crypto.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/DailyLogCalendar.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/DailyLogReports.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/DailyLogs.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/DailyLogsWorkbook.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/DataDictionary.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/DatabaseEngines.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/EmailAuth.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/ErdGenerator.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/ErdWorkbook.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/Icons.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/LogPresenter.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/LogReminders.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/Logger.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/MigrationRunner.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/Notifications.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/OwaspReview.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/Permissions.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/ProgramInventoryReport.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/QmsCodeSniffer.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/QmsSourceSupport.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/RecordSearch.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/ReviewStore.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/Roles.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/SchemaIntrospector.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/SourceCodeInventory.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/SystemUpdates.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/SystemWiki.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/WeeklyLogReview.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/WeeklySummaryWorkbook.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/daily_logs_api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/daily_logs_page.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/helpers.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/vendor_bootstrap.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "lib/weekly_summary_dialog.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "logout.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/account/search.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/account/upload_avatar.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/applications/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/applications/index.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/audit/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/audit/client.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/audit/export.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/bookmarks/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/codereview/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/codereview/export.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/codereview/history.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/codereview/history_api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/codereview/history_export.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/dailylogs/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/dailylogs/index.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/datadict/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/datadict/excel_export.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/diagrams/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/diagrams/excel_export.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/diagrams/excel_import.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/diagrams/graphml_export.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/holidays/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/holidays/index.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/logs/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/logs/download.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/notifications/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/notifications/index.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/organization/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/permissions/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/permissions/index.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/proginventory/export.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/proginventory/export_client.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/reports/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/reports/export.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/reports/index.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/reviewlogs/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/reviewlogs/index.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/servers/rdp_download.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/settings/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/teammonitoring/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/teammonitoring/index.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/updates/api.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "modules/wiki/index.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/action-center.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/audit.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/branding.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/code-review-limits.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/config-secrets.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/custom-roles.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/daily-logs.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/data-dictionary.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/email-auth.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/erd-generator.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/head-reviews-updates.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/log-viewer.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/qms-maintenance.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    },
+    {
+        "path": "tests/workflows.php",
+        "method": "PHP executable tokens and literal values unchanged"
+    }
+]

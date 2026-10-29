@@ -1,0 +1,9 @@
+# Code Review uses one JSON request for a folder, not one multipart upload per file.
+# Keep the larger request allowance local to this module.
+<IfModule php_module>
+  php_value post_max_size 128M
+  php_value max_execution_time 300
+</IfModule>
+<Files ".user.ini">
+  Require all denied
+</Files>

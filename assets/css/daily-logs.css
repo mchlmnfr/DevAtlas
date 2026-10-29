@@ -1,0 +1,285 @@
+/**
+ * Filename: daily-logs.css
+ * Purpose: Style the daily logs interface using the shared DevAtlas design system.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-10-28
+ * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ */
+
+.dl-week-note
+{
+    margin-bottom: 22px
+}
+
+.dl-fieldset
+{
+    padding: 0;
+    margin: 0;
+    border: 0;
+    min-width: 0
+}
+
+.dl-full
+{
+    grid-column: 1/-1
+}
+
+.dl-bulk
+{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border)
+}
+
+.dl-bulk input[type=text]
+{
+    flex: 1;
+    min-width: 170px
+}
+
+.dl-bulk>span
+{
+    font-size: 11px;
+    color: var(--muted)
+}
+
+.dl-table
+{
+    width: 100%
+}
+
+.dl-table input[type=checkbox]
+{
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary)
+}
+
+.dl-table .dl-person
+{
+    min-width: 180px
+}
+
+.dl-table .dl-day
+{
+    text-align: center;
+    min-width: 84px
+}
+
+.dl-day strong
+{
+    font-variant-numeric: tabular-nums
+}
+
+.dl-day.dl-incomplete
+{
+    background: #d6454508
+}
+
+.dl-day.dl-complete
+{
+    background: #419b7f0c
+}
+
+.dl-total
+{
+    min-width: 160px
+}
+
+.dl-total progress
+{
+    display: block;
+    width: 100%;
+    height: 5px;
+    margin-top: 10px;
+    accent-color: var(--ws-accent)
+}
+
+.dl-table td .ws-actions
+{
+    flex-wrap: nowrap
+}
+
+.dl-week-table
+{
+    min-width: 1150px
+}
+
+#logDetail dd
+{
+    white-space: pre-wrap;
+    overflow-wrap: anywhere
+}
+
+#logDetail textarea,
+#logEditor textarea
+{
+    width: 100%;
+    resize: vertical
+}
+
+#entryHours
+{
+    max-width: 240px
+}
+
+#weekCovered
+{
+    font-size: 12px;
+    margin: 12px 0;
+    min-height: 18px
+}
+
+#memberLogRows .wf-note
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px
+}
+
+#memberLogRows .wf-note p
+{
+    margin: 0
+}
+
+#memberLogs
+{
+    width: min(900px, calc(100% - 28px))
+}
+
+@media(max-width:600px)
+{
+    #logEditor .form-grid
+    {
+        grid-template-columns: minmax(0, 1fr)
+    }
+
+    .dl-bulk input[type=text]
+    {
+        flex-basis: 100%
+    }
+
+    .dl-bulk .btn
+    {
+        flex: 1
+    }
+}
+
+.dl-table th small
+{
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 0;
+    font-weight: 500
+}
+
+.dl-input-progress
+{
+    margin-top: 10px;
+    padding: 9px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: var(--ws-soft)
+}
+
+.dl-input-progress strong
+{
+    font-size: 12px;
+    color: var(--ws-accent)
+}
+
+.dl-day.dl-nonworking
+{
+    background: var(--bg);
+    color: var(--muted)
+}
+
+#weekReview textarea
+{
+    width: 100%
+}
+
+#weekReviewRows
+{
+    margin-bottom: 20px
+}
+
+.dl-reviewer-row
+{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 1.3fr) auto;
+    align-items: end;
+    gap: 14px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border)
+}
+
+.dl-reviewer-row strong
+{
+    font-size: 12px
+}
+
+.dl-reviewer-row small
+{
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 7px;
+    line-height: 1.7
+}
+
+.dl-reviewer-row .dl-reviewer-warning
+{
+    color: var(--red)
+}
+
+.dl-reviewer-row select
+{
+    width: 100%
+}
+
+@media(max-width:600px)
+{
+    .dl-reviewer-row
+    {
+        grid-template-columns: minmax(0, 1fr)
+    }
+
+    .dl-reviewer-row .btn
+    {
+        justify-self: end
+    }
+}
+
+.dl-activity-help
+{
+    margin-top: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--primary);
+    border-radius: 7px;
+    background: var(--bg);
+    font-size: 11px;
+    line-height: 1.8;
+    overflow-wrap: anywhere
+}
+
+.dl-activity-help strong
+{
+    display: block;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 600
+}
+
+.dl-activity-help p
+{
+    margin: 5px 0 0;
+    color: var(--muted)
+}

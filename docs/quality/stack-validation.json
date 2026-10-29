@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-29",
+  "views": 44,
+  "routes": 142,
+  "php_syntax": 275,
+  "suites": 24,
+  "assertions": 1705,
+  "qms_files": 364,
+  "qms_raw_findings": 804,
+  "preservation": {
+    "database/schema.sql": true,
+    "lib/DailyLogs.php": true,
+    "lib/LeaveRequests.php": true,
+    "lib/WeeklyLogReview.php": true,
+    "lib/DailyLogCalendar.php": true,
+    "lib/DailyLogReports.php": true,
+    "lib/Crypto.php": true,
+    "config/.local-key": true,
+    "config/.local-secrets.json": true
+  },
+  "live_record_counts": {
+    "users": 2,
+    "daily_logs": 0,
+    "leave_applications": 0
+  },
+  "clean_url_apache_checks": 7,
+  "cleanup_removed_files": 1855,
+  "cleanup_removed_bytes": 704374706,
+  "cleanup_archived_files": 20,
+  "tailwind_sha256": "f01f57fea5cb432c0f9545e43cdda8569ff0cc7207b467f58e713355dbe886b7",
+  "cleanup_archive_hashes_verified": true
+}
