@@ -161,7 +161,7 @@ try
     Audit::Finish();
     $partial = $db->query('SELECT * FROM audit_events ORDER BY event_id DESC LIMIT 1')->getUnbufferedRow('array');
     AuCheck($partial['outcome'] === 'partial' && json_decode($partial['details'], true)['error_count'] === 1 && !str_contains(json_encode($partial), 'BULK_SECRET_SENTINEL'), 'Mixed import results are partial without retaining raw error text.');
-    AuCheck(!glob($temp.'/app-*.log'), 'Audit finalization produced no fallback errors.');
+    AuCheck(!glob($temp.'/log-*.log'), 'Audit finalization produced no fallback errors.');
     echo "Audit regression fixtures: {$checks} assertions passed.\n";
 }
 finally

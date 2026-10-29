@@ -73,7 +73,7 @@ class LogsController extends BaseController
                 $limit = min(2000, max(10, (int)($_GET['limit'] ?? 500)));
                 if (!Logger::ValidName($file))
                 {
-                    JsonError('Choose a valid daily application log.');
+                    JsonError('Choose a valid daily CodeIgniter log.');
                 }
                 if (Logger::PathFor($file) === null)
                 {
@@ -105,7 +105,7 @@ class LogsController extends BaseController
                 }
                 if (!Logger::ValidName($file))
                 {
-                    JsonError('Choose a valid daily application log.');
+                    JsonError('Choose a valid daily CodeIgniter log.');
                 }
                 if (Logger::PathFor($file) === null)
                 {
@@ -122,8 +122,18 @@ class LogsController extends BaseController
             case 'test_log_entry': 
             {
                 // Lets the user confirm logging is working end-to-end from the UI.
-                Logger::Log('info', 'Test log entry created from the Error Logs page.', ['triggered_by' => 'manual test button']);
-                JsonResponse(['ok' => true,'file' => 'app-'.Date('Y-m-d').'.log']);
+                $id = bin2hex(random_bytes(12));
+                Logger::Log('info', 'Test log entry created from the CodeIgniter Logs page.', ['diagnostic_id' => $id]);
+                $file = Logger::CurrentFilename();
+                $recorded = false;
+                if ($file !== null && Logger::PathFor($file) !== null)
+                {
+                    foreach (Logger::ReadFile($file, 20) as $entry)
+                    {
+                        $recorded = $recorded || ($entry['context']['diagnostic_id'] ?? null) === $id;
+                    }
+                }
+                JsonResponse(['ok' => $recorded, 'file' => $file, 'message' => $recorded ? 'Diagnostic entry added to the CodeIgniter log.' : 'The diagnostic was not recorded. Check the framework logging threshold, file handler and folder permissions.']);
             }
 
             default:
@@ -135,7 +145,7 @@ class LogsController extends BaseController
     {
         /**
          * modules/logs/download.php
-         * Streams a raw log file for download (the logs/ folder itself is
+         * Streams a raw CodeIgniter log for download (writable/ itself is
          * denied direct web access via .htaccess, so this is the only path in).
          */
         require_once (ROOTPATH . 'modules/logs') . '/../../config/config.php';
@@ -173,8 +183,8 @@ class LogsController extends BaseController
 
     public function Index()
     {
-        $pageTitle = 'Error Logs';
-        $pageSubtitle = 'Understand recorded errors, warnings and requests';
+        $pageTitle = 'CodeIgniter Logs';
+        $pageSubtitle = 'Framework errors, warnings and application events';
         $activeNav = 'logs';
         $bodyClass = 'logs-page';
         $pageStyles = ['assets/css/logs.css'];

@@ -2,18 +2,21 @@
 
 DevAtlas runs on **CodeIgniter 4 + HTMX + Alpine.js + Tailwind CSS**, with PostgreSQL and the existing departmental workflows. Module controllers live in `app/Controllers`; readable module templates and shared layouts live in `app/Views`. Navigation uses clean URLs such as `/AnalystToolkit/login` and `/AnalystToolkit/modules/dailylogs/`. Existing `.php` page bookmarks redirect to their clean URLs and retain query parameters. Legacy POST and API endpoints remain compatible.
 
-Requires PHP 8.2+, `intl`, `mbstring` and the existing PostgreSQL extensions. Node is needed only for development tooling and CSS compilation. See [stack migration and installation notes](docs/STACK_MIGRATION.md) for architecture, session compatibility, build commands, Apache configuration and recovery information.
+Requires PHP 8.1+, `intl`, `mbstring` and the existing PostgreSQL extensions. Node is needed only for development tooling and CSS compilation. See [stack migration and installation notes](docs/STACK_MIGRATION.md) for architecture, session compatibility, build commands, Apache configuration and recovery information. The [project handoff](docs/PROJECT_HANDOFF.md) retains historical implementation details; the [framework inventory](docs/FRAMEWORK_STRUCTURE.md) explains the CodeIgniter scaffold and cleanup.
 
 ```powershell
 composer install --no-dev --prefer-dist
 npm ci --ignore-scripts
 npm run build:css
-npm run format:views
 npm run check:views
 python tests/run-quality.py
 ```
 
 Code Review and the repository QMS audit target our source. Installed vendor libraries, plugins, Node packages, generated CSS/runtime data and hidden tooling are excluded. Authored `assets/js`, `assets/css` and `resources/css` remain included. Framework-required method/configuration names and existing database/API contracts are documented review exceptions; raw diagnostics remain visible.
+
+The PHP 8.1 profile pins CodeIgniter 4.6.5 and compatible dependencies. See
+[PHP 8.1 compatibility](docs/PHP81_COMPATIBILITY.md) for installation, current
+validation and the older framework’s known security advisories.
 
 ## DevAtlas design and compatibility
 
@@ -61,21 +64,22 @@ directly serving. Fixtures use disposable schemas and browser profiles; mail tes
 use loopback SMTP. External database engines and production SMTP delivery require
 their own configured environment checks. The validation report records scope and limits.
 
-Connection passwords and the existing vault key are stored in authenticated encrypted
-installation configuration: `config/.local-secrets.json`, with its 32-byte key in
-the protected `config/.local-key`. Both are installation state; retain them when
-moving or backing up this installation. The vault key value is preserved.
-Deployments may supply a 64-character hexadecimal `DEVATLAS_CONFIG_KEY` and an
-alternate `DEVATLAS_SECRETS_FILE` path.
+All installation configuration lives in the ignored root `.env` file: database
+connections and passwords, application name/URL/timezone, and the vault encryption
+key. `config/config.php` reads these values instead of containing installation
+values. The committed `.env.example` file is a template without real credentials; the
+CodeIgniter `env` template contains the same settings.
 
-For a new installation, pass a JSON object containing `DB_PASS`, `TARGET_DB_PASS`
-and `APP_ENCRYPTION_KEY` on standard input to `php bin/configure-secrets.php`.
-For an existing installation, supply only the values to update; omitted values
-and the configuration key are retained. The utility authenticates existing settings,
-verifies encryption and never prints the supplied values. Existing database secrets
-were migrated with their values verified unchanged.
-New installations require a vault key of at least 32 bytes. Changes to an existing
-vault key require a separate credential migration and are rejected by this utility.
+For a new installation, copy `.env.example` to `.env` if it does not already exist, fill
+in the settings and generate a vault key once. Existing encrypted installations
+run `php bin/migrate-env.php` to preserve the exact passwords and vault key in a
+new `.env`; the command never overwrites an existing file or prints secrets.
+Review customized non-secret settings before startup. The old encrypted files
+are retained for recovery and are no longer used by the application at runtime.
+
+See [environment configuration](docs/ENVIRONMENT.md) for the complete variable
+list, migration steps, file permissions and override behavior. Do not regenerate
+an existing vault key: doing so makes existing encrypted credentials unreadable.
 
 Migration installers use `MigrationRunner` to write start, completion and failure
 records to `logs/migrations/<script-basename>.log`, including the script checksum.
@@ -836,11 +840,11 @@ AnalystToolkit/
     Controllers/     Module page, API and export actions
     Views/           Readable module templates, layouts and partials
     Helpers/         Application presentation helpers
-  public/index.php   CodeIgniter HTTP bootstrap
+  public/            CodeIgniter HTTP bootstrap and public defaults
   resources/css/     Editable Tailwind source
   assets/            Local runtime styles, scripts, fonts and icons
   lib/               Domain services and review engines
-  config/            PDO connection and protected installation settings
+  config/            Dotenv loader, compatibility constants and DB connections
   database/          Schema and incremental migrations
   modules/           Compatibility entry points for existing integrations
   bin/               Maintenance and formatting commands
@@ -852,6 +856,7 @@ AnalystToolkit/
   node_modules/      Installed development/build dependencies
   index.php          Compatibility bootstrap for the application root
   spark              CodeIgniter command-line entry point
+  env                CodeIgniter environment template (copy to ignored .env)
 ```
 
 Module business logic lives in controllers and domain services; shared layouts
@@ -883,27 +888,39 @@ See [migration notes](docs/STACK_MIGRATION.md) for build and recovery details.
    psql -U postgres -d analyst_toolkit -f database/migration_004_simplify_bookmarks.sql
    ```
 
-### b) PHP / WAMP
-1. Ensure the **pdo_pgsql** extension is enabled in `php.ini` (needed for the app's own database, and to import from PostgreSQL targets):
+### b) PHP / Apache
+1. Use PHP 8.1 or newer with `intl`, `mbstring`, `pdo_pgsql`, `pgsql`, and the
+   extensions required by Composer. Additional database engines need their own
+   PDO/ODBC drivers. `composer check-platform-reqs` verifies installed dependencies.
+2. Install the locked dependencies in the application root:
+   ```sh
+   composer install --no-dev --prefer-dist --no-interaction
+   npm ci --ignore-scripts
+   npm run build:css
+   npm run check:views
    ```
-   extension=pdo_pgsql
-   extension=pgsql
-   ```
-   If you also want the Data Dictionary's **Import from DB** to reach MySQL/MariaDB databases, also enable:
-   ```
-   extension=pdo_mysql
-   ```
-   (In WAMP's tray menu: PHP → PHP Extensions → tick the relevant ones, then restart services.)
-2. Copy `www/AnalystToolkit` into `C:\wamp64\www\`.
-3. Edit the non-secret connection values in `config/config.php`, then initialize passwords and the vault key with `bin/configure-secrets.php` as described above. The old `TARGET_DB_*` constants are retained for compatibility: the Data Dictionary's **Import from DB** modal asks for engine/host/port/username/password/database/schema directly, or lets you save/reuse a named connection profile, so it can point at any reachable database.
-4. **Optional, only needed for the ERD Generator's Excel import/export:** open a terminal in `www/AnalystToolkit` and run:
-   ```
-   composer install
-   ```
-   This downloads `phpoffice/phpspreadsheet` into `vendor/` — a one-time step that needs internet access to Packagist. The app runs fully offline afterward. Skipping this is fine; every other module works normally, and Excel import/export will just show a message telling you to run it.
-5. Browse to `http://localhost/AnalystToolkit/`.
+   Composer is required for CodeIgniter itself as well as Excel and mail features.
+   Node is needed for build/formatting tools only. Runtime assets are self-hosted.
+3. Configure all installation variables in the ignored root `.env`. For a new
+   installation, copy `.env.example` to `.env` only if it does not exist. Existing encrypted
+   installations use `php bin/migrate-env.php` to retain passwords and the vault
+   key, then review any non-secret values customized on that installation.
+4. Set database credentials, the existing vault key, application name, URL and
+   timezone in `.env`; see [environment configuration](docs/ENVIRONMENT.md).
+   Native CodeIgniter settings use its normal dotted names in the same file.
+5. Keep `writable/cache`, `writable/debugbar`, `writable/logs`, `writable/session`
+   and `writable/uploads` writable by PHP. Git retains their placeholder files;
+   generated content is ignored. Existing user uploads remain under root `uploads/`.
+6. Use the Apache application directory at `/AnalystToolkit/` as the compatibility
+   document root with `mod_rewrite` and `.htaccess` enabled. Do not switch to
+   `public/` without configuring the existing asset/upload mappings; see the
+   [deployment notes](docs/STACK_MIGRATION.md).
+7. Run `php spark list` and `php spark routes` to verify framework startup.
 
-No outbound internet access is required at runtime — CSS, JS, and all application logic are served from the local filesystem. (The one exception is the optional one-time `composer install` above, exactly like installing any PHP library.)
+No outbound internet access is required at runtime. Dependency installation and
+updates require access to the package hosts. Browser regression suites currently
+use Windows PHP/Edge paths; the existing PHP suites can also be run individually
+with `php tests/<suite>.php` on a configured Linux installation.
 
 ## 3. Modules
 
@@ -951,13 +968,18 @@ keyboard opening and Escape, and closes when focus or a click leaves it.
   generated per page load and validated server-side.
 - All SQL uses parameterized PDO statements — no string-concatenated queries.
 - `config/`, `lib/`, and `includes/` are denied direct web access via `.htaccess`.
-- `display_errors` is on for local development in `config.php` — turn it off before exposing
-  this beyond localhost.
+- `CI_ENVIRONMENT` in `.env` controls error visibility. Use `production` outside
+  local development.
 
 ## 6. Error Logs
 
-Application events are written as JSON lines to daily `logs/app-YYYY-MM-DD.log`
-files. Error Logs shows plain-language explanations and suggested checks, groups
+The Logs module reads CodeIgniter 4 file-handler logs, normally
+`writable/logs/log-YYYY-MM-DD.log`. The configured framework directory, extension
+and date format are respected. Exceptions and their multiline stack traces remain
+one event. Existing application logging calls now use the native framework logger;
+old `logs/app-*.log` files are retained but excluded from this viewer.
+
+CodeIgniter Logs shows plain-language explanations and suggested checks, groups
 repeated events, and provides severity/area/search filters, occurrence counts,
 sorting and pagination. Original messages and technical context are expandable;
 Copy summary produces a support-ready report with common credentials hidden.
@@ -970,7 +992,9 @@ historical; suggested checks are rule-based guidance rather than confirmed cause
 
 Raw downloads retain original content. The More menu contains the diagnostic
 entry action and daily-file deletion, with confirmation that the entire selected
-file will be removed. Reads require sign-in; writes require POST and CSRF. File
+file will be removed. Diagnostic entries use the framework information level;
+when that level is disabled, the page reports that no entry was recorded. Set
+`logger.threshold = 7` or `9` in `.env` to include informational diagnostics. Reads require sign-in; writes require POST and CSRF. File
 access is restricted to valid daily log names, and `logs/` remains blocked from
 direct HTTP access. Existing logs are not rewritten by the viewer. No migration
 or new dependency is needed. Run `C:\xampp\php\php.exe tests\log-viewer.php` for
@@ -996,8 +1020,3 @@ is the default and tracks live device changes. Browser preferences use
 - Any PHP boolean value headed into a PDO `execute()` params array for a Postgres boolean
   column must go through the `pg_bool()` helper in `lib/helpers.php` first — binding a raw
   PHP `false` produces an empty string, which Postgres rejects.
-#   D e v A t l a s  
- #   D e v A t l a s  
- #   D e v A t l a s  
- #   D e v A t l a s  
- 

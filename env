@@ -1,0 +1,41 @@
+# Copy to .env for a new installation; never commit real credentials.
+# Existing encrypted installations: run php bin/migrate-env.php first to preserve
+# the database passwords and exact vault key, then review the non-secret settings.
+
+CI_ENVIRONMENT = production
+APP_NAME = 'DevAtlas'
+APP_ORIGIN = 'http://localhost'
+# Installation URL path, without a trailing slash. Use '' for the domain root.
+APP_BASE_URL = '/AnalystToolkit'
+APP_TIMEZONE = 'Asia/Singapore'
+
+DB_HOST = '127.0.0.1'
+DB_PORT = '5432'
+DB_NAME = 'analyst_toolkit'
+DB_USER = 'postgres'
+DB_PASS = ''
+DB_SCHEMA = 'toolkit'
+# Keep database exceptions enabled for application constraint validation.
+# CI_ENVIRONMENT controls whether errors are shown to the browser.
+DB_DEBUG = true
+
+# Legacy default target connection; interactive imports can use saved DB profiles.
+TARGET_DB_HOST = '127.0.0.1'
+TARGET_DB_PORT = '5432'
+TARGET_DB_NAME = 'analyst_toolkit'
+TARGET_DB_USER = 'postgres'
+TARGET_DB_PASS = ''
+TARGET_DB_SCHEMA = 'public'
+
+# REQUIRED: preserve the exact existing value on upgrades. For a new installation
+# generate once with: php -r 'echo bin2hex(random_bytes(32)), PHP_EOL;'
+APP_ENCRYPTION_KEY = ''
+
+# Native CodeIgniter settings derive from the same application variables above.
+app.baseURL = "${APP_ORIGIN}${APP_BASE_URL}/"
+app.appTimezone = "${APP_TIMEZONE}"
+# app.forceGlobalSecureRequests = false
+# app.CSPEnabled = false
+# logger.threshold = 4
+# Threshold 4 records errors and above; 5 adds warnings; 7 adds information
+# (including Logs-module diagnostic entries); 9 includes all framework levels.

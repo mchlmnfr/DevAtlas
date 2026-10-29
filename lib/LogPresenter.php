@@ -14,7 +14,10 @@ final class LogPresenter
     private const MODULES = ['datadict' => 'Data Dictionary','directory' => 'Call Directory','servers' => 'Server Inventory','codereview' => 'Code Review',
         'requirements' => 'Requirements','organization' => 'Organization','users' => 'Users','account' => 'Account','logs' => 'Error Logs','audit' => 'Audit Logs',
         'diagrams' => 'ERD Generator','bookmarks' => 'Access Links','programs' => 'Program Inventory','inventory' => 'Program Inventory','parameters' => 'Parameters',
-        'proginventory' => 'Program Inventory','settings' => 'Parameters','usermgmt' => 'Users'];
+        'proginventory' => 'Program Inventory','settings' => 'Parameters','usermgmt' => 'Users',
+        'dailylogs' => 'My Daily Logs','teammonitoring' => 'Team Monitoring','reviewlogs' => 'Review Daily Logs',
+        'approvals' => 'Approvals','leaves' => 'Leaves','reports' => 'Reports','holidays' => 'Holidays',
+        'wiki' => 'Documents Wiki','notifications' => 'Notifications','authentication' => 'Sign in','home' => 'Dashboard'];
 
     public static function Present(array $entry): array
     {
@@ -43,17 +46,21 @@ final class LogPresenter
         {
             $module = self::MODULES[$match[1]] ?? 'Application';
         }
-        elseif (str_ends_with($path, '/login.php'))
+        elseif (preg_match('~/(?:login|login\.php)$~D', $path))
         {
             $module = 'Sign in';
         }
-        elseif (str_ends_with($path, '/change_password.php'))
+        elseif (preg_match('~/(?:change-password|change_password\.php)$~D', $path))
         {
             $module = 'Account';
         }
-        elseif (str_ends_with($path, '/index.php') && !str_contains($path, '/modules/'))
+        elseif ($path === '/' || (defined('APP_BASE_URL') && rtrim($path, '/') === APP_BASE_URL) || (str_ends_with($path, '/index.php') && !str_contains($path, '/modules/')))
         {
             $module = 'Dashboard';
+        }
+        elseif (preg_match('~(?:^|/)([A-Za-z]+)Controller\.php$~D', $file, $match))
+        {
+            $module = self::MODULES[strtolower($match[1])] ?? 'Application';
         }
         [$title,$meaning,$next,$category] = self::Explain($message, $status, $severity, $entry['structured'] ?? true);
         $signature = hash('sha256', json_encode([$level,$message,$file,$context['line'] ?? null,$route,$status], JSON_INVALID_UTF8_SUBSTITUTE));
@@ -68,7 +75,7 @@ final class LogPresenter
         $lower = strtolower($message);
         if (!$isStructured)
         {
-            return ['Entry has an unrecognized format','This line could not be read as a structured application event. Its severity and time are unknown.','Review the original line in Technical details or download the raw file.','Other'];
+            return ['Entry has an unrecognized format','This record does not match the CodeIgniter log format. Its severity and time are unknown.','Review the original text in Technical details or download the raw file.','Other'];
         }
         if ($status === 419 || str_contains($lower, 'csrf'))
         {

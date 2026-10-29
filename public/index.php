@@ -10,10 +10,10 @@
 use CodeIgniter\Boot;
 use Config\Paths;
 
-if (version_compare(PHP_VERSION, '8.2.0', '<'))
+if (version_compare(PHP_VERSION, '8.1.0', '<'))
 {
     http_response_code(503);
-    exit('DevAtlas requires PHP 8.2 or newer.');
+    exit('DevAtlas requires PHP 8.1 or newer.');
 }
 define('DEVATLAS_CI', true);
 defined('FCPATH') || define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);

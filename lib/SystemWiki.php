@@ -84,7 +84,7 @@ class SystemWiki
             ['settings','Parameter','Parameters','Configure password policy, email delivery and account recovery links.',
                 ['Open the relevant Password Policy, Email Delivery or Recovery Links section.','Update and save that section; review its validation and saved-state indicator.','Use the saved SMTP settings for a test email before relying on email delivery.'],
                 'Sections save independently. A blank SMTP password keeps the existing saved password. A Configured status indicates settings are present, not confirmed inbox delivery.'],
-            ['logs','Logs','Error','Inspect application errors and diagnose failed operations.',
+            ['logs','Logs','CodeIgniter','Inspect CodeIgniter framework errors and application events from its configured daily file logs.',
                 ['Filter or search log entries to locate the relevant time and error.','Inspect the details needed to reproduce and investigate the issue.','Use permitted export or log-maintenance actions when necessary.'],
                 'Access and maintenance are role-controlled. Error logs can contain operational details and should be shared only with appropriate maintainers.'],
             ['audit','Logs','Audit','Review recorded activity, authorization outcomes and data changes.',

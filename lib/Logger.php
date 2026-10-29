@@ -2,39 +2,79 @@
 
 /**
  * Filename: Logger.php
- * Purpose: Provide logger processing and supporting DevAtlas workflows.
+ * Purpose: Read CodeIgniter file logs and forward legacy logging calls to the framework.
  * Developer: DevAtlas maintainers
  * Date: 2026-10-28
  * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
  */
 
-/** Daily JSON-line logs with bounded previews and strict daily-file access. */
+/** CodeIgniter file logging with bounded, multiline-aware previews. */
 class Logger
 {
+    // Retained as an isolated-directory override for regression fixtures.
     private static ?string $directory = null;
     private const MAX_PREVIEW_BYTES = 4194304;
+    private const HEADER = '/^(EMERGENCY|ALERT|CRITICAL|ERROR|WARNING|NOTICE|INFO|DEBUG) - (.+?) --> ?(.*)$/m';
 
-    private static function Dir(): string
+    private static function Settings(): ?array
     {
-        $dir = self::$directory ?? __DIR__.'/../logs';
-        if (!is_dir($dir))
+        require_once __DIR__ . '/Framework.php';
+        Framework::Boot();
+        $config = config('Logger');
+        $handler = $config->handlers[CodeIgniter\Log\Handlers\FileHandler::class] ?? null;
+        if (!is_array($handler))
         {
-            @mkdir($dir, 0775, true);
+            return null;
         }
-        if (is_dir($dir) && !file_exists($dir.'/.htaccess'))
+        $extension = ltrim($handler['fileExtension'] ?? '', '.');
+        $extension = $extension === '' ? 'log' : $extension;
+        if (!preg_match('/^[a-zA-Z0-9]+$/D', $extension))
         {
-            @file_put_contents($dir.'/.htaccess', "Require all denied\n");
+            throw new RuntimeException('The framework log file extension is not supported.');
         }
-        return $dir;
+        $path = self::$directory ?? (($handler['path'] ?? '') ?: WRITEPATH . 'logs/');
+        return ['directory' => rtrim($path, '/\\'), 'extension' => $extension, 'date_format' => $config->dateFormat];
     }
+
+    public static function CurrentFilename(): ?string
+    {
+        $settings = self::Settings();
+        return $settings === null ? null : 'log-' . date('Y-m-d') . '.' . $settings['extension'];
+    }
+
     public static function Log(string $level, string $message, array $context = []): void
     {
-        $entry = ['time' => Date('c'),'level' => strtoupper($level),'message' => $message,'context' => $context];
-        @file_put_contents(self::Dir().'/app-'.Date('Y-m-d').'.log', json_encode($entry, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE)."\n", FILE_APPEND | LOCK_EX);
+        try
+        {
+            require_once __DIR__ . '/Framework.php';
+            Framework::Boot();
+            $level = strtolower($level);
+            $level = ['fatal' => 'critical', 'php_warning' => 'warning', 'warn' => 'warning', 'success' => 'info'][$level] ?? $level;
+            if ($context !== [])
+            {
+                $message .= "\nContext: " . json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR);
+            }
+            $logger = service('logger');
+            if (self::$directory !== null)
+            {
+                $config = clone config('Logger');
+                $config->handlers = [CodeIgniter\Log\Handlers\FileHandler::class => array_replace($config->handlers[CodeIgniter\Log\Handlers\FileHandler::class], ['path' => rtrim(self::$directory, '/\\') . DIRECTORY_SEPARATOR])];
+                $logger = new CodeIgniter\Log\Logger($config, false);
+            }
+            // A constant placeholder prevents message text from expanding {env:...}
+            // or other framework placeholders supplied by request data.
+            $logger->log($level, '{devatlas_message}', ['devatlas_message' => $message]);
+        }
+        catch (Throwable $error)
+        {
+            error_log('[DevAtlas] CodeIgniter logging could not write an event.');
+        }
     }
+
     public static function ValidName(string $filename): bool
     {
-        return preg_match('/^app-(\d{4})-(\d{2})-(\d{2})\.log$/D', $filename, $match) === 1 && checkdate((int)$match[2], (int)$match[3], (int)$match[1]);
+        $settings = self::Settings();
+        return $settings !== null && preg_match('/^log-(\d{4})-(\d{2})-(\d{2})\.' . preg_quote($settings['extension'], '/') . '$/D', $filename, $match) === 1 && checkdate((int)$match[2], (int)$match[3], (int)$match[1]);
     }
     public static function PathFor(string $filename): ?string
     {
@@ -42,7 +82,8 @@ class Logger
         {
             return null;
         }
-        $root = realpath(self::Dir());
+        $settings = self::Settings();
+        $root = $settings === null ? false : realpath($settings['directory']);
         if (!$root)
         {
             return null;
@@ -58,7 +99,12 @@ class Logger
     public static function ListFiles(): array
     {
         $files = [];
-        foreach (glob(self::Dir().'/app-*.log') ?: [] as $path)
+        $settings = self::Settings();
+        if ($settings === null)
+        {
+            return [];
+        }
+        foreach (glob($settings['directory'] . '/log-*.' . $settings['extension']) ?: [] as $path)
         {
             if (self::PathFor(basename($path)) !== null)
             {
@@ -87,7 +133,7 @@ class Logger
     {
         if (!self::ValidName($filename))
         {
-            throw new InvalidArgumentException('Choose a valid daily application log.');
+            throw new InvalidArgumentException('Choose a valid daily CodeIgniter log.');
         }
         $path = self::PathFor($filename);
         if (!$path)
@@ -102,13 +148,13 @@ class Logger
         $limit = max(1, min(2000, $limit));
         $buffer = '';
         $bytes = 0;
-        $newlines = 0;
+        $headers = 0;
         try
         {
             flock($handle, LOCK_SH);
             $stat = fstat($handle);
             $position = (int)$stat['size'];
-            while ($position > 0 && $newlines <= $limit && $bytes < self::MAX_PREVIEW_BYTES)
+            while ($position > 0 && $headers <= $limit && $bytes < self::MAX_PREVIEW_BYTES)
             {
                 $length = min(16384, $position, self::MAX_PREVIEW_BYTES - $bytes);
                 $position -= $length;
@@ -120,7 +166,7 @@ class Logger
                 }
                 $buffer = $chunk.$buffer;
                 $bytes += strlen($chunk);
-                $newlines += substr_count($chunk, "\n");
+                $headers = preg_match_all(self::HEADER, $buffer);
             }
         }
         finally
@@ -134,25 +180,78 @@ class Logger
             $firstBreak = strpos($buffer, "\n");
             $buffer = $firstBreak === false ? '' : substr($buffer, $firstBreak + 1);
         }
-        $lines = array_values(array_filter(preg_split('/\r\n|\n|\r/', $buffer), static fn ($line) => trim($line) !== ''));
-        $isHasMore = $position > 0 || count($lines) > $limit;
-        $entries = [];
-        foreach (array_reverse(array_slice($lines, -$limit)) as $line)
+        // A tail window may begin inside a stack trace: discard the incomplete
+        // oldest event instead of presenting its frames as independent entries.
+        if ($position > 0)
         {
-            $decoded = json_decode($line, true, 512, JSON_INVALID_UTF8_SUBSTITUTE);
-            if (!is_array($decoded) || !array_key_exists('message', $decoded))
+            $buffer = preg_match(self::HEADER, $buffer, $first, PREG_OFFSET_CAPTURE) ? substr($buffer, $first[0][1]) : '';
+        }
+        $records = [];
+        $current = null;
+        foreach (explode("\n", str_replace("\r\n", "\n", $buffer)) as $line)
+        {
+            if (preg_match(self::HEADER, $line, $header))
             {
-                $entries[] = ['time' => null,'level' => 'UNKNOWN','message' => mb_convert_encoding($line, 'UTF-8', 'UTF-8'),'context' => [],'structured' => false];
+                if ($current !== null)
+                {
+                    $records[] = $current;
+                }
+                $current = ['time' => $header[2], 'level' => $header[1], 'message' => $header[3], 'context' => [], 'structured' => true];
+            }
+            elseif (trim($line) === "<?php defined('SYSTEMPATH') || exit('No direct script access allowed'); ?>")
+            {
                 continue;
             }
-            $entries[] = ['time' => is_string($decoded['time'] ?? null) ? mb_substr($decoded['time'], 0, 100) : null,
-                'level' => is_string($decoded['level'] ?? null) ? strtoupper(mb_substr(trim($decoded['level']), 0, 30)) : 'UNKNOWN',
-                'message' => is_string($decoded['message']) ? $decoded['message'] : (json_encode($decoded['message'], JSON_INVALID_UTF8_SUBSTITUTE) ?: ''),
-                'context' => is_array($decoded['context'] ?? null) ? $decoded['context'] : [], 'structured' => true];
+            elseif ($current !== null)
+            {
+                $current['message'] .= "\n" . $line;
+            }
+            elseif (trim($line) !== '')
+            {
+                $current = ['time' => null, 'level' => 'UNKNOWN', 'message' => $line, 'context' => [], 'structured' => false];
+            }
         }
+        if ($current !== null)
+        {
+            $records[] = $current;
+        }
+        $isHasMore = $position > 0 || count($records) > $limit;
+        $entries = array_map([self::class, 'ParseEntry'], array_reverse(array_slice($records, -$limit)));
         return ['file' => $filename,'size' => (int)$stat['size'],'modified' => (int)$stat['mtime'],'entries' => $entries,
             'returned' => count($entries),'limit' => $limit,'has_more' => $isHasMore,'preview_limited' => $isPreviewLimited,'preview_bytes' => $bytes];
     }
+    private static function ParseEntry(array $entry): array
+    {
+        $entry['message'] = mb_convert_encoding(rtrim($entry['message']), 'UTF-8', 'UTF-8');
+        if (!$entry['structured'])
+        {
+            return $entry;
+        }
+        $settings = self::Settings();
+        $format = ['c' => DateTimeInterface::ATOM, 'r' => DateTimeInterface::RFC2822][$settings['date_format']] ?? $settings['date_format'];
+        $date = str_contains($entry['time'], "\0") ? false : DateTimeImmutable::createFromFormat('!' . $format, $entry['time'], new DateTimeZone(config('App')->appTimezone));
+        $errors = DateTimeImmutable::getLastErrors();
+        $entry['time'] = $date !== false && ($errors === false || ($errors['warning_count'] === 0 && $errors['error_count'] === 0)) ? $date->format('c') : null;
+        if (preg_match('/\nContext: (\{[^\r\n]*\})$/D', $entry['message'], $match))
+        {
+            $context = json_decode($match[1], true);
+            if (is_array($context))
+            {
+                $entry['context'] = $context;
+                $entry['message'] = substr($entry['message'], 0, -strlen($match[0]));
+            }
+        }
+        if (preg_match('/^\[Method: ([^,\r\n]+), Route: ([^\r\n]*)\]$/m', $entry['message'], $match))
+        {
+            $entry['context'] += ['method' => $match[1], 'uri' => '/' . ltrim($match[2], '/')];
+        }
+        if (preg_match('/^in (.+) on line (\d+)\.?$/m', $entry['message'], $match))
+        {
+            $entry['context'] += ['file' => $match[1], 'line' => (int)$match[2]];
+        }
+        return $entry;
+    }
+
     public static function ReadFile(string $filename, int $limit = 500): array
     {
         if (self::PathFor($filename) === null)

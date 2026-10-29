@@ -2,7 +2,7 @@
 
 /**
  * Filename: LocalSecrets.php
- * Purpose: Read authenticated encrypted installation secrets without exposing them to application output.
+ * Purpose: Read legacy encrypted secrets for migration and recovery without exposing their values.
  * Developer: DevAtlas maintainers
  * Date: 2026-10-28
  * Recent updates: Separated connection passwords and the existing vault key from source configuration.
