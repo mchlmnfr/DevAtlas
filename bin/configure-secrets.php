@@ -2,7 +2,7 @@
 
 /**
  * Filename: configure-secrets.php
- * Purpose: Initialize or update encrypted installation settings from standard input.
+ * Purpose: Maintain legacy encrypted settings before migrating an older installation to .env.
  * Developer: DevAtlas maintainers
  * Date: 2026-10-28
  * Recent updates: Added a CLI-only configuration utility that preserves unmodified secrets and the existing key.
@@ -13,6 +13,11 @@ if (PHP_SAPI !== 'cli')
     exit;
 }
 require_once __DIR__ . '/../config/LocalSecrets.php';
+if (is_file(__DIR__ . '/../.env') && !getenv('DEVATLAS_SECRETS_FILE'))
+{
+    fwrite(STDERR, "This installation reads .env. Edit its settings instead; this legacy utility does not update .env.\n");
+    exit(1);
+}
 try
 {
     $values = json_decode(stream_get_contents(STDIN), true, 16, JSON_THROW_ON_ERROR);

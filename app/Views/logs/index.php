@@ -10,9 +10,9 @@
 <?= view('layouts/header', get_defined_vars()) ?>
 
 <div class="lg-heading">
-    <div><span class="lg-eyebrow">APPLICATION EVENTS</span>
+    <div><span class="lg-eyebrow">CODEIGNITER LOGS</span>
         <h2>See what happened.<br class="lg-mobile-break"> Know what to check.</h2>
-        <p class="muted">Plain-language summaries, with technical details when you need them.</p>
+        <p class="muted">CodeIgniter framework events, with readable summaries and complete exception details.</p>
     </div>
     <div class="lg-actions"><button
             class="btn btn-primary"

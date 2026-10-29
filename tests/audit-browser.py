@@ -247,7 +247,7 @@ $_SERVER['SCRIPT_NAME']='/AnalystToolkit/'.$relative;$file=$f['root'].'/'.$relat
         log.flush()
         output = (temp / 'server.log').read_text(errors='replace')
         check(not re.search(r'(?:PHP )?(?:Warning|Fatal error|Notice):', output), 'No PHP warnings or fatal errors')
-        entries = [line for file in (temp / 'logs').glob('app-*.log') for line in file.read_text(errors='replace').splitlines()]
+        entries = [line for file in (temp / 'logs').glob('log-*.log') for line in file.read_text(errors='replace').splitlines()]
         check(not any('Audit event could not be finalized' in line for line in entries), 'Every server event finalizes successfully')
         print(f'Audit browser / HTTP: {CHECKS} assertions passed; disposable database and files only.')
     except Exception:

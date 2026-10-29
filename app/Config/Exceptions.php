@@ -50,7 +50,7 @@ class Exceptions extends BaseConfig
      *
      * Default: APPPATH.'Views/errors'
      */
-    public string $errorViewPath = ROOTPATH . 'vendor/codeigniter4/framework/app/Views/errors';
+    public string $errorViewPath = APPPATH . 'Views/errors';
 
     /**
      * --------------------------------------------------------------------------

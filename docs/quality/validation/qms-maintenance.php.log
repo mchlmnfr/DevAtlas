@@ -1,9 +1,0 @@
-
-Fatal error: Uncaught Error: Class "CodeIgniter\Database\BaseConnection" not found in C:\xampp\htdocs\AnalystToolkit\tests\qms-maintenance.php:41
-Stack trace:
-#0 {main}
-  thrown in C:\xampp\htdocs\AnalystToolkit\tests\qms-maintenance.php on line 41
-PHP Fatal error:  Uncaught Error: Class "CodeIgniter\Database\BaseConnection" not found in C:\xampp\htdocs\AnalystToolkit\tests\qms-maintenance.php:41
-Stack trace:
-#0 {main}
-  thrown in C:\xampp\htdocs\AnalystToolkit\tests\qms-maintenance.php on line 41

@@ -1,9 +1,0 @@
-
-Fatal error: Uncaught Error: Class "CodeIgniter\Database\BaseConnection" not found in C:\xampp\htdocs\AnalystToolkit\tests\data-dictionary.php:117
-Stack trace:
-#0 {main}
-  thrown in C:\xampp\htdocs\AnalystToolkit\tests\data-dictionary.php on line 117
-PHP Fatal error:  Uncaught Error: Class "CodeIgniter\Database\BaseConnection" not found in C:\xampp\htdocs\AnalystToolkit\tests\data-dictionary.php:117
-Stack trace:
-#0 {main}
-  thrown in C:\xampp\htdocs\AnalystToolkit\tests\data-dictionary.php on line 117

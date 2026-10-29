@@ -1,7 +1,7 @@
 <?php
 /**
  * Filename: Database.php
- * Purpose: Configure native CodeIgniter database access using encrypted PostgreSQL settings.
+ * Purpose: Configure native CodeIgniter database access using .env PostgreSQL settings.
  * Developer: DevAtlas maintainers
  * Date: 2026-10-29
  * Recent updates: Retain the installed database and schema; no automatic schema migration.
@@ -20,7 +20,6 @@ class Database extends Config
 
     public function __construct()
     {
-        parent::__construct();
         $this->default = [
             'DSN' => '',
             'hostname' => DB_HOST,
@@ -30,7 +29,8 @@ class Database extends Config
             'DBDriver' => 'App\\Database\\Postgre',
             'DBPrefix' => '',
             'pConnect' => false,
-            'DBDebug' => true,
+            // Older .env files omit DB_DEBUG; retain exceptions required by domain validation.
+            'DBDebug' => \Environment::Boolean('DB_DEBUG', true),
             'charset' => 'utf8',
             'schema' => DB_SCHEMA,
             'port' => (int) DB_PORT,
@@ -50,5 +50,7 @@ class Database extends Config
             $this->defaultGroup = 'tests';
             $this->tests = ['DSN' => '', 'DBDriver' => 'SQLite3', 'database' => ':memory:', 'DBDebug' => true];
         }
+        // Apply native dotted .env overrides after the connection arrays exist.
+        parent::__construct();
     }
 }

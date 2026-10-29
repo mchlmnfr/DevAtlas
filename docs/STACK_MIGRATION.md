@@ -1,6 +1,12 @@
 # DevAtlas stack migration ? 2026-10-29
 
-DevAtlas now runs on CodeIgniter 4.7.5, HTMX 2.0.11, Alpine.js 3.17.5 and Tailwind CSS 4.3.3. PHP 8.2 or newer with `intl`, `mbstring` and the existing PostgreSQL/PDO extensions is required. Runtime frontend assets, Poppins, Lucide and SweetAlert2 are local.
+DevAtlas's PHP 8.1 compatibility profile uses CodeIgniter 4.6.5, HTMX 2.0.11, Alpine.js 3.17.5 and Tailwind CSS 4.3.3. PHP 8.1 or newer with `intl`, `mbstring` and the existing PostgreSQL/PDO extensions is required. Runtime frontend assets, Poppins, Lucide and SweetAlert2 are local. See [PHP 8.1 compatibility](PHP81_COMPATIBILITY.md) for dependency changes, validation and the older framework's known security limitations.
+
+Installation configuration now lives in the ignored root `.env` file. Follow
+[environment configuration](ENVIRONMENT.md) for new installations or lossless
+migration from the older encrypted store. References to encrypted installation
+settings in the historical validation/recovery notes below describe the earlier
+checkpoint; runtime no longer reads those files after migration.
 
 ## Application structure
 
@@ -9,7 +15,7 @@ DevAtlas now runs on CodeIgniter 4.7.5, HTMX 2.0.11, Alpine.js 3.17.5 and Tailwi
 - `app/Controllers/*Controller.php`: module page, API and export actions.
 - `app/Views/`: module templates, layouts and partials, formatted with four-space HTML indentation and expanded attributes.
 - `lib/`: the existing domain services and review engines, retained to preserve audited PDO transactions and workflow rules.
-- `config/`: encrypted installation settings and the shared PostgreSQL PDO connection.
+- `config/`: dotenv loading, compatibility constants and shared database connections; legacy encrypted settings are retained for migration/recovery only.
 - `resources/css/app.css`: editable Tailwind theme, utilities and shared component source.
 - `assets/css/tailwind.css`: generated production CSS; do not edit it manually.
 - `assets/vendor/`: pinned runtime dependencies and their licenses.
@@ -65,6 +71,11 @@ Review authored PHP, JavaScript, CSS, SQL and HTML. Server scans, folder-upload 
 Native CodeIgniter contracts must keep their names: `_remap`, filter `before`/`after`, service `session`, framework configuration properties, and `EXIT__AUTO_MIN`/`EXIT__AUTO_MAX`. Database identifiers, HTTP/JSON/session fields and browser/library interfaces retain compatibility. These are explicit review items, not renamed APIs or silently suppressed diagnostics. Existing manual criteria for the exact QMU template, schema ownership and SAD approval remain owner review items. This migration does not grant database privileges or claim formal QMS certification.
 
 The current raw results are in `docs/quality/qms-current.json`; module validation and individual logs are in `docs/quality/module-validation.json` and `docs/quality/validation/`. Review remaining native-contract, template-layout and historical SQL diagnostics with the existing QMS review notes.
+
+These committed reports are historical checkpoints. Per-suite logs are generated
+and ignored by Git; rerun validation for the current installation. See
+[framework structure and cleanup](FRAMEWORK_STRUCTURE.md) for the restored 4.7.5
+scaffold, runtime-directory placeholders and retained compatibility files.
 
 ## Installation evidence and recovery
 
