@@ -1,0 +1,14 @@
+.git
+.env
+config/.local-key
+config/.local-secrets.json
+node_modules
+vendor
+.tools
+.stack-work
+tests/.tmp-*
+writable/cache/*
+writable/logs/*
+writable/session/*
+logs
+uploads
