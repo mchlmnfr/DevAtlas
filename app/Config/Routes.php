@@ -150,3 +150,10 @@ $routes->match(['GET', 'POST'], 'modules/wiki', 'WikiController::Index');
 $routes->match(['GET', 'POST'], 'modules/wiki/index.php', 'WikiController::Index');
 $routes->match(['GET', 'POST'], 'modules/approvals', 'ApprovalsController::Index');
 $routes->match(['GET', 'POST'], 'modules/approvals/index.php', 'ApprovalsController::Index');
+
+
+// Data Management / Data Conversion (clean and legacy URLs).
+$routes->match(['GET', 'POST'], 'modules/dataconversion', 'DataconversionController::Index');
+$routes->match(['GET', 'POST'], 'modules/dataconversion/index.php', 'DataconversionController::Index');
+$routes->match(['GET', 'POST'], 'modules/dataconversion/api', 'DataconversionController::Api');
+$routes->match(['GET', 'POST'], 'modules/dataconversion/api.php', 'DataconversionController::Api');

@@ -1,5 +1,100 @@
 [
   {
+    "id": "2026-11-10.22",
+    "order": 22,
+    "date": "2026-11-10",
+    "title": "Data Management: Data Conversion",
+    "changes": [
+      "Find Data Conversion under the new Data Management sidebar section. Upload CSV or Excel report data, validate it, preview the first five records and download a SQL Server script.",
+      "Report mode targets central_db.dbo.consol_data. Select all report worksheets or one worksheet; summary sheets are excluded. ReportCode and ReportName are required, TableName is derived, and duplicate report codes in the upload are rejected.",
+      "Report scripts insert one row at a time and skip an existing ReportCode or TableName when run in SQL Server. Generic CSV mode supports a chosen schema.table, delimiters and an optional schema snapshot for column validation.",
+      "Administrators can grant View, Create and Export access through Roles & Permissions. Uploads are private to the signed-in session and expire after one hour. Conversion generates downloadable SQL without connecting to or modifying the destination database."
+    ]
+  },
+  {
+    "id": "2026-11-06.21",
+    "order": 21,
+    "date": "2026-11-06",
+    "title": "Leave approvals grouped by employee",
+    "changes": [
+      "The Leave approvals queue now uses expandable employee sections. Each name shows pending application counts by leave type, including zero counts for VL, SL, EL and ML. Other leave types appear when present.",
+      "An employee’s applications stay together on one page. Each application shows its dates, period, working-day count and total hours, with the existing Review application action. Multi-day requests count as one application.",
+      "Select applications individually or use employee and page selection controls. Up to 25 applications can be selected for one batch; larger queues clearly offer Select first 25. Employee counts refresh after approval or return.",
+      "Expand all and Collapse all make larger queues easier to scan. Existing section restrictions, Section Head self-approval rules, atomic batch approvals and the Concept 1 leave calendar continue to apply."
+    ]
+  },
+  {
+    "id": "2026-11-06.20",
+    "order": 20,
+    "date": "2026-11-06",
+    "title": "Read activity details in a collapsible date tree",
+    "changes": [
+      "Team Monitoring member logs and Approvals weekly reviews now group work activities by date inside one overview popup. The latest date opens automatically; Expand all and Collapse all control the date groups.",
+      "Each activity shows its full classification and activity type, planned task, work performed, hours and status. Remarks and review comments appear when present, without opening a second entry dialog.",
+      "Date headings show activity counts and daily hour totals. Team Monitoring loads the complete Monday–Sunday week so busy dates are not split across log pages. Working-day monitoring totals retain their existing rules.",
+      "Private drafts and leave records stay outside the activity tree. Existing section visibility, weekly approval snapshots, whole-week approve/return actions and daily-log batch entry continue to apply."
+    ]
+  },
+  {
+    "id": "2026-11-06.19",
+    "order": 19,
+    "date": "2026-11-06",
+    "title": "Program Inventory sizes match Windows Explorer",
+    "changes": [
+      "Program Inventory now rounds each file size up to a whole KB, matching the Windows Explorer Size column. A 7,604-byte file displays as 8 KB; an empty file displays as 0 KB.",
+      "The folder preview and Excel exports use the same rounding for local-computer and server-folder scans. Excel size cells remain numeric and display without decimals.",
+      "Preview totals add the rounded KB values shown for the included files so the total agrees with the inventory rows."
+    ]
+  },
+  {
+    "id": "2026-11-05.18",
+    "order": 18,
+    "date": "2026-11-05",
+    "title": "Approve selected leave applications together",
+    "changes": [
+      "The Leave tab in Approvals now includes individual selection, Select all on this page, Clear selection and Approve selected. Up to 25 pending applications can be approved in one action.",
+      "One confirmation approves every working day in each selected application. All selected requests are checked and saved together; a changed, unavailable or invalid request prevents the whole batch from being approved.",
+      "Batch approvals retain section-only review permissions, Section Head self-approval rules, working-day validation and request version checks. Individual approval and return actions remain available.",
+      "Selections clear after refresh, page changes or a completed review so the queue always uses the latest request versions. The Concept 1 month calendar and day panel continue to work."
+    ]
+  },
+  {
+    "id": "2026-11-05.17",
+    "order": 17,
+    "date": "2026-11-05",
+    "title": "Leaves: month calendar and day panel",
+    "changes": [
+      "The Leaves workspace now pairs a compact month calendar with a selected-day panel. Select any date to see its full leave list and birthdays in separate tabs.",
+      "Each date shows up to two color-coded previews and a +N more count. Busy dates keep the same height, and the full day list scrolls inside its panel.",
+      "Summary cards show people on leave on the selected day, pending leave days in the selected month, and birthdays in that month. Sunday-first weeks and distinct weekend shading remain available in Light and Dark themes.",
+      "Apply for a working day directly from the panel, open existing request details, and move between dates with the arrow keys. Existing leave types, privacy rules and section approval workflows continue to apply."
+    ]
+  },
+  {
+    "id": "2026-11-05.16",
+    "order": 16,
+    "date": "2026-11-05",
+    "title": "Compact Sunday-first leave calendar",
+    "changes": [
+      "Leave calendar weeks now run Sunday to Saturday. Weekend columns have distinct shading and non-working labels in Light and Dark themes.",
+      "Calendar day cells keep a fixed height and show up to four compact leave or birthday previews, so busy dates do not stretch the whole week.",
+      "Use +N more or View day to see every leave entry and birthday for the selected date. Full names and details remain available in the day list.",
+      "Calendar date coverage includes complete Sunday-to-Saturday weeks across month and year boundaries. Working-day leave rules and approval permissions continue to apply."
+    ]
+  },
+  {
+    "id": "2026-11-05.15",
+    "order": 15,
+    "date": "2026-11-05",
+    "title": "Add a full day's logs in one form",
+    "changes": [
+      "Choose one activity date and use Add another log to enter multiple work activities in the same form.",
+      "Each activity has its own classification, activity type, planned task, activity performed, hours and remarks. Remove a section before saving if it is not needed.",
+      "Save all activities as drafts or submit them together. A running activity count and total hours help you check the day before saving.",
+      "The whole submission is validated and saved together. Existing daily hour limits, individual-log editing, weekly approvals and reports continue to apply."
+    ]
+  },
+  {
     "id": "2026-10-29.14",
     "order": 14,
     "date": "2026-10-29",

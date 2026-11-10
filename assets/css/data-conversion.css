@@ -1,0 +1,60 @@
+/* Data Conversion, scoped to its workspace and shared DevAtlas theme tokens. */
+.dc-workspace { --dc-line: var(--border, #dce3ed); --dc-muted: var(--muted, #64748b); }
+.dc-hero { margin-bottom: 18px; }
+.dc-steps { display: flex; gap: 32px; margin: 0 0 24px; padding: 0; list-style: none; color: var(--dc-muted); font-size: 12px; }
+.dc-steps li { display: flex; align-items: center; gap: 9px; }
+.dc-steps li span { display: grid; place-items: center; width: 27px; height: 27px; border: 1px solid var(--dc-line); border-radius: 50%; font-size: 10px; font-weight: 700; color: var(--text); }
+.dc-layout { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 22px; align-items: start; }
+.dc-layout .ws-card { min-width: 0; }
+.dc-layout h3 { margin: 0; }
+.dc-layout .ws-card-heading p { margin-bottom: 0; }
+.dc-fields { border: 0; padding: 0; margin: 0; min-width: 0; display: grid; gap: 18px; }
+.dc-fields .form-row { margin: 0; }
+.dc-fields .form-row label { display: block; margin-bottom: 7px; }
+.dc-fields input:not([type=radio]), .dc-fields select, .dc-sheet-row select { width: 100%; min-width: 0; box-sizing: border-box; }
+.dc-fields input[type=file] { font-size: 12px; padding: 10px; border: 1px dashed var(--dc-line); border-radius: 8px; }
+.dc-fields input[type=file]::file-selector-button { margin-right: 10px; padding: 6px 9px; border: 1px solid var(--dc-line); border-radius: 5px; background: var(--card); color: var(--text); cursor: pointer; }
+.dc-mode-options { display: grid; gap: 10px; }
+.dc-mode { display: flex; align-items: flex-start; gap: 10px; padding: 14px; border: 1px solid var(--dc-line); border-radius: 9px; cursor: pointer; }
+.dc-mode:has(input:checked) { border-color: var(--primary, #2563eb); background: color-mix(in srgb, var(--primary, #2563eb) 7%, transparent); }
+.dc-mode input { margin: 3px 0 0; accent-color: var(--primary, #2563eb); }
+.dc-mode strong, .dc-mode small { display: block; }
+.dc-mode strong { font-size: 13px; }
+.dc-mode small { margin-top: 4px; font-size: 11px; line-height: 1.5; color: var(--dc-muted); overflow-wrap: anywhere; }
+.dc-optional { font-weight: 400; color: var(--dc-muted); font-size: 11px; }
+#conversionGeneric:not([hidden]) { display: grid; gap: 18px; }
+.dc-inline-note, .dc-access-note { margin: 0; padding: 12px; border-radius: 8px; background: color-mix(in srgb, var(--primary, #2563eb) 8%, transparent); font-size: 11px; line-height: 1.7; }
+.dc-access-note { margin-bottom: 16px; }
+.dc-validate { width: 100%; justify-content: center; }
+.dc-resources { display: grid; gap: 9px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--dc-line); }
+.dc-resources > span { font-size: 10px; letter-spacing: .1em; color: var(--dc-muted); }
+.dc-resources a { font-size: 12px; }
+.dc-ready { color: #15803d; background: #dcfce7; border-radius: 20px; padding: 5px 10px; font-size: 10px; font-weight: 700; }
+.dc-empty { min-height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 32px; }
+.dc-empty-symbol { display: grid; place-items: center; width: 62px; height: 62px; margin-bottom: 20px; border-radius: 16px; border: 1px solid var(--dc-line); font-size: 30px; color: var(--primary, #2563eb); }
+.dc-empty p { max-width: 360px; font-size: 12px; line-height: 1.8; color: var(--dc-muted); }
+.dc-summary { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 12px; padding: 16px; border: 1px solid var(--dc-line); border-radius: 9px; }
+.dc-summary small { display: block; font-size: 9px; color: var(--dc-muted); letter-spacing: .08em; }
+.dc-summary strong { display: block; margin-top: 7px; font-size: 24px; font-weight: 700; overflow-wrap: anywhere; }
+.dc-summary .dc-destination strong { font-size: 12px; line-height: 1.7; }
+.dc-file-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0 20px; font-size: 12px; }
+.dc-file-summary span { min-width: 0; overflow-wrap: anywhere; }
+.dc-sheet-row { max-width: 420px; margin-bottom: 22px; }
+.dc-preview-caption { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 18px 0 12px; font-size: 12px; }
+.dc-preview-caption span { font-size: 10px; color: var(--dc-muted); }
+.dc-table-scroll { width: 100%; overflow: auto; max-height: 340px; border: 1px solid var(--dc-line); border-radius: 8px; }
+.dc-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.dc-table th, .dc-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--dc-line); vertical-align: top; min-width: 130px; max-width: 360px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.dc-table th { position: sticky; top: 0; background: var(--card); font-size: 10px; white-space: nowrap; }
+.dc-table tbody tr:last-child td { border-bottom: 0; }
+.dc-notes { display: grid; gap: 8px; margin: 18px 0; padding: 14px; border-radius: 8px; background: color-mix(in srgb, var(--primary, #2563eb) 5%, transparent); }
+.dc-notes p { margin: 0; font-size: 11px; line-height: 1.7; color: var(--dc-muted); }
+.dc-download-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-top: 18px; border-top: 1px solid var(--dc-line); }
+.dc-download-row strong { font-size: 12px; }
+.dc-download-row p { font-size: 10px; color: var(--dc-muted); margin: 5px 0 0; }
+.dc-message { margin-bottom: 18px; padding: 13px 16px; border: 1px solid #fca5a5; background: color-mix(in srgb, #ef4444 8%, transparent); border-radius: 8px; font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.dc-message-success { border-color: #86efac; background: color-mix(in srgb, #22c55e 8%, transparent); }
+.dc-footer-note { margin: 22px 0 0; color: var(--dc-muted); font-size: 11px; line-height: 1.8; }
+.dc-workspace [hidden] { display: none !important; }
+@media (max-width: 1150px) { .dc-layout { grid-template-columns: 1fr; } .dc-empty { min-height: 220px; } }
+@media (max-width: 600px) { .dc-steps { gap: 12px; flex-wrap: wrap; font-size: 10px; } .dc-layout { gap: 16px; } .dc-summary { grid-template-columns: 1fr 1fr; } .dc-destination { grid-column: 1 / -1; } .dc-download-row, .dc-file-summary { align-items: flex-start; flex-direction: column; } .dc-download-row button { width: 100%; justify-content: center; } .dc-empty { padding: 22px 8px; } }
