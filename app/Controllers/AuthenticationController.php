@@ -102,7 +102,17 @@ class AuthenticationController extends BaseController
                 $stmt = $db->table('users')->where('user_id', $currentUser['user_id'])->get();
                 $user = $stmt->getUnbufferedRow('array');
 
-                if (!$user || !password_verify($currentPassword, $user['password_hash']))
+                if (!$user || !$user['is_active'] || $user['is_locked']
+                    || (int)$user['auth_version'] !== (int)($_SESSION['auth_version'] ?? 0))
+                {
+                    Audit::Result('denied');
+                    Auth::Logout();
+                    Header('Location: ' . APP_BASE_URL . '/login.php');
+                    \FinishRequest();
+                }
+                // Required changes follow a verified sign-in, including email-code sign-in.
+                // Voluntary changes still require the current password.
+                elseif (!$forced && !password_verify($currentPassword, $user['password_hash']))
                 {
                     $error = 'Your current password is incorrect.';
                 }
@@ -119,7 +129,7 @@ class AuthenticationController extends BaseController
                     $hash = password_hash($newPassword, PASSWORD_BCRYPT);
                     $db->transBegin();
                     
-                    $stmt = $db->query($db->table('users')->set('password_hash', $hash)->set('must_change_password', false)->set('password_changed_at', new \CodeIgniter\Database\RawSql('NOW()'))->set('auth_version', new \CodeIgniter\Database\RawSql('auth_version + 1'))->where('user_id', $user['user_id'])->where('password_hash', $user['password_hash'])->where('auth_version', $user['auth_version'])->getCompiledUpdate() . ' RETURNING auth_version');
+                    $stmt = $db->query($db->table('users')->set('password_hash', $hash)->set('must_change_password', false)->set('password_changed_at', new \CodeIgniter\Database\RawSql('NOW()'))->set('auth_version', new \CodeIgniter\Database\RawSql('auth_version + 1'))->where('user_id', $user['user_id'])->where('password_hash', $user['password_hash'])->where('auth_version', $user['auth_version'])->where('is_active', true)->where('is_locked', false)->getCompiledUpdate() . ' RETURNING auth_version');
                     $version = (int)Database::Scalar($stmt);
                     if (!$version)
                     {
@@ -413,3 +423,4 @@ class AuthenticationController extends BaseController
         return $this->Render('authentication/resetpassword', get_defined_vars());
     }
 }
+
