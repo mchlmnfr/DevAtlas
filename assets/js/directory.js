@@ -19,7 +19,7 @@
     const IS_CAN_MANAGE = APP.dataset.canManage === '1';
     const GetElement = id => document.getElementById(id);
     const ESCAPE = AT.escapeHtml;
-    const PAGE_SIZE = 12;
+
     const COLLATOR = new Intl.Collator(undefined, 
     {
         numeric: true,
@@ -136,7 +136,7 @@
             return TOKENS.every(token => TEXT.includes(token)) || IS_PHONE_SEARCH && PHONE_SEARCH && dep.numbers.some(number => number.phone_number.replace(/\D/g, '').includes(PHONE_SEARCH));
         });
         filtered.sort((a, b) => (GetElement('directorySort').value === 'desc' ? -1 : 1) * COLLATOR.compare(a.department_name, b.department_name) || Number(a.department_id) - Number(b.department_id));
-        page = Math.min(page, Math.max(1, Math.ceil(filtered.length / PAGE_SIZE)));
+        page = Math.min(page, Math.max(1, Math.ceil(filtered.length / (window.Experience?.pageSize(12) || 12))));
         Render();
         UpdateUrl();
     }
@@ -191,8 +191,8 @@
         GRID.setAttribute('aria-busy', 'false');
         GRID.classList.toggle('is-list', view === 'list');
         document.querySelectorAll('[data-directory-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.directoryView === view)));
-        const START = (page - 1) * PAGE_SIZE;
-        const VISIBLE = isPrinting ? filtered : filtered.slice(START, START + PAGE_SIZE);
+        const START = (page - 1) * (window.Experience?.pageSize(12) || 12);
+        const VISIBLE = isPrinting ? filtered : filtered.slice(START, START + (window.Experience?.pageSize(12) || 12));
         if (!departments.length) 
         {
             GRID.innerHTML = `<div class="directory-state"><span class="directory-state-icon" aria-hidden="true">â–¥</span><h3>The directory is getting started</h3><p>Department contacts will appear here once they are added.</p>${IS_CAN_MANAGE ? `<a class="btn btn-primary btn-sm" href="${ESCAPE(new URL('../organization/index.php', location.href).pathname)}">Set up departments</a>` : ''}</div>`;
@@ -205,11 +205,11 @@
         {
             GRID.innerHTML = VISIBLE.map(DepartmentMarkup).join('');
         }
-        GetElement('directoryResults').textContent = filtered.length ? `Showing ${isPrinting ? 1 : START + 1}â€“${isPrinting ? filtered.length : Math.min(START + PAGE_SIZE, filtered.length)} of ${filtered.length} departments` : '0 departments';
-        GetElement('directoryPagination').hidden = filtered.length <= PAGE_SIZE || isPrinting;
-        GetElement('directoryPageLabel').textContent = `Page ${page} of ${Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))}`;
+        GetElement('directoryResults').textContent = filtered.length ? `Showing ${isPrinting ? 1 : START + 1}â€“${isPrinting ? filtered.length : Math.min(START + (window.Experience?.pageSize(12) || 12), filtered.length)} of ${filtered.length} departments` : '0 departments';
+        GetElement('directoryPagination').hidden = filtered.length <= (window.Experience?.pageSize(12) || 12) || isPrinting;
+        GetElement('directoryPageLabel').textContent = `Page ${page} of ${Math.max(1, Math.ceil(filtered.length / (window.Experience?.pageSize(12) || 12)))}`;
         GetElement('directoryPrevious').disabled = page <= 1;
-        GetElement('directoryNext').disabled = page * PAGE_SIZE >= filtered.length;
+        GetElement('directoryNext').disabled = page * (window.Experience?.pageSize(12) || 12) >= filtered.length;
         GetElement('directoryPrint').disabled = filtered.length === 0;
     }
     async function Load() 
@@ -535,4 +535,5 @@
         });
     }
     Load();
+    document.addEventListener('experience:page-size', e => { e.detail.handled = true; ApplyFilters(false); });
 })();

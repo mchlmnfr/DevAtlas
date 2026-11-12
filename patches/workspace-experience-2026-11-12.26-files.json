@@ -1,0 +1,190 @@
+{
+  "version": "2026-11-12.26",
+  "base_commit": "f7755c5f976d255430c432720d93bc47347edf9e",
+  "files": [
+    {
+      "path": "app/Config/Routes.php",
+      "sha256": "3e454d979e8bd916fd44f8d3da7946112223d17d64adfc817155ee36eb5661eb"
+    },
+    {
+      "path": "app/Controllers/AccountController.php",
+      "sha256": "ba0f1efafd6afc4ad25879d488f5bdb581a8b4f30ecf227d9302e5a78cf8e45c"
+    },
+    {
+      "path": "app/Controllers/HomeController.php",
+      "sha256": "8114542de9f5ae398e59da4fe85a6d4db639e784b9e01e71d6a989e387c59893"
+    },
+    {
+      "path": "app/Controllers/NotificationsController.php",
+      "sha256": "3127733dbd29c7daa08a263151bf706b43db8cb4d1c1821273971f10185d2fbb"
+    },
+    {
+      "path": "app/Views/home/index.php",
+      "sha256": "29d66f75061f142b6acbe074eac24fd6cc884bc9aacb56afa04eda65a9c7398a"
+    },
+    {
+      "path": "app/Views/layouts/auth_end.php",
+      "sha256": "d97f9cda744273f37f35681e24728c1a0d458af8ab0c0721e8acad8e5ab5f252"
+    },
+    {
+      "path": "app/Views/layouts/docs_footer.php",
+      "sha256": "2d2291658a3d9d8e199c8126ae62d31aba86ff8a139a619f24af3a4c2ee6bb5f"
+    },
+    {
+      "path": "app/Views/layouts/footer.php",
+      "sha256": "5523fe8a950445f180d29d63af3fc43a313d6667ae5aea86c833b771ca8a9c65"
+    },
+    {
+      "path": "app/Views/layouts/header.php",
+      "sha256": "3959785546ebca9d110af6dc4eff8b0a233ab9dcbabd5147b727dd6456e973fa"
+    },
+    {
+      "path": "app/Views/layouts/ui_assets.php",
+      "sha256": "444b2d926de7f1431cd91c1eaa7ee79774ec77c2c857d76d1d057fa7be4fc3c1"
+    },
+    {
+      "path": "assets/css/dashboard-builder.css",
+      "sha256": "746a7661b153afee2c7d63ee013a159e694c40edd34fab65a25979f571fc0586"
+    },
+    {
+      "path": "assets/css/experience.css",
+      "sha256": "b89a38c2eba7c679f6328bbabfdc6f0b3943693107826d64dcca8bc13106683a"
+    },
+    {
+      "path": "assets/js/app.js",
+      "sha256": "76de07c25597023ea0de0e843f005e59377558bd84c7bbb555e913d4980d98c8"
+    },
+    {
+      "path": "assets/js/code-review.js",
+      "sha256": "21ae87df52ee96090b1bb1e1fa6c5ce721cf432c9db5aa59fde2c11f2820b318"
+    },
+    {
+      "path": "assets/js/dashboard-builder.js",
+      "sha256": "695983aab14b46e5c9e1b3046d5d945308999905583d4f44af0de0cd9fc06c6a"
+    },
+    {
+      "path": "assets/js/dashboard.js",
+      "sha256": "24c827b3d1988ab85b72d271886f88b2e4e636ccc041c367926d144050f275d1"
+    },
+    {
+      "path": "assets/js/datadict.js",
+      "sha256": "b0abb5331a51899876bc08389b139d3c1e384594ab9ff881a54b1ace1487f485"
+    },
+    {
+      "path": "assets/js/directory.js",
+      "sha256": "83b83c73309f80a8a37f89f9154f54c773fc7f51656a5722626bca99c59f1e96"
+    },
+    {
+      "path": "assets/js/experience-boot.js",
+      "sha256": "8f6ee2082345d6e9d889f72743ab8dbede829428f68b3dbc66d7dad6d4b2bb98"
+    },
+    {
+      "path": "assets/js/experience-core.js",
+      "sha256": "58120530976afac5f2f9fc9c9d038280e0508dc222d507bdfc8a020bcd04eaa0"
+    },
+    {
+      "path": "assets/js/experience-forms.js",
+      "sha256": "22e2b7f7440c7cb7aa22e1d04bd45ba994901fac47562552513b330fbc261d4e"
+    },
+    {
+      "path": "assets/js/experience-tables.js",
+      "sha256": "2f6686d2f8567a2b8501af6daa5c99ba90b2f6c715681e52558fb1bfd698a461"
+    },
+    {
+      "path": "assets/js/notifications.js",
+      "sha256": "2a73970d7b653260bd3b6273210a4bf8b15c638049d2a97542ae5cc5baa5fe15"
+    },
+    {
+      "path": "assets/js/program-inventory.js",
+      "sha256": "b5815fb47b4898afd1a89c115270b32f9f13749b6acc1c8f89d2c36636c89e40"
+    },
+    {
+      "path": "assets/js/servers.js",
+      "sha256": "c05f746eaf36349309617a668377bf517f52e0f795e1b36e62305edd7a0a3fc9"
+    },
+    {
+      "path": "assets/js/updates.js",
+      "sha256": "827e6e27ccecf4f2c0ee37dcf2aef07173a12686f1bbb9eda9caa5cb2436a958"
+    },
+    {
+      "path": "assets/js/users.js",
+      "sha256": "6dc2a40ed55bf79ba06316361215df5bf21ceccc1acdb93be602aa385451c5a0"
+    },
+    {
+      "path": "assets/vendor/flatpickr/LICENSE.md",
+      "sha256": "5fd57afc3905651175947ae44818e91ffcf5b605e4c88fac42d9700243bd9095"
+    },
+    {
+      "path": "assets/vendor/flatpickr/flatpickr.min.css",
+      "sha256": "1b34a42552c96f10e4dfaaa4a367276b03868aacff63c1ac42ffe331352bc754"
+    },
+    {
+      "path": "assets/vendor/flatpickr/flatpickr.min.js",
+      "sha256": "1eeab1cb779471a0b0aaa93dd91c2eb1aa537d696f01ab05ea9dabc55e8525a1"
+    },
+    {
+      "path": "assets/vendor/flatpickr/month-select.css",
+      "sha256": "d6b99c057e2222a7c279c81caced0fcf6bdf2fd44aa402b81ade6c1d2a19a10a"
+    },
+    {
+      "path": "assets/vendor/flatpickr/month-select.js",
+      "sha256": "07782c68d4ee9a21c122227cc5228bbee134517ea0c99f1577af3f014746633e"
+    },
+    {
+      "path": "bin/Update-WorkspaceExperience.ps1",
+      "sha256": "22e3ec5be06f9ef28508cbf4d57aad8e6371bad07357e1c07496217cde94723f"
+    },
+    {
+      "path": "bin/install-workspace-experience.php",
+      "sha256": "e3716c0b2e2ba65f71748bb0d634d8264f8b82504c4251d77f5c635c83f1f691"
+    },
+    {
+      "path": "database/migration_20261112_workspace_experience.sql",
+      "sha256": "6507c2228086266f1a70f5bcf04a53802d6729e6954124ad1392e90e98a72029"
+    },
+    {
+      "path": "database/schema.sql",
+      "sha256": "c0273e10adb5f5365794a400b82ce0bfdf03aeadc076f8d52d4257fdec9e69f1"
+    },
+    {
+      "path": "docs/releases.json",
+      "sha256": "d1e0e587780b93c4a4a2b37616eb18635db1d2328330fc327ba75a2d3dd6ed46"
+    },
+    {
+      "path": "docs/workspace-experience.md",
+      "sha256": "c97bfef87e802c247eaeeccea31c6bddf65931745ed2c9646da666333bdd9a3a"
+    },
+    {
+      "path": "lib/AuditQuery.php",
+      "sha256": "c1ef0b55ee18113574cfa5e9d166d18ba26b4b753f58fba3fa33449fb6770467"
+    },
+    {
+      "path": "lib/DailyLogs.php",
+      "sha256": "67a83bc37e82993579a9a8816b1dcc4aa4b7d054a8ba22f53b616b7ff3388356"
+    },
+    {
+      "path": "lib/LeaveRequests.php",
+      "sha256": "1d68b7acb3d8bc3af1ce3a6c77de5766c07f3a88ad0820af443e58371e2d8e09"
+    },
+    {
+      "path": "lib/ListPageSize.php",
+      "sha256": "4f5d4b110a61304b6d480e20437ac7706ebdf2372348405ef99b635c8a849cfb"
+    },
+    {
+      "path": "lib/WeeklyLogReview.php",
+      "sha256": "ec0f92fd29c5733239669d18b505d4431c1faf982bde7133ed6c3a9c4585dfc4"
+    },
+    {
+      "path": "lib/WorkspaceExperience.php",
+      "sha256": "3fc6e273266f9ed9ed5248732ce78e31b7e4600c79c0570980e4e9098e56a4b9"
+    },
+    {
+      "path": "modules/account/experience.php",
+      "sha256": "e68e42550b80715f80d3c9fa4dcfa34d1dbef93f08b87ac24ce5467638bceb01"
+    },
+    {
+      "path": "tests/workspace-experience.php",
+      "sha256": "63672cacd16f8a95511bc4da394927632f8814279e9d2ae6ab5b6d1b3c3cf17b"
+    }
+  ]
+}

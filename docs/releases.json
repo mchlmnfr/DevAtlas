@@ -1,5 +1,21 @@
 [
   {
+    "id": "2026-11-12.26",
+    "order": 26,
+    "date": "2026-11-12",
+    "title": "Your workspace, arranged your way",
+    "changes": [
+      "Build your own dashboard with movable, resizable widget instances, duplicates, personal notes, checklists, shortcuts, scoped leave calendars and report periods. Add, remove, configure, undo, reset, cancel or save a layout for your account; mobile layouts stack in reading order.",
+      "Smoother sidebar, page, card, menu, dialog and expandable-tree transitions. Initial screens wait for foreground data with a 300 ms minimum; later loads use smaller status indicators and elapsed time. Measurable transfers show real transfer percentages. Device reduced motion and personal Standard, Subtle or Off settings are respected.",
+      "Consistent local date, month and time pickers use Sunday-first calendars, weekend shading, Today/Now/Clear and existing limits. Date ranges offer presets. Escape closes a picker before the editor. Existing business-week calculations are preserved.",
+      "Save filters, page sizes and named views to your account. Use active filter chips, Clear filters, favourite modules, sticky table headers/actions, column visibility and keyboard-resizable widths. Browser visits restore eligible pagination, scroll, expanded groups and selections.",
+      "Inline validation retains entered work and focuses the first invalid field. Unsaved-change guards, duplicate submission prevention, processing labels, mobile form actions, expanded text editing and opt-in recovery drafts improve entry forms. Credentials are excluded from recovery drafts.",
+      "Appearance adds larger text and personal blue, teal, violet and slate palettes. Search long dropdowns, copy supported fields, return to filtered lists, open the shortcut guide, and see read-only/unavailable explanations, refresh notices, changed-row highlights, consistent statuses and selected record context in bulk confirmations.",
+      "Notifications are grouped into expandable sections with item and unread counts on each inbox page. Account-owned workspace documents use validation, permission checks, CSRF and optimistic revisions; transactional saves protect related settings.",
+      "Existing installations: copy the affected files and run php bin/install-workspace-experience.php, or use bin/Update-WorkspaceExperience.ps1 from the extracted patch. The dated migrations retain existing preferences. See docs/workspace-experience.md for installation and the complete feature list."
+    ]
+  },
+  {
     "id": "2026-11-12.25",
     "order": 25,
     "date": "2026-11-12",

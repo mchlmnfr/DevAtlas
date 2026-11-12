@@ -14,6 +14,11 @@
 <?php echo view('layouts/updates_dialog', get_defined_vars());
  ?>
 
+<script src="<?= H(AssetUrl('assets/vendor/flatpickr/flatpickr.min.js')) ?>"></script>
+<script src="<?= H(AssetUrl('assets/vendor/flatpickr/month-select.js')) ?>"></script>
+<script src="<?= H(AssetUrl('assets/js/experience-core.js')) ?>"></script>
+<script src="<?= H(AssetUrl('assets/js/experience-forms.js')) ?>"></script>
+<script src="<?= H(AssetUrl('assets/js/experience-tables.js')) ?>"></script>
 <?php foreach ($pageScripts ?? [] as $script): ?>
 <script src="<?= H(AssetUrl($script)) ?>"></script>
 

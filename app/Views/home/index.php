@@ -231,7 +231,7 @@ $widgetAttributes = static function (string $id, string $label) use ($widgetPosi
     </section>
     <?php endif; ?>
     <script type="application/json" id="dashboardPreferenceState"><?= json_encode($uiState, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
-    <?= view('home/customizer', get_defined_vars()) ?>
+    
 </div>
 
 <?php echo view('layouts/footer', get_defined_vars());

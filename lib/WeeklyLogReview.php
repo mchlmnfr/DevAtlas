@@ -90,9 +90,11 @@ class WeeklyLogReview
         $sSql = 'SELECT COUNT(*) FROM ('.$sql.') filtered';
         $s = $db->query($sSql, $params);
         $total = (int)Database::Scalar($s);
-        $pages = max(1, (int)ceil($total / 25));
+        require_once ROOTPATH.'lib/ListPageSize.php';
+        $size = \ListPageSize::Get();
+        $pages = max(1, (int)ceil($total / $size));
         $page = min($pages, max(1, (int)($data['page'] ?? 1)));
-        $sSql = $sql.' ORDER BY week_start DESC,user_id LIMIT 25 OFFSET '.(($page - 1) * 25);
+        $sSql = $sql.' ORDER BY week_start DESC,user_id LIMIT '.$size.' OFFSET '.(($page - 1) * $size);
         $s = $db->query($sSql, $params);
         $weeks = $s->getResultArray();
         foreach ($weeks as &$week)

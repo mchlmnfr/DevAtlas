@@ -152,7 +152,8 @@
     {
         if (data.pending && !document.querySelector('dialog[open]')) 
         {
-            Open();
+            if (window.ExperienceBoot && !ExperienceBoot.ready) document.addEventListener('experience:ready', () => { if (!document.querySelector('dialog[open]')) Open(); }, {once:true});
+            else Open();
         }
     }).catch(() => 
     {

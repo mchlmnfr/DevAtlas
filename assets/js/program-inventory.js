@@ -17,7 +17,7 @@
     }
     = WUI;
     const APP = ELEMENT('inventoryApp');
-    const PAGE_SIZE = 20;
+
     let mode = 'client';
     let picked = [];
     let included = [];
@@ -76,9 +76,9 @@
         const QUERY = ELEMENT('inventorySearch').value.trim().toLocaleLowerCase();
         const EXT = ELEMENT('inventoryType').value;
         const FILTERED = included.filter(file => (!QUERY || file.relative_path.toLocaleLowerCase().includes(QUERY)) && (!EXT || Type(file) === EXT));
-        const PAGES = Math.max(1, Math.ceil(FILTERED.length / PAGE_SIZE));
+        const PAGES = Math.max(1, Math.ceil(FILTERED.length / (window.Experience?.pageSize(20) || 20)));
         page = Math.min(page, PAGES);
-        const START = (page - 1) * PAGE_SIZE;
+        const START = (page - 1) * (window.Experience?.pageSize(20) || 20);
         ELEMENT('inventoryPreviewEmpty').hidden = FILTERED.length > 0;
         ELEMENT('inventoryPreviewTable').hidden = !FILTERED.length;
         ELEMENT('inventoryPagination').hidden = !FILTERED.length;
@@ -86,8 +86,8 @@
         {
             ELEMENT('inventoryPreviewEmpty').innerHTML = ICON('file') + '<strong>' + (picked.length ? included.length ? 'No matching files.' : 'All files are excluded.' : 'No files selected yet.') + '</strong><p>' + (picked.length ? included.length ? 'Try a different name or file type.' : 'Adjust the excluded folder names or choose another folder.' : 'Choose a project folder above to preview the inventory.') + '</p>';
         }
-        ELEMENT('inventoryRows').innerHTML = FILTERED.slice(START, START + PAGE_SIZE).map(file => `<tr><td><strong>${ESC(file.name)}</strong><small>${ESC(file.relative_path)}</small></td><td><span class="ws-tag gray">${ESC(Type(file))}</span></td><td>${ESC(WUI.bytes(file.size))}</td><td>${ESC(WUI.date(file.last_modified_ms))}</td></tr>`).join('');
-        ELEMENT('inventoryPageSummary').textContent = `${START + 1}–${Math.min(START + PAGE_SIZE, FILTERED.length)} of ${FILTERED.length} matching files`;
+        ELEMENT('inventoryRows').innerHTML = FILTERED.slice(START, START + (window.Experience?.pageSize(20) || 20)).map(file => `<tr><td><strong>${ESC(file.name)}</strong><small>${ESC(file.relative_path)}</small></td><td><span class="ws-tag gray">${ESC(Type(file))}</span></td><td>${ESC(WUI.bytes(file.size))}</td><td>${ESC(WUI.date(file.last_modified_ms))}</td></tr>`).join('');
+        ELEMENT('inventoryPageSummary').textContent = `${START + 1}–${Math.min(START + (window.Experience?.pageSize(20) || 20), FILTERED.length)} of ${FILTERED.length} matching files`;
         ELEMENT('inventoryPrevious').disabled = page <= 1;
         ELEMENT('inventoryNext').disabled = page >= PAGES;
     }
@@ -253,4 +253,5 @@
         });
     }
     Refresh();
+    document.addEventListener('experience:page-size', e => { e.detail.handled = true; Render(); });
 })();

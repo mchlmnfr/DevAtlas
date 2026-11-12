@@ -23,12 +23,14 @@ class HomeController extends BaseController
         $pageSubtitle = 'Your next actions, this week and across your section';
         $activeNav = 'dashboard';
         $bodyClass = 'dashboard-page';
-        $pageStyles = ['assets/css/dashboard-actions.css'];
-        $pageScript = 'assets/js/dashboard.js';
+        $pageStyles = ['assets/css/dashboard-actions.css','assets/css/dashboard-builder.css'];
+        $pageScripts = ['assets/js/dashboard.js','assets/js/dashboard-builder.js'];
         Auth::RequirePage();
         $currentUser = Auth::User();
         require_once ROOTPATH . 'lib/UserUiPreferences.php';
         $uiState = \UserUiPreferences::Load(Database::GetConnection('app'), (int)$currentUser['user_id']);
+        require_once ROOTPATH.'lib/WorkspaceExperience.php';
+        $experienceState = \WorkspaceExperience::Initial(Database::GetConnection('app'), (int)$currentUser['user_id'], 'dashboard', $uiState['preferences']);
 
         require_once (ROOTPATH . '').'/lib/ActionCenter.php';
         require_once (ROOTPATH . '').'/lib/AccessLinks.php';
