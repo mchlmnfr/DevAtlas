@@ -109,6 +109,12 @@ $token = CsrfToken();
 
                         <?php endif; ?>
                     </div>
+                    <?php if (Permissions::Can('dataconversion')): ?>
+                    <div class="nav-section">
+                        <div class="nav-heading">Data Management</div>
+                        <a href="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/dataconversion/index.php')) ?>" class="<?= $activeNav === 'dataconversion' ? 'active' : '' ?>"><span class="nav-icon"><?= UiIcon('database') ?></span><span class="nav-label">Data Conversion</span></a>
+                    </div>
+                    <?php endif; ?>
                     <div class="nav-section">
                         <div class="nav-heading">Inventory</div>
 
@@ -299,3 +305,4 @@ $token = CsrfToken();
                     </div>
                 </header>
                 <div class="content">
+

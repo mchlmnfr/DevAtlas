@@ -22,7 +22,7 @@ class Audit
     public static function Modules(): array
     {
         return ['updates' => "What's New",'wiki' => 'Documents Wiki','holidays' => 'Holidays','reports' => 'Reports','teammonitoring' => 'Team Monitoring','leaves' => 'Leaves','dailylogs' => 'My Daily Logs','approvals' => 'Approvals','reviewlogs' => 'Daily Logs Approval','applications' => 'Application Catalog','notifications' => 'Notifications','permissions' => 'Roles & Permissions','dashboard' => 'Dashboard','authentication' => 'Authentication','account' => 'Account',
-            'datadict' => 'Data Dictionary','diagrams' => 'ERD Generator','codereview' => 'Code Review','requirements' => 'Requirements',
+            'dataconversion' => 'Data Conversion','datadict' => 'Data Dictionary','diagrams' => 'ERD Generator','codereview' => 'Code Review','requirements' => 'Requirements',
             'organization' => 'Organization','usermgmt' => 'Users','settings' => 'Parameters','servers' => 'Server Inventory',
             'proginventory' => 'Program Inventory','directory' => 'Call Directory','bookmarks' => 'Quick Links','logs' => 'Error Logs','audit' => 'Audit Logs'];
     }
@@ -365,3 +365,4 @@ class Audit
         }
     }
 }
+
