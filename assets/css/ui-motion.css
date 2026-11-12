@@ -1,0 +1,44 @@
+/**
+ * Filename: ui-motion.css
+ * Purpose: Share interface transitions and reduced-motion behavior across page frames.
+ * Developer: DevAtlas maintainers
+ * Date: 2026-11-12
+ * Recent updates: Add personal dashboard layouts and shared motion controls.
+ */
+/* Shared motion across authenticated modules, dialogs, documentation and sign-in screens. */
+:root { --ui-motion-time: 180ms; --ui-motion-ease: cubic-bezier(.2,.7,.2,1); }
+html[data-motion="subtle"] { --ui-motion-time: 110ms; }
+.ui-motion-ready :is(.btn, button, .sidebar nav a, .user-menu-trigger, input, select, textarea) {
+    transition: background-color var(--ui-motion-time) ease, border-color var(--ui-motion-time) ease,
+        color var(--ui-motion-time) ease, box-shadow var(--ui-motion-time) ease, transform var(--ui-motion-time) var(--ui-motion-ease);
+}
+.ui-motion-ready :is(.card, .ws-card) { transition: border-color var(--ui-motion-time) ease, box-shadow var(--ui-motion-time) ease; }
+.ui-motion-ready tbody tr { transition: background-color var(--ui-motion-time) ease; }
+.ui-motion-ready :is(.sidebar, .sidebar-backdrop) { transition: width 220ms var(--ui-motion-ease), transform 220ms var(--ui-motion-ease), opacity 180ms ease; }
+.ui-motion-ready .main { transition: margin-left 220ms var(--ui-motion-ease); }
+.ui-motion-ready dialog[open], .ui-motion-ready .modal-overlay.open .modal {
+    animation: ui-dialog-enter 190ms var(--ui-motion-ease) both;
+}
+.ui-motion-ready dialog[open]::backdrop { animation: ui-backdrop-enter 160ms ease both; }
+.ui-motion-ready details[open] > :not(summary) { animation: ui-detail-enter 150ms ease both; }
+.ui-motion-ready :is(.htmx-swapping, .htmx-settling) { transition: opacity 120ms ease; }
+@media (hover: hover) and (pointer: fine) {
+    html:not([data-motion="off"]) .ui-motion-ready .btn:not(:disabled):hover { transform: translateY(-1px); }
+    html:not([data-motion="off"]) .ui-motion-ready .btn:not(:disabled):active { transform: translateY(0); }
+    html:not([data-motion="off"]) .ui-motion-ready .sidebar nav a:hover .nav-icon { transform: translateX(2px); transition: transform 150ms ease; }
+}
+@keyframes ui-dialog-enter { from { opacity: .4; transform: translateY(6px) scale(.99); } to { opacity: 1; transform: none; } }
+@keyframes ui-backdrop-enter { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ui-detail-enter { from { opacity: .4; } to { opacity: 1; } }
+html[data-motion="subtle"] .ui-motion-ready :is(dialog[open], .modal-overlay.open .modal) { animation-name: ui-detail-enter; animation-duration: 110ms; }
+html[data-motion="subtle"] .ui-motion-ready .btn:hover { transform: none; }
+html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after {
+    animation-duration: .01ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0ms !important; transition-delay: 0ms !important; scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important; transition-duration: 0ms !important; transition-delay: 0ms !important; scroll-behavior: auto !important; }
+    .ui-motion-ready .btn:hover, .ui-motion-ready .sidebar nav a:hover .nav-icon { transform: none !important; }
+}
+@media print { .ui-motion-ready * { animation: none !important; transition: none !important; } }

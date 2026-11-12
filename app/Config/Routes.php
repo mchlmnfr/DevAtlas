@@ -3,8 +3,8 @@
  * Filename: Routes.php
  * Purpose: Declare every permitted web endpoint; automatic routing is disabled.
  * Developer: DevAtlas maintainers
- * Date: 2026-10-29
- * Recent updates: Migrate to CodeIgniter 4 while preserving DevAtlas contracts.
+ * Date: 2026-11-12
+ * Recent updates: Register the account preference API alongside existing endpoints.
  */
 
 $routes->setAutoRoute(false);
@@ -157,3 +157,8 @@ $routes->match(['GET', 'POST'], 'modules/dataconversion', 'DataconversionControl
 $routes->match(['GET', 'POST'], 'modules/dataconversion/index.php', 'DataconversionController::Index');
 $routes->match(['GET', 'POST'], 'modules/dataconversion/api', 'DataconversionController::Api');
 $routes->match(['GET', 'POST'], 'modules/dataconversion/api.php', 'DataconversionController::Api');
+
+
+// Account-owned interface preferences.
+$routes->match(['GET', 'POST'], 'modules/account/ui-preferences', 'AccountController::UiPreferences');
+$routes->match(['GET', 'POST'], 'modules/account/ui_preferences.php', 'AccountController::UiPreferences');

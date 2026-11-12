@@ -3,8 +3,8 @@
  * Filename: header.php
  * Purpose: Provide header processing and supporting DevAtlas workflows.
  * Developer: DevAtlas maintainers
- * Date: 2026-10-29
- * Recent updates: Render CodeIgniter layouts and align first-party template markup.
+ * Date: 2026-11-12
+ * Recent updates: Apply saved account motion before module content is displayed.
  */
 
 /**
@@ -18,13 +18,15 @@ require_once ROOTPATH . 'lib/Auth.php';
 Auth::RequirePage();
 // every page that includes this header requires a logged-in session
 $currentUser = Auth::User();
+require_once ROOTPATH . 'lib/UserUiPreferences.php';
+$uiState = $uiState ?? UserUiPreferences::Load(Database::GetConnection('app'), (int)$currentUser['user_id']);
 
 $activeNav = $activeNav ?? '';
 $pageTitle = $pageTitle ?? APP_NAME;
 $token = CsrfToken();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-motion="<?= H($uiState['preferences']['motion']) ?>">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -304,5 +306,6 @@ $token = CsrfToken();
                     </div>
                 </header>
                 <div class="content">
+
 
 
