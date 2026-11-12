@@ -1,5 +1,16 @@
 [
   {
+    "id": "2026-11-12.27",
+    "order": 27,
+    "date": "2026-11-12",
+    "title": "Cleaner workspace controls",
+    "changes": [
+      "The wide workspace toolbar is replaced with a small View options menu beside the page title. Refresh, Appearance, Shortcuts, saved filter views, page size and Undo remain available when needed.",
+      "The separate Data loaded just now row is removed. Update time is shown inside View options; loading, retry and new-data notices appear only when there is something to act on.",
+      "The menu supports keyboard navigation, Escape, outside-click dismissal and compact mobile layouts. This update changes presentation only and needs no database migration."
+    ]
+  },
+  {
     "id": "2026-11-12.26",
     "order": 26,
     "date": "2026-11-12",
