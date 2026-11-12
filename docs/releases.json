@@ -1,5 +1,29 @@
 [
   {
+    "id": "2026-11-11.24",
+    "order": 24,
+    "date": "2026-11-11",
+    "title": "Function inventory reads function comments",
+    "changes": [
+      "Code Review Function Inventory now reads descriptions from PHPDoc, ordinary block comments, consecutive // comments and # comments immediately above PHP functions and methods.",
+      "Function comments are found across visibility/static modifiers and PHP 8 attributes. Explicit @description, @summary, Description: and Purpose: text is recognized, including multiline descriptions.",
+      "File headers, parameter/return annotations and their continuation lines are excluded from descriptions. Description text remains limited to 500 characters and flows into the Source Inventory export.",
+      "Run a new Function Inventory scan to populate corrected descriptions. Previously saved review snapshots keep the descriptions recorded when they were generated."
+    ]
+  },
+  {
+    "id": "2026-11-11.23",
+    "order": 23,
+    "date": "2026-11-11",
+    "title": "Reorganized sidebar navigation",
+    "changes": [
+      "Team Monitoring now appears immediately below Overview, keeping Team Monitoring, My Daily Logs, Leaves, Approvals and Reports together.",
+      "Data Dictionary and ERD Generator now appear under Data Management alongside Data Conversion.",
+      "The former Inventory section is named Workspace and includes Code Review, Server Inventory, Program Inventory, Call Directory and Access Links. The previous Workspace section has been removed.",
+      "Module search and the Roles & Permissions matrix follow the updated sidebar groups. Existing module access rules and page links continue to apply."
+    ]
+  },
+  {
     "id": "2026-11-10.22",
     "order": 22,
     "date": "2026-11-10",
