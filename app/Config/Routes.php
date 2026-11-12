@@ -162,3 +162,6 @@ $routes->match(['GET', 'POST'], 'modules/dataconversion/api.php', 'Dataconversio
 // Account-owned interface preferences.
 $routes->match(['GET', 'POST'], 'modules/account/ui-preferences', 'AccountController::UiPreferences');
 $routes->match(['GET', 'POST'], 'modules/account/ui_preferences.php', 'AccountController::UiPreferences');
+
+$routes->match(['GET', 'POST'], 'modules/account/experience', 'AccountController::Experience');
+$routes->match(['GET', 'POST'], 'modules/account/experience.php', 'AccountController::Experience');

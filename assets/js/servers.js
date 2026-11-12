@@ -221,21 +221,21 @@
             const TEXT = [server.server_name, server.ip_address, server.group_name, server.hosted_names, server.group_system_names, server.hosting_type, server.server_type, server.os_platform].join(' ').toLowerCase();
             return QUERY.split(/\s+/).every(word => TEXT.includes(word));
         }).sort((a, b) => COMPARE.compare(a.server_name, b.server_name) || COMPARE.compare(a.environment, b.environment));
-        const PAGE_SIZE = 15;
-        STATE.page = Math.min(STATE.page, Math.max(1, Math.ceil(ROWS.length / PAGE_SIZE)));
-        const START = (STATE.page - 1) * PAGE_SIZE;
-        GetElement('inventoryServerRows').innerHTML = ROWS.length ? ROWS.slice(START, START + PAGE_SIZE).map(server => 
+
+        STATE.page = Math.min(STATE.page, Math.max(1, Math.ceil(ROWS.length / (window.Experience?.pageSize(15) || 15))));
+        const START = (STATE.page - 1) * (window.Experience?.pageSize(15) || 15);
+        GetElement('inventoryServerRows').innerHTML = ROWS.length ? ROWS.slice(START, START + (window.Experience?.pageSize(15) || 15)).map(server => 
         {
             const GROUP_INFO = STATE.groups.find(group => Number(group.server_group_id) === Number(server.server_group_id));
             const SHARED = Number(GROUP_INFO?.system_count || 0);
             const RESOURCES = [server.cpu_cores !== null ? `${GetNumber(server.cpu_cores)} cores` : '', server.memory_gb !== null ? `${GetNumber(server.memory_gb)} GB RAM` : '', server.storage_gb !== null ? `${GetNumber(server.storage_gb)} GB disk` : ''].filter(Boolean);
             return `<tr><td data-label="Server" class="inventory-server-identity">${Action(server.server_name, 'server', server.server_id)}<div class="inventory-address"><code>${ESC(server.ip_address)}</code>${Action('Copy', 'copy', server.ip_address, 'aria-label="Copy server address"')}</div>${!Yes(server.is_active) ? Badge('Inactive') : ''}</td><td data-label="Environment / group">${EnvBadge(server.environment)}<small>${ESC(server.group_name || 'Ungrouped')}</small></td><td data-label="Hosting / role">${ESC(server.hosting_type || 'Not specified')}<small>${ESC(server.server_type || 'Role not specified')}</small></td><td data-label="Resources">${RESOURCES.length ? RESOURCES.map(value => `<small>${ESC(value)}</small>`).join('') : '<span class="muted">Not recorded</span>'}</td><td data-label="Applications"><strong>${Number(server.hosted_count)}</strong> on server${SHARED ? `<small>${SHARED} shared by group</small>` : ''}</td></tr>`;
         }).join('') : `<tr><td colspan="5">${Empty(STATE.servers.length ? 'No matching servers' : 'No servers yet', STATE.servers.length ? 'Adjust the filters or search to see more servers.' : 'Add your first server to start the inventory.')}</td></tr>`;
-        GetElement('serverResults').textContent = ROWS.length ? `Showing ${START + 1}–${Math.min(START + PAGE_SIZE, ROWS.length)} of ${ROWS.length} servers` : '0 servers';
-        GetElement('serverPagination').hidden = ROWS.length <= PAGE_SIZE;
-        GetElement('serverPageLabel').textContent = `Page ${STATE.page} of ${Math.max(1, Math.ceil(ROWS.length / PAGE_SIZE))}`;
+        GetElement('serverResults').textContent = ROWS.length ? `Showing ${START + 1}–${Math.min(START + (window.Experience?.pageSize(15) || 15), ROWS.length)} of ${ROWS.length} servers` : '0 servers';
+        GetElement('serverPagination').hidden = ROWS.length <= (window.Experience?.pageSize(15) || 15);
+        GetElement('serverPageLabel').textContent = `Page ${STATE.page} of ${Math.max(1, Math.ceil(ROWS.length / (window.Experience?.pageSize(15) || 15)))}`;
         GetElement('serverPrevious').disabled = STATE.page <= 1;
-        GetElement('serverNext').disabled = START + PAGE_SIZE >= ROWS.length;
+        GetElement('serverNext').disabled = START + (window.Experience?.pageSize(15) || 15) >= ROWS.length;
     }
     function RenderGroups() 
     {
@@ -1483,4 +1483,5 @@
             }
         }
     });
+    document.addEventListener('experience:page-size', e => { e.detail.handled = true; RenderServers(); });
 })();

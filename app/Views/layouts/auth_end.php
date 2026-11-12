@@ -14,5 +14,9 @@
     <?php echo view('layouts/theme_control', get_defined_vars());
     ?>
 </footer>
+<script src="<?= H(AssetUrl('assets/vendor/flatpickr/flatpickr.min.js')) ?>"></script>
+<script src="<?= H(AssetUrl('assets/vendor/flatpickr/month-select.js')) ?>"></script>
+<script src="<?= H(AssetUrl('assets/js/experience-core.js')) ?>"></script>
+<script src="<?= H(AssetUrl('assets/js/experience-forms.js')) ?>"></script>
 </body>
 </html>

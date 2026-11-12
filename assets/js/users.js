@@ -30,7 +30,7 @@
     let actionId = null;
     let orgTree = [];
     let editorRequest = 0;
-    const PAGE_SIZE = 15;
+
     const Name = user => [user.first_name, user.middle_name, user.last_name].filter(Boolean).join(' ');
     ELEMENT('userSearch').value = (new URLSearchParams(location.search).get('q') || '').slice(0, 200);
     document.querySelectorAll('[data-icon]').forEach(el => el.innerHTML = ICON(el.dataset.icon));
@@ -92,10 +92,10 @@
         {
             numeric: true
         }) || Number(a.user_id) - Number(b.user_id));
-        const PAGES = Math.max(1, Math.ceil(FILTERED.length / PAGE_SIZE));
+        const PAGES = Math.max(1, Math.ceil(FILTERED.length / (window.Experience?.pageSize(15) || 15)));
         page = Math.min(page, PAGES);
-        const START = (page - 1) * PAGE_SIZE;
-        ELEMENT('userRows').innerHTML = FILTERED.slice(START, START + PAGE_SIZE).map(user => 
+        const START = (page - 1) * (window.Experience?.pageSize(15) || 15);
+        ELEMENT('userRows').innerHTML = FILTERED.slice(START, START + (window.Experience?.pageSize(15) || 15)).map(user => 
         {
             const ID = Number(user.user_id);
             const FULL_NAME = Name(user);
@@ -103,7 +103,7 @@
             return `<tr><td><div class="ws-identity"><span class="ws-avatar" aria-hidden="true">${ESC(INITIALS.toUpperCase())}</span><span><strong class="users-identity-name">${ESC(FULL_NAME)}</strong><small>${ESC(user.employee_id)}${ID === MY_ID ? ' · You' : ''}</small></span></div></td><td data-label="Organization"><strong>${ESC(user.department_name || 'Not assigned')}</strong><small>${ESC([user.unit_name, user.position_title].filter(Boolean).join(' · ') || 'No unit or position')}</small></td><td data-label="Email">${user.email ? `<a href="mailto:${ESC(encodeURIComponent(user.email))}">${ESC(user.email)}</a>` : '<span class="muted">No email on file</span>'}</td><td data-label="Account status"><small>${ESC(user.role_name || user.role_key || 'Analyst')}</small><div class="users-statuses"><span class="ws-tag ${Truth(user.is_active) ? 'green' : 'gray'}"><span class="ws-status-dot"></span>${Truth(user.is_active) ? 'Enabled' : 'Disabled'}</span>${Truth(user.is_locked) ? '<span class="ws-tag red">Locked</span>' : ''}${Truth(user.must_change_password) ? '<span class="ws-tag amber">Password update</span>' : ''}</div></td><td><div class="users-row-actions"><button class="btn btn-sm" type="button" data-edit-user="${ID}" aria-label="Edit ${ESC(FULL_NAME)}">Edit</button><button class="btn btn-sm" type="button" data-user-actions="${ID}" aria-label="Account actions for ${ESC(FULL_NAME)}">•••</button></div></td></tr>`;
         }).join('') || '<tr><td colspan="5"><div class="ws-state">' + ICON('users') + '<strong>No accounts match.</strong><p>Try a different search, status or department.</p><button class="btn btn-sm" type="button" id="userClearFilters">Clear filters</button></div></td></tr>';
         ELEMENT('userListStatus').textContent = `${users.length} accounts in your workspace`;
-        ELEMENT('userPageSummary').textContent = FILTERED.length ? `${START + 1}–${Math.min(START + PAGE_SIZE, FILTERED.length)} of ${FILTERED.length} accounts · Page ${page} of ${PAGES}` : '0 matching accounts';
+        ELEMENT('userPageSummary').textContent = FILTERED.length ? `${START + 1}–${Math.min(START + (window.Experience?.pageSize(15) || 15), FILTERED.length)} of ${FILTERED.length} accounts · Page ${page} of ${PAGES}` : '0 matching accounts';
         ELEMENT('userPrevious').disabled = page <= 1;
         ELEMENT('userNext').disabled = page >= PAGES;
         document.querySelectorAll('[data-status]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.status === STATUS)));
@@ -406,4 +406,5 @@
     });
     ELEMENT('resetPasswordModal').addEventListener('close', () => ELEMENT('resetPasswordForm').reset());
     Load();
+    document.addEventListener('experience:page-size', e => { e.detail.handled = true; Render(); });
 })();

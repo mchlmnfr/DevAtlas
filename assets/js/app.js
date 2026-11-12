@@ -25,7 +25,7 @@ const DEV_ATLAS_THEME = (() =>
         {
             preference = STORED;
         }
-        document.documentElement.classList.toggle('sidebar-collapsed', localStorage.getItem('at_sidebar_collapsed') === '1');
+        document.documentElement.classList.toggle('sidebar-collapsed', localStorage.getItem('at_sidebar_collapsed:' + (window.AT_EXPERIENCE?.actor || 0)) === '1');
     }
     catch 
     {
@@ -90,7 +90,15 @@ const AT = (() =>
 {
     const ICON_SPRITE = new URL(document.querySelector('meta[name="icon-sprite"]')?.content || '../vendor/lucide/sprite.svg', document.currentScript.src);
     const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]')?.content || '';
-    async function Api(url, opts = 
+    const PENDING_MUTATIONS = new Map();
+    async function Api(url, opts = {}) {
+        if (String(opts.method || 'GET').toUpperCase() === 'GET') return ApiRequest(url, opts);
+        const key = String(opts.method).toUpperCase() + ' ' + url + ' ' + JSON.stringify(opts.body || null);
+        if (PENDING_MUTATIONS.has(key)) return PENDING_MUTATIONS.get(key);
+        const task = ApiRequest(url, opts); PENDING_MUTATIONS.set(key, task);
+        try { return await task; } finally { PENDING_MUTATIONS.delete(key); }
+    }
+    async function ApiRequest(url, opts = 
     {
 
     }) 
@@ -124,6 +132,7 @@ const AT = (() =>
             Toast(MSG, 'error');
             throw new Error(MSG);
         }
+        if (OPTIONS.method.toUpperCase() !== 'GET' && !data?.error && !RES.experienceMutationEmitted) document.dispatchEvent(new CustomEvent('experience:mutation', {detail: {url}}));
         return data;
     }
     const FEEDBACK_ICONS = 
@@ -292,15 +301,19 @@ const AT = (() =>
     }
     function CloseModal(id) 
     {
-        document.getElementById(id)?.classList.remove('open');
+        const modal = document.getElementById(id);
+        if (modal && window.Experience?.forms) { Experience.forms.confirmContainerClose(modal).then(ok => { if (ok) modal.classList.remove('open'); }); return; }
+        modal?.classList.remove('open');
     }
     async function ConfirmAction(message, title = 'Confirm action', action = 'Delete') 
     {
+        const SELECTED = /approve|return|delete|review/i.test(action) && /batch|selected/i.test(title + ' ' + message) ? [...document.querySelectorAll('tbody input[type=checkbox]:checked:not(:disabled)')].filter(e => e.getClientRects().length && !e.closest('dialog:not([open])')) : [];
+        const SCOPE = SELECTED.length ? '\n\nSelected records: ' + SELECTED.length + '\n' + SELECTED.slice(0, 5).map(e => e.closest('tr').textContent.replace(/\s+/g, ' ').trim().slice(0, 140)).join('\n') + (SELECTED.length > 5 ? '\n… and ' + (SELECTED.length - 5) + ' more.' : '') : '';
         const RESULT = await FeedbackDialog(
         {
             ...FeedbackOptions('warning'),
             titleText: String(title),
-            text: String(message),
+            text: String(message) + SCOPE,
             showCancelButton: true,
             confirmButtonText: String(action),
             cancelButtonText: 'Cancel',
@@ -338,15 +351,18 @@ const AT = (() =>
             TA.className = 'clipboard-fallback';
             TA.tabIndex = -1;
             const ACCOUNT_PANEL = document.getElementById('userMenuDropdown');
-            (ACCOUNT_PANEL?.contains(PREVIOUS_FOCUS) ? ACCOUNT_PANEL : document.body).appendChild(TA);
+            (PREVIOUS_FOCUS?.closest('dialog[open]') || (ACCOUNT_PANEL?.contains(PREVIOUS_FOCUS) ? ACCOUNT_PANEL : document.body)).appendChild(TA);
             TA.select();
             try 
             {
-                document.execCommand('copy');
+                if (!document.execCommand('copy')) throw new Error('Copy unavailable');
             }
             catch (e2) 
             {
-                /* ignore */
+                TA.remove();
+                PREVIOUS_FOCUS?.focus({preventScroll:true});
+                Toast('Copy is unavailable. Select the text and copy it manually.', 'warning');
+                return false;
             }
             TA.remove();
             if (PREVIOUS_FOCUS?.isConnected) 
@@ -357,7 +373,8 @@ const AT = (() =>
                 });
             }
         }
-        Toast('Copied: ' + text);
+        Toast('Copied to clipboard.');
+        return true;
     }
     function EscapeHtml(str) 
     {
@@ -526,10 +543,14 @@ const AT = (() =>
     }
     function ToggleSidebar() 
     {
-        const COLLAPSED = document.documentElement.classList.toggle('sidebar-collapsed');
+        const ROOT = document.documentElement;
+        ROOT.classList.remove('exp-sidebar-entering', 'exp-sidebar-leaving');
+        ROOT.classList.add(ROOT.classList.contains('sidebar-collapsed') ? 'exp-sidebar-entering' : 'exp-sidebar-leaving');
+        const COLLAPSED = ROOT.classList.toggle('sidebar-collapsed');
+        setTimeout(() => ROOT.classList.remove('exp-sidebar-entering', 'exp-sidebar-leaving'), 240);
         try 
         {
-            localStorage.setItem('at_sidebar_collapsed', COLLAPSED ? '1' : '0');
+            localStorage.setItem('at_sidebar_collapsed:' + (window.AT_EXPERIENCE?.actor || 0), COLLAPSED ? '1' : '0');
         }
         catch 
         {
@@ -1087,14 +1108,14 @@ const AT = (() =>
     {
         if (e.target.classList && e.target.classList.contains('modal-overlay')) 
         {
-            e.target.classList.remove('open');
+            CloseModal(e.target.id);
         }
     });
     document.addEventListener('keydown', e => 
     {
         if (e.key === 'Escape') 
         {
-            document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+            document.querySelectorAll('.modal-overlay.open').forEach(m => CloseModal(m.id));
         }
     });
     return (

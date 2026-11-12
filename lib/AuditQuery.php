@@ -139,7 +139,8 @@ class AuditQuery
         {
             throw new InvalidArgumentException('More than 50,000 events match. Narrow the filters before exporting.');
         }
-        $size = $isExport ? 50000 : 50;
+        require_once ROOTPATH.'lib/ListPageSize.php';
+        $size = $isExport ? 50000 : ListPageSize::Get(50);
         $pages = max(1, (int)ceil($stats['total'] / $size));
         $f['page'] = min($f['page'], $pages);
         $offset = $isExport ? 0 : ($f['page'] - 1) * $size;

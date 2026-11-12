@@ -404,9 +404,11 @@ class DailyLogs
         $sSql = 'SELECT COUNT(*)'.$sql;
         $s = $db->query($sSql, $params);
         $total = (int)Database::Scalar($s);
-        $pages = max(1, (int)ceil($total / 25));
+        require_once ROOTPATH.'lib/ListPageSize.php';
+        $size = \ListPageSize::Get();
+        $pages = max(1, (int)ceil($total / $size));
         $page = min($pages, max(1, (int)($data['page'] ?? 1)));
-        $sSql = "SELECT l.log_id,l.user_id,l.version,l.activity_date,l.entry_kind,l.activity_type,l.classification,l.duration_hours,l.leave_type,l.leave_period,l.status,CONCAT_WS(' ',u.first_name,u.middle_name,u.last_name) employee_name,u.employee_id,un.unit_name".$sql.' ORDER BY l.activity_date DESC,l.log_id DESC LIMIT 25 OFFSET '.(($page - 1) * 25);
+        $sSql = "SELECT l.log_id,l.user_id,l.version,l.activity_date,l.entry_kind,l.activity_type,l.classification,l.duration_hours,l.leave_type,l.leave_period,l.status,CONCAT_WS(' ',u.first_name,u.middle_name,u.last_name) employee_name,u.employee_id,un.unit_name".$sql.' ORDER BY l.activity_date DESC,l.log_id DESC LIMIT '.$size.' OFFSET '.(($page - 1) * $size);
         $s = $db->query($sSql, $params);
         return ['logs' => $s->getResultArray(),'total' => $total,'page' => $page,'pages' => $pages];
     }
@@ -634,9 +636,11 @@ class DailyLogs
         $sSql = 'SELECT COUNT(*)'.$sql;
         $s = $db->query($sSql, $params);
         $total = (int)Database::Scalar($s);
-        $pages = max(1, (int)ceil($total / 25));
+        require_once ROOTPATH.'lib/ListPageSize.php';
+        $size = \ListPageSize::Get();
+        $pages = max(1, (int)ceil($total / $size));
         $page = min($pages, max(1, (int)($data['page'] ?? 1)));
-        $sSql = "SELECT u.user_id,u.unit_id,u.employee_id,CONCAT_WS(' ',u.first_name,u.middle_name,u.last_name) employee_name,un.unit_name,p.position_title".$sql.' ORDER BY u.last_name,u.first_name,u.user_id LIMIT 25 OFFSET '.(($page - 1) * 25);
+        $sSql = "SELECT u.user_id,u.unit_id,u.employee_id,CONCAT_WS(' ',u.first_name,u.middle_name,u.last_name) employee_name,un.unit_name,p.position_title".$sql.' ORDER BY u.last_name,u.first_name,u.user_id LIMIT '.$size.' OFFSET '.(($page - 1) * $size);
         $s = $db->query($sSql, $params);
         $members = $s->getResultArray();
         $totals = [];

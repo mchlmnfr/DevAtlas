@@ -36,10 +36,17 @@
             const RESULT = await AT.api(API + '?action=inbox&page=' + page + '&unread=' + (ELEMENT('notificationUnread').checked ? '1' : '0'));
             page = RESULT.page;
             pages = RESULT.pages;
-            ELEMENT('notificationRows').innerHTML = RESULT.notifications.map(n => '<article class="wf-notice ' + (!n.is_read ? 'unread' : '') + '"><h3>' + ESC(n.title) + '</h3><p>' + ESC(n.message) + '</p><div class="wf-notice-footer"><time>' + ESC(new Date(n.created_at).toLocaleString('en-PH', 
+            const article = n => '<article class="wf-notice ' + (!n.is_read ? 'unread' : '') + '"><h3>' + ESC(n.title) + '</h3><p>' + ESC(n.message) + '</p><div class="wf-notice-footer"><time>' + ESC(new Date(n.created_at).toLocaleString('en-PH', 
             {
                 timeZone: 'Asia/Manila'
-            })) + '</time><a class="btn btn-sm" data-notification-open="' + Number(n.notification_id) + '" href="' + ESC(n.target_path) + '">Open details</a>' + (!n.is_read ? '<button class="btn btn-sm" data-mark-read="' + Number(n.notification_id) + '">Mark as read</button>' : '<span class="ws-tag gray">Read</span>') + '</div></article>').join('') || '<div class="ws-card ws-state"><strong>You’re up to date.</strong><p>No notifications match this view.</p></div>';
+            })) + '</time><a class="btn btn-sm" data-notification-open="' + Number(n.notification_id) + '" href="' + ESC(n.target_path) + '">Open details</a>' + (!n.is_read ? '<button class="btn btn-sm" data-mark-read="' + Number(n.notification_id) + '">Mark as read</button>' : '<span class="ws-tag gray">Read</span>') + '</div></article>';
+            const groups = new Map();
+            for (const n of RESULT.notifications) {
+                const key = (n.type || n.module || n.title || 'Notifications') + ' · ' + new Date(n.created_at).toLocaleDateString('en-PH', {timeZone:'Asia/Manila'});
+                if (!groups.has(key)) groups.set(key, []);
+                groups.get(key).push(n);
+            }
+            ELEMENT('notificationRows').innerHTML = [...groups].map(([key, rows]) => '<details class="exp-notification-group" open><summary>' + ESC(key) + ' · ' + rows.length + ' item' + (rows.length === 1 ? '' : 's') + ' · ' + rows.filter(n => !n.is_read).length + ' unread</summary>' + rows.map(article).join('') + '</details>').join('') || '<div class="ws-card ws-state"><strong>You’re up to date.</strong><p>No notifications match this view.</p></div>';
             ELEMENT('notificationCount').textContent = RESULT.total + ' notifications · page ' + page + ' of ' + pages;
             ELEMENT('notificationPrevious').disabled = page <= 1;
             ELEMENT('notificationNext').disabled = page >= pages;

@@ -17,6 +17,31 @@ use RecordSearch;
 
 class AccountController extends BaseController
 {
+    public function Experience()
+    {
+        require_once ROOTPATH.'lib/Auth.php';require_once ROOTPATH.'lib/helpers.php';
+        require_once ROOTPATH.'lib/UserUiPreferences.php';require_once ROOTPATH.'lib/WorkspaceExperience.php';
+        Auth::RequireApi();Header('Cache-Control: no-store');$method=$_SERVER['REQUEST_METHOD']??'';
+        if(!in_array($method,['GET','POST'],true))JsonError('Invalid request method.',405);
+        \Permissions::Require('account',$method==='GET'?'view':'edit');if($method==='POST')RequireCsrf();
+        if((int)($_SERVER['CONTENT_LENGTH']??0)>131072)JsonError('Workspace request is too large.',413);
+        try{
+            $db=Database::GetConnection('app');$actor=(int)$_SESSION['user_id'];
+            if($method==='GET'&&isset($_GET['calendar'])){
+                \Permissions::Require('leaves');require_once ROOTPATH.'lib/LeaveRequests.php';
+                if(!is_string($_GET['calendar'])||!preg_match('/^\d{4}-(?:0[1-9]|1[0-2])$/D',$_GET['calendar']))throw new InvalidArgumentException('Choose a calendar month.');
+                JsonResponse(\LeaveRequests::Calendar($db,$actor,['month'=>$_GET['calendar']]));
+            }
+            if($method==='GET'){
+                $key=\WorkspaceExperience::Key($_GET['key']??null);
+                JsonResponse(['key'=>$key,'document'=>\WorkspaceExperience::Read($db,$actor,$key),'storage_ready'=>\WorkspaceExperience::Ready($db)]);
+            }
+            JsonResponse(\WorkspaceExperience::Save($db,$actor,ReadJsonBody()));
+        }catch(InvalidArgumentException $e){JsonError($e->getMessage(),422);}
+        catch(DomainException $e){JsonError($e->getMessage(),409);}
+        catch(\RuntimeException $e){JsonError($e->getMessage(),503);}
+    }
+
     public function UiPreferences()
     {
         require_once ROOTPATH . 'lib/Auth.php';

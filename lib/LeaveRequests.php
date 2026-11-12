@@ -148,9 +148,11 @@ class LeaveRequests
         $sSql = 'SELECT COUNT(DISTINCT a.request_id)'.$sql;
         $s = $db->query($sSql, $params);
         $total = (int)Database::Scalar($s);
-        $pages = max(1, (int)ceil($total / 25));
+        require_once ROOTPATH.'lib/ListPageSize.php';
+        $size = \ListPageSize::Get();
+        $pages = max(1, (int)ceil($total / $size));
         $page = min($pages, max(1, $page));
-        $sSql = "SELECT MIN(l.log_id) log_id,u.user_id,a.date_from,a.date_to,MIN(l.activity_date) activity_date,MIN(l.leave_type) leave_type,MIN(l.leave_period) leave_period,SUM(l.duration_hours) duration_hours,MIN(l.status) status,CONCAT_WS(' ',u.first_name,u.middle_name,u.last_name) employee_name".$sql.' GROUP BY a.request_id,u.user_id ORDER BY a.date_from,a.request_id LIMIT 25 OFFSET '.(($page - 1) * 25);
+        $sSql = "SELECT MIN(l.log_id) log_id,u.user_id,a.date_from,a.date_to,MIN(l.activity_date) activity_date,MIN(l.leave_type) leave_type,MIN(l.leave_period) leave_period,SUM(l.duration_hours) duration_hours,MIN(l.status) status,CONCAT_WS(' ',u.first_name,u.middle_name,u.last_name) employee_name".$sql.' GROUP BY a.request_id,u.user_id ORDER BY a.date_from,a.request_id LIMIT '.$size.' OFFSET '.(($page - 1) * $size);
         $s = $db->query($sSql, $params);
         return ['rows' => $s->getResultArray(),'total' => $total,'page' => $page,'pages' => $pages];
     }

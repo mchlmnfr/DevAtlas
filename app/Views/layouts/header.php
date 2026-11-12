@@ -22,11 +22,13 @@ require_once ROOTPATH . 'lib/UserUiPreferences.php';
 $uiState = $uiState ?? UserUiPreferences::Load(Database::GetConnection('app'), (int)$currentUser['user_id']);
 
 $activeNav = $activeNav ?? '';
+require_once ROOTPATH.'lib/WorkspaceExperience.php';
+$experienceState = $experienceState ?? WorkspaceExperience::Initial(Database::GetConnection('app'), (int)$currentUser['user_id'], $activeNav, $uiState['preferences']);
 $pageTitle = $pageTitle ?? APP_NAME;
 $token = CsrfToken();
 ?>
 <!DOCTYPE html>
-<html lang="en" data-motion="<?= H($uiState['preferences']['motion']) ?>">
+<html lang="en" data-motion="<?= H($uiState['preferences']['motion']) ?>" data-accent="<?= H($experienceState['documents']['appearance']['value']['accent']) ?>" data-reading-size="<?= H($experienceState['documents']['appearance']['value']['textSize']) ?>">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,6 +48,7 @@ $token = CsrfToken();
         <?php endforeach; ?>
         <script>window.AT_AVATAR_UPLOAD_URL = <?= json_encode(APP_BASE_URL . '/modules/account/upload_avatar.php') ?>;</script>
 
+        <script>window.AT_EXPERIENCE = <?= json_encode($experienceState, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;</script>
         <?php echo view('layouts/ui_assets', get_defined_vars());
 ?>
         <script src="<?= H(AssetUrl('assets/js/app.js')) ?>"></script>

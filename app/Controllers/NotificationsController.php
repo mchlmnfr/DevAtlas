@@ -63,9 +63,11 @@ class NotificationsController extends BaseController
                 $countSql = 'SELECT COUNT(*) FROM notifications'.$where;
                 $count = $db->query($countSql, [$user]);
                 $total = (int)Database::Scalar($count);
-                $pages = max(1, (int)ceil($total / 25));
+                require_once ROOTPATH.'lib/ListPageSize.php';
+        $size = \ListPageSize::Get();
+        $pages = max(1, (int)ceil($total / $size));
                 $page = min(max(1, (int)($data['page'] ?? 1)), $pages);
-                $stmtSql = 'SELECT * FROM notifications'.$where.' ORDER BY notification_id DESC LIMIT 25 OFFSET '.(($page - 1) * 25);
+                $stmtSql = 'SELECT * FROM notifications'.$where.' ORDER BY notification_id DESC LIMIT '.$size.' OFFSET '.(($page - 1) * $size);
                 $stmt = $db->query($stmtSql, [$user]);
                 JsonResponse(['notifications' => $stmt->getResultArray(),'total' => $total,'pages' => $pages,'page' => $page]);
             }
