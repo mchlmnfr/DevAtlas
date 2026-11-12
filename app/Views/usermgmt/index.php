@@ -234,7 +234,7 @@
                     </div>
                     <div class="form-row"><label for="us_role_key">Access role</label><select id="us_role_key" <?= Permissions::IsAdmin() ? '' : 'disabled' ?>>
 
-                            <?php foreach (Database::GetConnection('app')->query('SELECT role_key,role_name FROM app_roles ORDER BY LOWER(role_name),role_key') as $role): ?>
+                            <?php foreach (Database::GetConnection('app')->query('SELECT role_key,role_name FROM app_roles ORDER BY LOWER(role_name),role_key')->getResultArray() as $role): ?>
                             <option value="<?= H($role['role_key']) ?>" <?= $role['role_key'] === 'analyst' ? 'selected' : '' ?>><?= H($role['role_name']) ?></option>
 
                             <?php endforeach; ?>
