@@ -315,7 +315,7 @@
         if (!ROWS.length) 
         {
             const TITLE = !STATE.files.length ? 'No daily logs yet' : !STATE.entries.length ? 'No events in this preview' : 'No events match your filters';
-            const NOTE = !STATE.files.length ? 'Recorded events will appear here when the application writes a log.' : !STATE.entries.length ? 'Check the preview notice or choose another daily file.' : 'Try a different search, severity or area, or use Reset filters.';
+            const NOTE = !STATE.files.length ? 'Events will appear here when CodeIgniter writes a file log.' : !STATE.entries.length ? 'Check the preview notice or choose another daily file.' : 'Try a different search, severity or area, or use Reset filters.';
             El('lgEvents').innerHTML = `<div class="lg-empty"><strong>${TITLE}</strong><p>${NOTE}</p></div>`;
             return;
         }
@@ -491,7 +491,14 @@
 
             });
             await LoadFiles(RESULT.file);
-            AT.toast('Diagnostic entry added to today’s log.');
+            if (RESULT.ok)
+            {
+                AT.toast(RESULT.message);
+            }
+            else
+            {
+                ErrorMessage(RESULT.message);
+            }
         }
         catch (error) 
         {

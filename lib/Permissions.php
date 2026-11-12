@@ -31,7 +31,7 @@ class Permissions
             'teammonitoring' => ['view'],'dailylogs' => ['view','create','edit','delete'],'leaves' => ['view','create','edit','delete','review'],'reviewlogs' => ['view','review'],'reports' => ['view','export'],
             'applications' => ['view','create','edit','delete'],'organization' => ['view','create','edit','delete'],
             'usermgmt' => ['view','create','edit','delete','support'],'settings' => ['view','edit'],'logs' => ['view','edit','delete','export'],'audit' => ['view','export'],
-            'datadict' => ['view','create','edit','delete','export'],'diagrams' => ['view','create','edit','delete','export'],
+            'dataconversion' => ['view','create','export'],'datadict' => ['view','create','edit','delete','export'],'diagrams' => ['view','create','edit','delete','export'],
             'requirements' => ['view','create','edit','delete','export'],'bookmarks' => ['view','create','edit','delete'],'directory' => ['view','create','edit','delete'],
             'servers' => ['view','create','edit','delete','export','credentials'],'codereview' => ['view','create','edit','export','review'],'proginventory' => ['view','export']];
     }
@@ -187,6 +187,15 @@ class Permissions
     }
     public static function Operation(string $module, string $file, string $action, string $method, array $body = []): string
     {
+        if ($module === 'dataconversion')
+        {
+            return match ($action)
+            {
+                'upload', 'worksheet', 'clear' => 'create',
+                'download' => 'export',
+                default => 'view'
+            };
+        }
         if ($module === 'updates')
         {
             return 'view';
@@ -375,3 +384,4 @@ class Permissions
         }
     }
 }
+

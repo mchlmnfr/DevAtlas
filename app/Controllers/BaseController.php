@@ -60,7 +60,7 @@ abstract class BaseController extends Controller
                 $response->setHeader(trim($parts[0]), strtolower(trim($parts[0])) === 'location' ? RouteUrls::Url($value) : $value);
             }
         }
-        $response->setHeader('X-DevAtlas-Stack', 'CodeIgniter/4.7.5');
+        $response->setHeader('X-DevAtlas-Stack', 'CodeIgniter/' . \CodeIgniter\CodeIgniter::CI_VERSION);
         $response->setHeader('Cache-Control', 'no-store, private');
         return $response;
     }

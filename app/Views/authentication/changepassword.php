@@ -58,7 +58,7 @@
 
             <?php if ($forced): ?>
             <div class="text-sm layout-e82ab5d8">
-                You must change your password before continuing.
+                You must change your password before continuing. Enter and confirm your new password below.
             </div>
 
             <?php endif; ?>
@@ -76,9 +76,11 @@
                     name="csrf_token"
                     value="<?= H($token) ?>"
                 >
+                <?php if (!$forced): ?>
                 <div class="form-row">
-                    <label>Current Password</label>
+                    <label for="currentPassword">Current Password</label>
                     <input
+                        id="currentPassword"
                         type="password"
                         name="current_password"
                         required
@@ -86,21 +88,27 @@
                         autofocus
                     >
                 </div>
+                <?php endif; ?>
                 <div class="form-row">
-                    <label>New Password</label>
+                    <label for="newPassword">New Password</label>
                     <input
+                        id="newPassword"
                         type="password"
                         name="new_password"
+                        minlength="8"
                         required
                         autocomplete="new-password"
                         placeholder="min. 8 characters"
+                        <?= $forced ? 'autofocus' : '' ?>
                     >
                 </div>
                 <div class="form-row">
-                    <label>Confirm New Password</label>
+                    <label for="confirmPassword">Confirm New Password</label>
                     <input
+                        id="confirmPassword"
                         type="password"
                         name="confirm_password"
+                        minlength="8"
                         required
                         autocomplete="new-password"
                     >
@@ -124,3 +132,4 @@
         </div>
     </body>
 </html>
+

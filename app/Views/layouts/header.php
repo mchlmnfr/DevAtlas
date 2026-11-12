@@ -81,6 +81,37 @@ $token = CsrfToken();
 
                         <?php endif; ?>
                     </div>
+                    <?php if (Permissions::Can('teammonitoring') || Permissions::Can('dailylogs') || Permissions::Can('leaves') || Permissions::Can('approvals') || Permissions::Can('reports')): ?>
+                    <div class="nav-section">
+                        <div class="nav-heading">Team Monitoring</div>
+
+                        <?php foreach (['teammonitoring' => ['Team Monitoring','users'],'dailylogs' => ['My Daily Logs','notebook-pen'],'leaves' => ['Leaves','calendar-days'],'approvals' => ['Approvals','clipboard-check'],'reports' => ['Reports','file-chart-column']] as $navKey => $navItem): if (Permissions::Can($navKey)): ?>
+                        <a href="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/' . $navKey . '/index.php')) ?>" class="<?= $activeNav === $navKey ? 'active' : '' ?>"><span class="nav-icon"><?= UiIcon($navItem[1]) ?></span><span class="nav-label"><?= H($navItem[0]) ?></span></a>
+
+                        <?php endif;
+        endforeach;
+          ?>
+                    </div>
+
+                    <?php endif; ?>
+                    <?php if (Permissions::Can('datadict') || Permissions::Can('diagrams') || Permissions::Can('dataconversion')): ?>
+                    <div class="nav-section">
+                        <div class="nav-heading">Data Management</div>
+                        <?php if (Permissions::Can('datadict')): ?>
+                        <a href="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/datadict/index.php')) ?>" class="<?= $activeNav === 'datadict' ? 'active' : '' ?>"><span class="nav-icon"><?= UiIcon('database') ?></span><span class="nav-label">Data Dictionary</span></a>
+
+                        <?php endif; ?>
+
+                        <?php if (Permissions::Can('diagrams')): ?>
+                        <a href="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/diagrams/index.php')) ?>" class="<?= $activeNav === 'diagrams' ? 'active' : '' ?>"><span class="nav-icon"><?= UiIcon('workflow') ?></span><span class="nav-label">ERD Generator</span></a>
+
+                        <?php endif; ?>
+
+                        <?php if (Permissions::Can('dataconversion')): ?>
+                        <a href="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/dataconversion/index.php')) ?>" class="<?= $activeNav === 'dataconversion' ? 'active' : '' ?>"><span class="nav-icon"><?= UiIcon('database') ?></span><span class="nav-label">Data Conversion</span></a>
+                        <?php endif; ?>
+                    </div>
+                    <?php endif; ?>
                     <div class="nav-section">
                         <div class="nav-heading">Workspace</div>
 
@@ -94,23 +125,10 @@ $token = CsrfToken();
 
                         <?php endif; ?>
 
-                        <?php if (Permissions::Can('datadict')): ?>
-                        <a href="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/datadict/index.php')) ?>" class="<?= $activeNav === 'datadict' ? 'active' : '' ?>"><span class="nav-icon"><?= UiIcon('database') ?></span><span class="nav-label">Data Dictionary</span></a>
-
-                        <?php endif; ?>
-
-                        <?php if (Permissions::Can('diagrams')): ?>
-                        <a href="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/diagrams/index.php')) ?>" class="<?= $activeNav === 'diagrams' ? 'active' : '' ?>"><span class="nav-icon"><?= UiIcon('workflow') ?></span><span class="nav-label">ERD Generator</span></a>
-
-                        <?php endif; ?>
-
                         <?php if (Permissions::Can('codereview')): ?>
                         <a href="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/codereview/index.php')) ?>" class="<?= $activeNav === 'codereview' ? 'active' : '' ?>"><span class="nav-icon"><?= UiIcon('code-xml') ?></span><span class="nav-label">Code Review</span></a>
 
                         <?php endif; ?>
-                    </div>
-                    <div class="nav-section">
-                        <div class="nav-heading">Inventory</div>
 
                         <?php if (Permissions::Can('servers')): ?>
                         <a href="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/servers/index.php')) ?>" class="<?= $activeNav === 'servers' ? 'active' : '' ?>"><span class="nav-icon"><?= UiIcon('server') ?></span><span class="nav-label">Server Inventory</span></a>
@@ -133,19 +151,6 @@ $token = CsrfToken();
                         <?php endif; ?>
                     </div>
 
-                    <?php if (Permissions::Can('teammonitoring') || Permissions::Can('dailylogs') || Permissions::Can('leaves') || Permissions::Can('approvals') || Permissions::Can('reports')): ?>
-                    <div class="nav-section">
-                        <div class="nav-heading">Team Monitoring</div>
-
-                        <?php foreach (['teammonitoring' => ['Team Monitoring','users'],'dailylogs' => ['My Daily Logs','notebook-pen'],'leaves' => ['Leaves','calendar-days'],'approvals' => ['Approvals','clipboard-check'],'reports' => ['Reports','file-chart-column']] as $navKey => $navItem): if (Permissions::Can($navKey)): ?>
-                        <a href="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/' . $navKey . '/index.php')) ?>" class="<?= $activeNav === $navKey ? 'active' : '' ?>"><span class="nav-icon"><?= UiIcon($navItem[1]) ?></span><span class="nav-label"><?= H($navItem[0]) ?></span></a>
-
-                        <?php endif;
-        endforeach;
-          ?>
-                    </div>
-
-                    <?php endif; ?>
                     <div class="nav-section">
                         <div class="nav-heading">Parameter</div>
 
@@ -299,3 +304,5 @@ $token = CsrfToken();
                     </div>
                 </header>
                 <div class="content">
+
+

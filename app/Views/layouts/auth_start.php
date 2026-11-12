@@ -15,7 +15,7 @@ $token = CsrfToken();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="csrf-token" content="<?= H($token) ?>">
-        <title><?= H($title) ?> Â· <?= H(APP_NAME) ?></title>
+        <title><?= H($title) ?> &middot; <?= H(APP_NAME) ?></title>
         <link
             rel="icon"
             type="image/svg+xml"

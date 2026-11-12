@@ -5,7 +5,7 @@
  * Purpose: Provide source code inventory processing and supporting DevAtlas workflows.
  * Developer: DevAtlas maintainers
  * Date: 2026-10-28
- * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ * Recent updates: Extract function descriptions from PHP comment formats and across attributes.
  */
 
 /** Extracts a PHP function/method inventory without executing source code. */
@@ -447,32 +447,132 @@ final class SourceCodeInventory
 
     private static function Description(array $tokens, int $index): string
     {
+        $comments = [];
         for ($i = $index - 1; $i >= 0; $i--)
         {
             $token = $tokens[$i];
-            if (is_array($token) && ($token[0] === T_WHITESPACE ||
-                in_array($token[0], [T_PUBLIC, T_PROTECTED, T_PRIVATE, T_STATIC, T_FINAL, T_ABSTRACT, T_READONLY], true)))
+            if (is_array($token) && $token[0] === T_WHITESPACE)
+            {
+                // Keep adjacent // lines together without absorbing a separate file/banner comment.
+                if ($comments && preg_match('/\R\s*\R/', $token[1]))
+                {
+                    break;
+                }
+                continue;
+            }
+            if (is_array($token) && in_array($token[0], [T_PUBLIC, T_PROTECTED, T_PRIVATE, T_STATIC, T_FINAL, T_ABSTRACT, T_READONLY], true))
             {
                 continue;
             }
-            if (is_array($token) && $token[0] === T_DOC_COMMENT)
+            if ($token === ']' && !$comments)
             {
-                $comment = preg_replace('/^\/\*\*?|\*\/$/', '', trim($token[1]));
-                $lines = preg_split('/\r\n|\r|\n/', $comment);
-                $text = [];
-                foreach ($lines as $line)
+                $start = self::AttributeStart($tokens, $i);
+                if ($start !== null)
                 {
-                    $line = trim(preg_replace('/^\s*\*\s?/', '', trim($line)));
-                    if ($line !== '' && $line !== '/' && $line[0] !== '@')
-                    {
-                        $text[] = $line;
-                    }
+                    $i = $start;
+                    continue;
                 }
-                return mb_substr(implode(' ', $text), 0, 500);
+            }
+            if (is_array($token) && in_array($token[0], [T_DOC_COMMENT, T_COMMENT], true))
+            {
+                if (preg_match('~^(?://|#)~', $token[1]) && !self::StartsCommentLine($tokens, $i))
+                {
+                    break;
+                }
+                array_unshift($comments, $token[1]);
+                continue;
             }
             break;
         }
-        return '';
+        return self::CommentDescription($comments);
+    }
+
+    private static function StartsCommentLine(array $tokens, int $index): bool
+    {
+        for ($i = $index - 1; $i >= 0; $i--)
+        {
+            if (is_array($tokens[$i]) && $tokens[$i][0] === T_WHITESPACE)
+            {
+                if (preg_match('/\R/', $tokens[$i][1]))
+                {
+                    return true;
+                }
+                continue;
+            }
+            return is_array($tokens[$i]) && $tokens[$i][0] === T_OPEN_TAG;
+        }
+        return true;
+    }
+
+    /** Match a PHP attribute group without skipping an unrelated array expression. */
+    private static function AttributeStart(array $tokens, int $end): ?int
+    {
+        $depth = 1;
+        for ($i = $end - 1; $i >= 0; $i--)
+        {
+            if ($tokens[$i] === ']')
+            {
+                $depth++;
+            }
+            elseif ($tokens[$i] === '[' || (is_array($tokens[$i]) && $tokens[$i][0] === T_ATTRIBUTE))
+            {
+                $depth--;
+                if ($depth === 0)
+                {
+                    return is_array($tokens[$i]) && $tokens[$i][0] === T_ATTRIBUTE ? $i : null;
+                }
+            }
+        }
+        return null;
+    }
+
+    /** Prefer a labelled description; otherwise use prose before PHPDoc parameter/return tags. */
+    private static function CommentDescription(array $comments): string
+    {
+        $prose = [];
+        $description = [];
+        $lines = [];
+        foreach ($comments as $comment)
+        {
+            $comment = preg_replace('~^/\*\*?|\*/$~', '', trim($comment));
+            foreach (preg_split('/\r\n|\r|\n/', $comment) as $line)
+            {
+                $lines[] = trim(preg_replace('~^\s*(?://|\*|#)\s?~', '', trim($line)));
+            }
+        }
+        // A source-file header is not documentation for its first function.
+        if (preg_match('/^(?:Filename|File)\s*:/im', implode("\n", $lines)))
+        {
+            return '';
+        }
+        $section = 'prose';
+        foreach ($lines as $line)
+        {
+            if ($line === '' || preg_match('~^[\s*=\-_/#+]+$~', $line))
+            {
+                continue;
+            }
+            if (preg_match('/^(?:@(?:description|summary)\b\s*:?|(?:Description|Purpose)\s*:)\s*(.*)$/i', $line, $match))
+            {
+                $section = 'description';
+                $line = $match[1];
+            }
+            elseif ($line[0] === '@' || preg_match('/^(?:Function(?:\s*Name)?|Method|Developer|Author|Date|Parameters?|Arguments?|Returns?|Recent updates|Version)\s*:/i', $line))
+            {
+                $section = 'ignored';
+                continue;
+            }
+            if ($section === 'description')
+            {
+                $description[] = $line;
+            }
+            elseif ($section === 'prose')
+            {
+                $prose[] = $line;
+            }
+        }
+        $text = preg_replace('/\s+/u', ' ', implode(' ', $description ?: $prose));
+        return mb_substr(trim($text ?? ''), 0, 500);
     }
 
     private static function Matching(array $tokens, int $start, string $open, string $close): ?int
@@ -531,3 +631,4 @@ final class SourceCodeInventory
         return is_array($token) ? $token[1] : $token;
     }
 }
+

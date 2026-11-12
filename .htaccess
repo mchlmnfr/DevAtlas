@@ -55,7 +55,7 @@ Options -Indexes
   RewriteEngine On
   RewriteRule (^|/)\. - [F,L]
   RewriteRule ^(?:app|lib|includes|config|vendor|node_modules|writable|resources|bin|tests|docs)(?:/|$) - [F,L]
-  RewriteRule ^(?:composer\.(?:json|lock)|package(?:-lock)?\.json|spark|phpunit.*)$ - [F,L]
+  RewriteRule ^(?:env|composer\.(?:json|lock)|package(?:-lock)?\.json|spark|phpunit.*)$ - [F,L]
   RewriteRule ^(?:assets|uploads)/.*\.php$ - [F,L,NC]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

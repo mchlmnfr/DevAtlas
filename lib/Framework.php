@@ -15,6 +15,8 @@ final class Framework
         {
             return;
         }
+        require_once __DIR__ . '/../config/Environment.php';
+        Environment::Load();
         require_once __DIR__ . '/../app/Config/Paths.php';
         $paths = new Config\Paths();
         defined('FCPATH') || define('FCPATH', realpath(__DIR__ . '/../public') . DIRECTORY_SEPARATOR);

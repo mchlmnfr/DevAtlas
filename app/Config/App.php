@@ -24,16 +24,6 @@ class App extends BaseConfig
      */
     public string $baseURL = 'http://localhost/AnalystToolkit/';
 
-    public function __construct()
-    {
-        parent::__construct();
-        $url = getenv('DEVATLAS_PUBLIC_URL');
-        if (is_string($url) && preg_match('~^https://[a-z0-9.-]+(?::[0-9]+)?$~i', $url))
-        {
-            $this->baseURL = $url . '/AnalystToolkit/';
-        }
-    }
-
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
      * If you want to accept multiple Hostnames, set this.

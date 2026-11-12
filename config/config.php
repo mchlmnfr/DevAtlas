@@ -2,35 +2,35 @@
 
 /**
  * Filename: config.php
- * Purpose: Provide config processing and supporting DevAtlas workflows.
+ * Purpose: Expose environment configuration to existing DevAtlas services.
  * Developer: DevAtlas maintainers
  * Date: 2026-10-28
- * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ * Recent updates: Move installation settings to .env without changing their constant names or vault key.
  */
 
 /**
  * DevAtlas :: Global configuration
- * Edit these values for your local WAMP + PostgreSQL setup.
+ * Set installation values in the ignored root .env file.
  * No values here are ever sent externally — everything is local.
  */
 
-require_once __DIR__ . '/LocalSecrets.php';
+require_once __DIR__ . '/Environment.php';
 require_once __DIR__ . '/../lib/RouteUrls.php';
+Environment::Load();
 
 // ---- PostgreSQL connection (the app's OWN metadata database) --------
-define('DB_HOST', getenv('DEVATLAS_DB_HOST') ?: '127.0.0.1');
-define('DB_PORT', getenv('DEVATLAS_DB_PORT') ?: '5432');
-define('DB_NAME', getenv('DEVATLAS_DB_NAME') ?: 'analyst_toolkit');
-define('DB_USER', getenv('DEVATLAS_DB_USER') ?: 'postgres');
-define('DB_PASS', getenv('DEVATLAS_DB_PASS') !== false ? getenv('DEVATLAS_DB_PASS') : LocalSecrets::Get('DB_PASS'));
-// Installation secrets are maintained with bin/configure-secrets.php.
-define('DB_SCHEMA', 'toolkit');
+define('DB_HOST', Environment::Get('DB_HOST'));
+define('DB_PORT', Environment::Get('DB_PORT'));
+define('DB_NAME', Environment::Get('DB_NAME'));
+define('DB_USER', Environment::Get('DB_USER'));
+define('DB_PASS', Environment::Get('DB_PASS', true));
+define('DB_SCHEMA', Environment::Get('DB_SCHEMA'));
 
 // ---- Server Credentials Vault encryption key ----
 // Used by lib/Crypto.php (AES-256-CBC) to encrypt passwords stored in
-// server_credentials. The existing value is retained in encrypted installation
-// configuration. Preserve it when moving the installation or restoring a backup.
-define('APP_ENCRYPTION_KEY', getenv('DEVATLAS_VAULT_KEY') !== false ? getenv('DEVATLAS_VAULT_KEY') : LocalSecrets::Get('APP_ENCRYPTION_KEY'));
+// server_credentials. Preserve this exact value when moving configuration;
+// replacing it would make existing vault records unreadable.
+define('APP_ENCRYPTION_KEY', Environment::Get('APP_ENCRYPTION_KEY'));
 
 // ---- Legacy / no longer used by the app ----
 // Previously the Data Dictionary's "Import from DB" feature always connected
@@ -38,30 +38,29 @@ define('APP_ENCRYPTION_KEY', getenv('DEVATLAS_VAULT_KEY') !== false ? getenv('DE
 // the UI (pick engine/host/port/user/password/dbname/schema, or save a named
 // connection profile) — see modules/datadict/index.php → "Import from DB".
 // These constants are kept only in case other code you add wants a default.
-define('TARGET_DB_HOST', getenv('DEVATLAS_DB_HOST') ?: '127.0.0.1');
-define('TARGET_DB_PORT', getenv('DEVATLAS_DB_PORT') ?: '5432');
-define('TARGET_DB_NAME', getenv('DEVATLAS_DB_NAME') ?: 'analyst_toolkit');
-define('TARGET_DB_USER', getenv('DEVATLAS_DB_USER') ?: 'postgres');
-define('TARGET_DB_PASS', getenv('DEVATLAS_DB_PASS') !== false ? getenv('DEVATLAS_DB_PASS') : LocalSecrets::Get('TARGET_DB_PASS'));
-define('TARGET_DB_SCHEMA', 'public');
+define('TARGET_DB_HOST', Environment::Get('TARGET_DB_HOST'));
+define('TARGET_DB_PORT', Environment::Get('TARGET_DB_PORT'));
+define('TARGET_DB_NAME', Environment::Get('TARGET_DB_NAME'));
+define('TARGET_DB_USER', Environment::Get('TARGET_DB_USER'));
+define('TARGET_DB_PASS', Environment::Get('TARGET_DB_PASS', true));
+define('TARGET_DB_SCHEMA', Environment::Get('TARGET_DB_SCHEMA'));
 
 // ---- App ----
-define('APP_NAME', 'DevAtlas');
-define('APP_BASE_URL', '/AnalystToolkit');
-// matches WAMP www subfolder
-define('APP_TIMEZONE', 'Asia/Singapore');
+define('APP_NAME', Environment::Get('APP_NAME'));
+define('APP_BASE_URL', rtrim(Environment::Get('APP_BASE_URL', true), '/'));
+define('APP_TIMEZONE', Environment::Get('APP_TIMEZONE'));
 
 date_default_timezone_set(APP_TIMEZONE);
 
 // CodeIgniter owns web exception handling; CLI maintenance retains its existing handlers.
 if (!defined('DEVATLAS_CI'))
 {
-// Error visibility (turn off display_errors in production)
-    ini_set('display_errors', 1);
+// Keep standalone commands consistent with the configured framework environment.
+    ini_set('display_errors', Environment::Get('CI_ENVIRONMENT') === 'development' ? '1' : '0');
     error_reporting(E_ALL);
 
 // Catch anything that slips past a module's own try/catch and log it to
-// logs/app-YYYY-MM-DD.log (see the "Error Logs" page in the sidebar),
+// CodeIgniter's configured file handler (normally writable/logs/log-YYYY-MM-DD.log),
 // instead of it only ever showing up as a raw HTML error or in Apache's log.
     require_once __DIR__ . '/../lib/Logger.php';
 

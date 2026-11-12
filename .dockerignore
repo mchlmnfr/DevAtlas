@@ -1,5 +1,7 @@
 .git
 .env
+.env.*
+!.env.example
 config/.local-key
 config/.local-secrets.json
 node_modules
@@ -10,5 +12,9 @@ tests/.tmp-*
 writable/cache/*
 writable/logs/*
 writable/session/*
+writable/uploads/*
+writable/debugbar/*
 logs
 uploads
+*.zip
+patches
