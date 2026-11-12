@@ -1,5 +1,17 @@
 [
   {
+    "id": "2026-11-12.25",
+    "order": 25,
+    "date": "2026-11-12",
+    "title": "Your dashboard, with motion across DevAtlas",
+    "changes": [
+      "Customize your dashboard by showing or hiding widgets, moving them with drag-and-drop or up/down buttons, and choosing Comfortable or Compact spacing. Preview changes, Save to your account, Cancel or Restore defaults.",
+      "Dashboard layouts follow the signed-in account across browsers. Widgets continue to respect module permissions, and revision checks protect changes saved from another tab.",
+      "Shared card entrances, button/navigation transitions and dialog feedback now apply across module, authentication and documentation screens. Choose Standard, Subtle or Off motion from Customize; your device’s reduced-motion preference always takes priority.",
+      "Existing installations can enable saved preferences with php bin/install-ui-preferences.php. Module pages keep usable defaults before the dated migration is installed."
+    ]
+  },
+  {
     "id": "2026-11-11.24",
     "order": 24,
     "date": "2026-11-11",

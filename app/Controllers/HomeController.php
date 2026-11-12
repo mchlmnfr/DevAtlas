@@ -3,8 +3,8 @@
  * Filename: HomeController.php
  * Purpose: Handle Home routes through CodeIgniter MVC.
  * Developer: DevAtlas maintainers
- * Date: 2026-10-29
- * Recent updates: Migrate to CodeIgniter 4 while preserving DevAtlas contracts.
+ * Date: 2026-11-12
+ * Recent updates: Render saved dashboard widget order, visibility and spacing.
  */
 
 namespace App\Controllers;
@@ -27,6 +27,8 @@ class HomeController extends BaseController
         $pageScript = 'assets/js/dashboard.js';
         Auth::RequirePage();
         $currentUser = Auth::User();
+        require_once ROOTPATH . 'lib/UserUiPreferences.php';
+        $uiState = \UserUiPreferences::Load(Database::GetConnection('app'), (int)$currentUser['user_id']);
 
         require_once (ROOTPATH . '').'/lib/ActionCenter.php';
         require_once (ROOTPATH . '').'/lib/AccessLinks.php';
@@ -53,3 +55,4 @@ class HomeController extends BaseController
         return $this->Render('home/index', get_defined_vars());
     }
 }
+

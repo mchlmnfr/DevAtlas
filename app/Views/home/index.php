@@ -3,13 +3,19 @@
  * Filename: index.php
  * Purpose: Render the Home workspace.
  * Developer: DevAtlas maintainers
- * Date: 2026-10-29
- * Recent updates: Render CodeIgniter layouts and align first-party template markup.
+ * Date: 2026-11-12
+ * Recent updates: Render customizable widgets without changing their data permissions.
  */
+$widgetPositions = [];
+foreach ($uiState['preferences']['widgets'] as $position => $widget) $widgetPositions[$widget['id']] = ['position' => $position, 'visible' => $widget['visible']];
+$widgetAttributes = static function (string $id, string $label) use ($widgetPositions): string {
+    $widget = $widgetPositions[$id];
+    return 'data-dashboard-widget="' . H($id) . '" data-widget-label="' . H($label) . '" style="order:' . $widget['position'] . '"' . ($widget['visible'] ? '' : ' hidden');
+};
 ?>
 <?= view('layouts/header', get_defined_vars()) ?>
 
-<div class="dashboard-v2 action-dashboard" id="actionDashboard">
+<div class="dashboard-v2 action-dashboard" id="actionDashboard" data-density="<?= H($uiState['preferences']['density']) ?>" data-preferences-url="<?= H(RouteUrls::Url(APP_BASE_URL . '/modules/account/ui_preferences.php')) ?>">
     <div class="dashboard-welcome">
         <div>
             <div class="dashboard-overline">YOUR WORKSPACE</div>
@@ -17,6 +23,7 @@
             <p id="greetingDate">Your next actions at a glance.</p>
         </div>
         <div class="dashboard-welcome-actions">
+            <button type="button" class="btn" id="dashboardCustomize" aria-haspopup="dialog" aria-controls="dashboardCustomizer"><?= UiIcon('settings-2') ?> Customize</button>
 
             <?php if (Permissions::Can('dailylogs', 'create')): ?>
             <a class="btn btn-primary" href="<?= H($path('dailylogs', ['new' => 1])) ?>"><?= UiIcon('plus') ?> Add daily log</a>
@@ -42,7 +49,8 @@
     $renewals = $actions['renewals'];
     ?>
     <div class="action-period"><?= UiIcon('calendar-days') ?><strong><?= H($dateLabel($actions['week_start']).' – '.$dateLabel($actions['week_end'])) ?></strong><span>Current work week · Asia/Manila</span><small>Today's hours become due at <?= sprintf('%02d:00', $actions['cutoff_hour']) ?>.</small></div>
-    <div class="action-metrics">
+    <div class="dashboard-grid" id="dashboardGrid">
+    <div class="action-metrics" <?= $widgetAttributes('metrics', 'Summary cards') ?>>
 
         <?php if ($personal): ?>
         <a class="card action-metric <?= $personal['due_hours'] ? 'needs-attention' : '' ?>" href="<?= H($path('dailylogs', ['date_from' => $actions['week_start'],'date_to' => $actions['today']])) ?>"><span class="action-icon"><?= UiIcon('clock-3') ?></span><span>Hours to catch up</span><strong data-action="due-hours"><?= number_format($personal['due_hours'], 2) ?></strong><small>Due working days in this week</small></a>
@@ -60,10 +68,9 @@
 
         <?php endif; ?>
     </div>
-    <div class="action-columns">
 
         <?php if ($personal): $filled = max(0, $personal['target_hours'] - $personal['remaining_hours']); ?>
-        <section class="card action-panel" aria-labelledby="personalWeekTitle">
+        <section class="card action-panel" aria-labelledby="personalWeekTitle" <?= $widgetAttributes('personal', 'My week') ?>>
             <div class="action-panel-head">
                 <div><span class="dashboard-overline">MY DAILY LOGS</span>
                     <h2 id="personalWeekTitle">Your week, in hours</h2>
@@ -100,7 +107,7 @@
         <?php endif; ?>
 
         <?php if ($approvals !== null): ?>
-        <section class="card action-panel" aria-labelledby="approvalQueueTitle">
+        <section class="card action-panel" aria-labelledby="approvalQueueTitle" <?= $widgetAttributes('approvals', 'Weekly approvals') ?>>
             <div class="action-panel-head">
                 <div><span class="dashboard-overline">REVIEW QUEUE</span>
                     <h2 id="approvalQueueTitle">Weekly approvals</h2>
@@ -128,7 +135,7 @@
         <?php endif; ?>
 
         <?php if ($team !== null): ?>
-        <section class="card action-panel" aria-labelledby="sectionStatusTitle">
+        <section class="card action-panel" aria-labelledby="sectionStatusTitle" <?= $widgetAttributes('team', 'Team progress') ?>>
             <div class="action-panel-head">
                 <div><span class="dashboard-overline">TEAM MONITORING</span>
                     <h2 id="sectionStatusTitle"><?= Permissions::IsAdmin() ? 'Organization' : 'Your section' ?> this week</h2>
@@ -152,7 +159,7 @@
         <?php endif; ?>
 
         <?php if ($renewals !== null): ?>
-        <section class="card action-panel">
+        <section class="card action-panel" <?= $widgetAttributes('renewals', 'Renewals') ?>>
             <div class="action-panel-head">
                 <div><span class="dashboard-overline">INVENTORY</span>
                     <h2>Upcoming and overdue renewals</h2>
@@ -175,19 +182,8 @@
         </section>
 
         <?php endif; ?>
-    </div>
-
-    <?php if (!$personal && $approvals === null && $team === null && $renewals === null): ?>
-    <section class="card action-panel">
-        <div class="action-empty"><?= UiIcon('compass') ?><strong>Your workspace is ready.</strong>
-            <p>Use Search workspace or the sidebar to open the records available to your role.</p>
-        </div>
-    </section>
-
-    <?php endif; ?>
-
     <?php if ($inventory): ?>
-    <section class="card action-panel">
+    <section class="card action-panel" <?= $widgetAttributes('records', 'Workspace records') ?>>
         <div class="action-panel-head">
             <h2>Workspace records</h2>
         </div>
@@ -201,7 +197,7 @@
     </section>
 
     <?php endif; ?>
-    <section class="card action-panel">
+    <section class="card action-panel" <?= $widgetAttributes('links', 'Saved access links') ?>>
         <div class="action-panel-head">
             <h2>Saved access links</h2><a href="<?= H($path('bookmarks')) ?>">View all <?= UiIcon('arrow-right') ?></a>
         </div>
@@ -228,8 +224,16 @@
         </div>
     </section>
 
+    </div><!-- /dashboardGrid -->
+    <section class="card dashboard-no-widgets" id="dashboardNoWidgets" hidden>
+        <h2>Make this space yours</h2><p>Your dashboard widgets are hidden. Choose Customize to bring back the ones you need.</p>
+        <button type="button" class="btn btn-primary" data-dashboard-customize>Choose widgets</button>
+    </section>
     <?php endif; ?>
+    <script type="application/json" id="dashboardPreferenceState"><?= json_encode($uiState, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
+    <?= view('home/customizer', get_defined_vars()) ?>
 </div>
 
 <?php echo view('layouts/footer', get_defined_vars());
 ?>
+

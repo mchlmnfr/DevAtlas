@@ -2,8 +2,8 @@
  * Filename: dashboard-actions.css
  * Purpose: Style the dashboard actions interface using the shared DevAtlas design system.
  * Developer: DevAtlas maintainers
- * Date: 2026-10-28
- * Recent updates: Applied the QMS naming and layout conventions while preserving existing workflows.
+ * Date: 2026-11-12
+ * Recent updates: Style custom widget layout and the accessible customization drawer.
  */
 
 .action-dashboard
@@ -478,3 +478,56 @@
         font-size: 10px
     }
 }
+
+
+/* Personal widget layout: saved order is applied before paint and mirrored in DOM order. */
+.dashboard-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; margin-bottom: 20px; }
+.dashboard-grid > .action-panel, .dashboard-grid > .action-metrics { margin: 0; }
+.dashboard-grid > [data-dashboard-widget="metrics"], .dashboard-grid > [data-dashboard-widget="records"], .dashboard-grid > [data-dashboard-widget="links"] { grid-column: 1 / -1; }
+.action-dashboard [hidden] { display: none !important; }
+.dashboard-no-widgets { padding: 38px 24px; text-align: center; }
+.dashboard-no-widgets h2 { font-size: 18px; }
+.dashboard-no-widgets p { color: var(--muted); font-size: 12px; line-height: 1.8; }
+.action-dashboard[data-density="compact"] .dashboard-grid { gap: 12px; }
+.action-dashboard[data-density="compact"] .action-panel { padding: 16px; }
+.action-dashboard[data-density="compact"] .action-panel-head { margin-bottom: 12px; }
+.action-dashboard[data-density="compact"] .action-metric { padding: 15px; }
+.action-dashboard[data-density="compact"] .action-list > a { padding: 10px 0; }
+.action-dashboard[data-density="compact"] .action-note { line-height: 1.65; margin: 8px 0; }
+.dashboard-customizer { position: fixed; inset: 0 0 0 auto; width: min(570px, 100%); height: 100dvh; max-width: 100%; max-height: 100dvh; margin: 0; padding: 0; border: 0; border-left: 1px solid var(--border); color: var(--text); background: var(--card); box-sizing: border-box; box-shadow: -12px 0 48px #0002; }
+.dashboard-customizer::backdrop { background: #02061788; }
+.dashboard-customizer[open] { display: flex; flex-direction: column; }
+.dashboard-customizer-head { display: flex; align-items: flex-start; gap: 16px; justify-content: space-between; padding: 26px; border-bottom: 1px solid var(--border); flex: none; }
+.dashboard-customizer-head h2 { margin: 6px 0 8px; font-size: 22px; letter-spacing: -.5px; }
+.dashboard-customizer-head p { margin: 0; max-width: 380px; font-size: 12px; line-height: 1.8; color: var(--muted); }
+.dashboard-customizer-head > button { flex: none; font-size: 24px; line-height: 1; }
+#dashboardCustomizeForm { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+.dashboard-customizer-body { overflow-y: auto; padding: 24px 26px; min-height: 0; flex: 1; }
+#dashboardCustomizeFields { margin: 0; padding: 0; border: 0; min-width: 0; }
+.dashboard-customizer .sr-only { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; }
+.dashboard-customize-heading { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+.dashboard-customizer h3 { font-size: 13px; margin: 0; }
+#dashboardVisibleCount { color: var(--muted); font-size: 10px; }
+.dashboard-customize-note { color: var(--muted); font-size: 11px; line-height: 1.8; margin: 9px 0 15px; }
+.dashboard-widget-options { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; }
+.dashboard-widget-option { display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--border); border-radius: 9px; background: var(--input-bg); }
+.dashboard-widget-option:has(input:checked) { border-color: color-mix(in srgb, var(--primary) 40%, var(--border)); background: color-mix(in srgb, var(--primary) 5%, var(--card)); }
+.dashboard-widget-option.is-drop-target { outline: 2px solid var(--primary); outline-offset: 2px; }
+.dashboard-widget-option.is-dragging { opacity: .5; }
+.dashboard-drag-grip { font-size: 20px; cursor: grab; color: var(--muted); user-select: none; padding: 4px 2px; flex: none; }
+.dashboard-widget-option label { display: flex; gap: 10px; align-items: center; flex: 1; min-width: 0; font-size: 12px; cursor: pointer; margin: 0; }
+.dashboard-widget-option input { width: 16px; height: 16px; accent-color: var(--primary); flex: none; }
+.dashboard-widget-option .dashboard-reorder { display: flex; gap: 5px; flex: none; }
+.dashboard-reorder button { min-width: 30px; min-height: 30px; padding: 4px 8px; font-size: 15px; }
+.dashboard-customize-options { display: grid; gap: 16px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--border); }
+.dashboard-customize-options .form-row { margin: 0; }
+.dashboard-customize-options label { display: block; margin-bottom: 8px; font-size: 12px; }
+.dashboard-customize-options select { width: 100%; }
+.dashboard-customize-options .dashboard-customize-note { margin-bottom: 0; }
+.dashboard-customizer-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 18px 26px; border-top: 1px solid var(--border); flex: none; background: var(--card); }
+.dashboard-customizer-footer > div { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+.dashboard-customizer .btn { font-size: 11px; }
+.dashboard-customize-message { padding: 11px 12px; border: 1px solid var(--red); border-radius: 7px; font-size: 11px; line-height: 1.8; margin-bottom: 14px; }
+.dashboard-customizer [hidden] { display: none !important; }
+@media (max-width: 760px) { .dashboard-grid { grid-template-columns: minmax(0, 1fr); } .dashboard-grid > * { grid-column: 1 !important; } }
+@media (max-width: 460px) { .dashboard-customizer-head { padding: 20px 16px; } .dashboard-customizer-body { padding: 18px 16px; } .dashboard-customizer-footer { padding: 14px 16px; } .dashboard-customizer-head h2 { font-size: 20px; } .dashboard-widget-option { gap: 7px; padding: 10px 8px; } .dashboard-widget-option label { font-size: 11px; gap: 7px; } }

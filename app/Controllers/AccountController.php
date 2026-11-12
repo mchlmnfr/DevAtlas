@@ -3,8 +3,8 @@
  * Filename: AccountController.php
  * Purpose: Handle Account routes through CodeIgniter MVC.
  * Developer: DevAtlas maintainers
- * Date: 2026-10-29
- * Recent updates: Migrate to CodeIgniter 4 while preserving DevAtlas contracts.
+ * Date: 2026-11-12
+ * Recent updates: Load and save account-owned dashboard and motion preferences.
  */
 
 namespace App\Controllers;
@@ -17,6 +17,30 @@ use RecordSearch;
 
 class AccountController extends BaseController
 {
+    public function UiPreferences()
+    {
+        require_once ROOTPATH . 'lib/Auth.php';
+        require_once ROOTPATH . 'lib/helpers.php';
+        require_once ROOTPATH . 'lib/UserUiPreferences.php';
+        Auth::RequireApi();
+        $method = $_SERVER['REQUEST_METHOD'] ?? '';
+        if (!in_array($method, ['GET', 'POST'], true)) JsonError('Invalid request method.', 405);
+        \Permissions::Require('account', $method === 'GET' ? 'view' : 'edit');
+        if ($method === 'POST') RequireCsrf();
+        if ((int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 16384) JsonError('Preference request is too large.', 413);
+        try {
+            $db = Database::GetConnection('app');
+            $actor = (int)$_SESSION['user_id'];
+            JsonResponse($method === 'GET' ? \UserUiPreferences::Load($db, $actor) : \UserUiPreferences::Save($db, $actor, ReadJsonBody()));
+        } catch (InvalidArgumentException $error) {
+            JsonError($error->getMessage(), 422);
+        } catch (DomainException $error) {
+            JsonError($error->getMessage(), 409);
+        } catch (\RuntimeException $error) {
+            JsonError($error->getMessage(), 503);
+        }
+    }
+
     public function Search()
     {
         // Workspace search is account self-service; every result has its own module/scope checks.
@@ -141,3 +165,4 @@ class AccountController extends BaseController
         JsonResponse(['ok' => true, 'path' => APP_BASE_URL . '/' . $relativePath]);
     }
 }
+
