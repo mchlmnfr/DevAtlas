@@ -159,6 +159,7 @@ try
     $group = LeaveRequests::Get($db, $employee, $rangeId);
     LvCheck($group['working_days'] === 6 && $group['total_hours'] == 48 && $group['date_from'] === '2026-11-02' && $group['date_to'] === '2026-11-10', 'A leave range skips weekends and holidays and totals its working-day hours.');
     $calendar = LeaveRequests::Calendar($db, $employee, ['month' => '2026-11']);
+    LvCheck($calendar['from'] === '2026-11-01' && $calendar['to'] === '2026-12-05', 'November 2026 calendar bounds match Sunday-first headings through the final Saturday.');
     LvCheck(count(array_filter($calendar['leaves'], static fn ($row) => str_starts_with($row['activity_date'], '2026-11'))) === 6 && $calendar['mine']['total'] === 1, 'One range appears on six calendar dates but remains one application.');
     LvReject(fn () => LeaveRequests::Save($db, $employee, array_replace($range, ['date_to' => '2026-11-01'])), 'Reversed leave date ranges are rejected.');
     LvReject(fn () => LeaveRequests::Save($db, $employee, array_replace($range, ['date_to' => '2027-12-01'])), 'Unbounded leave ranges are rejected.');
