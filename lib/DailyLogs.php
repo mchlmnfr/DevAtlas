@@ -156,6 +156,11 @@ class DailyLogs
         $row = ['activity_date' => self::Date($d['activity_date'] ?? null),'entry_kind' => $kind,'status' => $status,
             'classification' => null,'activity_type' => null,'leave_type' => null,'leave_period' => null,
             'planned_task' => self::Text($d['planned_task'] ?? ''),'actual_activity' => self::Text($d['actual_activity'] ?? ''),'remarks' => self::Text($d['remarks'] ?? '')];
+        $today = (new DateTimeImmutable('today', new DateTimeZone('Asia/Manila')))->format('Y-m-d');
+        if ($kind === 'activity' && $row['activity_date'] > $today)
+        {
+            throw new InvalidArgumentException('Daily logs cannot be filed in advance. Choose today or an earlier work date.');
+        }
         $hours = $d['duration_hours'] ?? 0;
         if ($hours === '')
         {
@@ -285,8 +290,8 @@ class DailyLogs
             {
                 [$weekStart,$weekEnd] = DailyLogCalendar::Week($row['activity_date']);
                 
-                $s = $db->table('daily_logs')->set('status', 'Submitted')->set('reviewed_by', null)->set('reviewed_at', null)->set('review_comment', '')->set('version', new \CodeIgniter\Database\RawSql('version+1'))->set('updated_at', new \CodeIgniter\Database\RawSql('NOW()'))->where('user_id', $actor)->where('activity_date >=', $weekStart)->where('activity_date <=', $weekEnd)->where('entry_kind', 'activity')->where('status', 'Reviewed')->update();
-                $sSql = "INSERT INTO daily_log_week_reviews(user_id,week_start,status) VALUES(?,?,'Submitted') ON CONFLICT(user_id,week_start) DO UPDATE SET status='Submitted',reviewed_by=NULL,reviewed_at=NULL,version=daily_log_week_reviews.version+1,updated_at=NOW()";
+                // Queue the additional submission without changing earlier entry approvals.
+                $sSql = "INSERT INTO daily_log_week_reviews(user_id,week_start,status) VALUES(?,?,'Submitted') ON CONFLICT(user_id,week_start) DO UPDATE SET status='Submitted',review_comment='',reviewed_by=NULL,reviewed_at=NULL,version=daily_log_week_reviews.version+1,updated_at=NOW()";
                 $s = $db->query($sSql, [$actor,$weekStart]);
             }
             $db->transCommit();

@@ -173,7 +173,10 @@ class WeeklyLogReview
                     throw new DomainException('This week was already returned.');
                 }
                 
-                $s = $db->table('daily_logs')->set('status', $decision)->set('review_comment', $comment)->set('reviewed_by', $actor)->set('reviewed_at', new \CodeIgniter\Database\RawSql('NOW()'))->set('version', new \CodeIgniter\Database\RawSql('version+1'))->set('updated_at', new \CodeIgniter\Database\RawSql('NOW()'))->where('user_id', $user)->where('activity_date >=', $week['week_start'])->where('activity_date <=', $week['week_end'])->where('entry_kind', 'activity')->where('status <>', 'Draft')->update();
+                // A pending week may contain older approvals. Review only its new submissions.
+                // Returning a fully approved week is still an explicit correction workflow.
+                $sourceStatus = $decision === 'Returned' && $week['status'] === 'Reviewed' ? 'Reviewed' : 'Submitted';
+                $s = $db->table('daily_logs')->set('status', $decision)->set('review_comment', $comment)->set('reviewed_by', $actor)->set('reviewed_at', new \CodeIgniter\Database\RawSql('NOW()'))->set('version', new \CodeIgniter\Database\RawSql('version+1'))->set('updated_at', new \CodeIgniter\Database\RawSql('NOW()'))->where('user_id', $user)->where('activity_date >=', $week['week_start'])->where('activity_date <=', $week['week_end'])->where('entry_kind', 'activity')->where('status', $sourceStatus)->update();
                 $sSql = 'INSERT INTO daily_log_week_reviews(user_id,week_start,status,review_comment,reviewed_by,reviewed_at) VALUES(?,?,?,?,?,NOW()) ON CONFLICT(user_id,week_start) DO UPDATE SET status=EXCLUDED.status,review_comment=EXCLUDED.review_comment,reviewed_by=EXCLUDED.reviewed_by,reviewed_at=EXCLUDED.reviewed_at,version=daily_log_week_reviews.version+1,updated_at=NOW()';
                 $s = $db->query($sSql, [$user,$week['week_start'],$decision,$comment,$actor]);
             }

@@ -69,11 +69,22 @@
         for(const name of ['experience:activity','experience:request-end','experience:ready'])document.addEventListener(name,sync);window.addEventListener('resize',position);window.addEventListener('scroll',event=>{if(isOpen()&&!panel.contains(event.target))close(false);},true);
         new MutationObserver(()=>{sync();if(isOpen())render();}).observe(input,{attributes:true,attributeFilter:['disabled','readonly','min','max']});sync();
     }
+    function dailyLogDateLimit(input){
+        if(input.id!=='entryDate'||!$('#dailyLogsApp'))return;
+        const parts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Manila',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(p=>[p.type,p.value]));
+        const today=parts.year+'-'+parts.month+'-'+parts.day;if(input.max!==today)input.max=today;
+        if(!document.getElementById('entryDatePolicy')){const hint=el('small','hint','Daily logs can be filed for today or earlier.');hint.id='entryDatePolicy';input.after(hint);const described=new Set((input.getAttribute('aria-describedby')||'').split(' ').filter(Boolean));described.add(hint.id);input.setAttribute('aria-describedby',[...described].join(' '));}
+    }
+    const logRoot=$('#dailyLogsApp');if(logRoot?.dataset.module==='reviewlogs'){
+        const note=$('.dl-week-note',logRoot);if(note)note.textContent='Review submitted entries together by employee and week. New entries need approval; earlier approved entries retain their status. Explicitly returning a fully approved week reopens it for correction.';
+        const hint=$('#logListHint',logRoot);if(hint)hint.textContent='Approve or return pending submissions for the week. Previously approved entries remain approved. Section Head and Department Head roles may review their own weeks.';
+    }
     function dateField(input){
+        dailyLogDateLimit(input);
         if(input.id==='leaveMonth'){leaveMonthPicker(input);return;}
         if(!window.flatpickr||input._flatpickr||input.dataset.expDate||input.closest('.flatpickr-calendar'))return;const type=input.type;if(!['date','month','datetime-local','time'].includes(type))return;input.dataset.expDate=type;
         const config={disableMobile:true,allowInput:true,dateFormat:type==='month'?'Y-m':type==='date'?'Y-m-d':type==='time'?'H:i':'Y-m-d\\TH:i',locale:{firstDayOfWeek:0},minDate:input.min||undefined,maxDate:input.max||undefined,enableTime:['datetime-local','time'].includes(type),noCalendar:type==='time',time_24hr:true,appendTo:input.closest('dialog')||document.body,
-            onOpen:(_,__,fp)=>{fp.set('minDate',input.min||null);fp.set('maxDate',input.max||null);if(input.value)fp.setDate(input.value,false);},onChange:()=>{input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));},onReady:(_,__,fp)=>{const actions=el('div','exp-calendar-actions');actions.dataset.expUi='true';actions.append(button(type==='month'?'This month':type==='time'?'Now':'Today',()=>{fp.setDate(new Date(),true);fp.close();}),button('Clear',()=>{fp.clear();input.dispatchEvent(new Event('change',{bubbles:true}));fp.close();}));fp.calendarContainer.append(actions);}};
+            onOpen:(_,__,fp)=>{dailyLogDateLimit(input);fp.set('minDate',input.min||null);fp.set('maxDate',input.max||null);if(input.value)fp.setDate(input.value,false);},onChange:()=>{input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));},onReady:(_,__,fp)=>{const actions=el('div','exp-calendar-actions');actions.dataset.expUi='true';actions.append(button(type==='month'?'This month':type==='time'?'Now':'Today',()=>{dailyLogDateLimit(input);fp.setDate(input.id==='entryDate'&&$('#dailyLogsApp')?input.max:new Date(),true);fp.close();}),button('Clear',()=>{fp.clear();input.dispatchEvent(new Event('change',{bubbles:true}));fp.close();}));fp.calendarContainer.append(actions);}};
         config.position=fp=>{const rect=input.getBoundingClientRect(),calendar=fp.calendarContainer;calendar.style.position='fixed';calendar.style.right='auto';calendar.style.left=Math.max(8,Math.min(rect.left,innerWidth-calendar.offsetWidth-8))+'px';calendar.style.top=(rect.bottom+calendar.offsetHeight+8>innerHeight?Math.max(8,rect.top-calendar.offsetHeight-6):rect.bottom+6)+'px';};
         if(type==='month'&&window.monthSelectPlugin)config.plugins=[new monthSelectPlugin({shorthand:true,dateFormat:'Y-m',altFormat:'F Y'})];
         if(type==='time'){delete config.minDate;delete config.maxDate;config.minTime=input.min||undefined;config.maxTime=input.max||undefined;}

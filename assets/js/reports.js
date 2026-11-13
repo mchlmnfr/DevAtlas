@@ -153,6 +153,26 @@
     {
         return Object.fromEntries(new FormData(GetElement('reportFilters')));
     }
+    function DailyReport(report)
+    {
+        const rows = report.logs || [];
+        const body = rows.map(r => `<tr><td>${ESC(DisplayDate(r.activity_date))}</td><td>${ESC(r.entry_kind === 'leave' ? [r.leave_type, r.leave_period].filter(Boolean).join(' · ') : r.activity_type || '—')}</td><td>${ESC(r.classification || '—')}</td><td class="report-text">${ESC(r.planned_task || '—')}</td><td class="report-text">${ESC(r.actual_activity || '—')}</td><td class="report-hours">${Hours(r.duration_hours)}</td><td><span class="badge">${ESC(r.status === 'Reviewed' ? 'Approved' : r.status)}</span></td><td class="report-text">${ESC(r.remarks || '—')}</td><td class="report-text">${ESC(r.reviewer_name || '—')}${r.review_comment ? `<small>${ESC(r.review_comment)}</small>` : ''}</td></tr>`).join('');
+        return `<div class="report-table-scroll" data-exp-ui="true"><table class="ws-table report-detail-table"><caption class="sr-only">Daily entries for ${ESC(report.employee.employee_name)}</caption><thead><tr><th>Date</th><th>Activity / Leave</th><th>Classification</th><th>Planned Task</th><th>Actual Activity Performed</th><th>Hours</th><th>Status</th><th>Remarks</th><th>Review Details</th></tr></thead><tbody>${body || '<tr><td colspan="9">No entries match this period and status.</td></tr>'}</tbody></table></div>`;
+    }
+    function WeeklyReport(report)
+    {
+        const cells = r => ['SD', 'SCR', 'PROJECT', 'total'].map(key => `<td class="report-hours">${Hours(r[key])}</td>`).join('');
+        const rows = report.rows.map(r => `<tr><th scope="row">${ESC(r.activity_type)}<small>${ESC(r.activity_name)}</small></th>${cells(r)}</tr>`).join('');
+        const leaves = (report.leaves || []).map(r => `<tr><td>${ESC(DisplayDate(r.activity_date))}</td><td>${ESC(r.leave_type)}</td><td>${ESC(r.leave_period || 'Undertime')}</td><td class="report-hours">${Hours(r.duration_hours)}</td></tr>`).join('');
+        return `<div class="report-table-scroll" data-exp-ui="true"><table class="ws-table report-weekly-table"><caption class="sr-only">Weekly work summary for ${ESC(report.employee.employee_name)}</caption><thead><tr><th>Activity Type</th><th>Service Delivery</th><th>System Change Request</th><th>Project</th><th>Total Hours</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><th scope="row">Total Hours</th>${cells(report.totals)}</tr></tfoot></table></div><div class="report-leave-summary"><h4>Approved leave / undertime</h4>${leaves ? `<div class="report-table-scroll" data-exp-ui="true"><table class="ws-table"><thead><tr><th>Date</th><th>Type</th><th>Period</th><th>Hours</th></tr></thead><tbody>${leaves}</tbody></table></div>` : '<p>None for this week.</p>'}<p class="wf-muted">Leave and weekends are excluded from the work-hour totals.</p></div>`;
+    }
+    function RenderReports(data)
+    {
+        const firstFilled = data.reports.findIndex(r => data.report_type === 'daily' ? r.logs.length > 0 : r.work_hours > 0 || (r.leaves || []).length > 0);
+        const opened = firstFilled < 0 ? 0 : firstFilled;
+        GetElement('reportDetailsRows').innerHTML = data.reports.map((r, index) => `<details class="report-employee" id="employeeReport${Number(r.employee.user_id)}"${index === opened ? ' open' : ''}><summary><span><strong>${ESC(r.employee.employee_name)}</strong><small>${ESC(r.employee.employee_id)} · ${ESC(r.employee.report_name)}</small></span><span class="report-employee-total">${Hours(r.work_hours)} work hours${data.report_type === 'daily' ? ` · ${Hours(r.leave_hours)} leave / UT hours` : ''}</span></summary><div class="report-employee-body">${data.report_type === 'daily' ? DailyReport(r) : WeeklyReport(r)}</div></details>`).join('');
+        GetElement('reportDetails').hidden = false;
+    }
     function SyncType() 
     {
         const IS_WEEKLY = GetElement('reportType').value === 'weekly';
@@ -170,6 +190,8 @@
     {
         STATE.request++;
         GetElement('reportCount').textContent = '';
+        GetElement('reportDetails').hidden = true;
+        GetElement('reportDetailsRows').replaceChildren();
         GetElement('reportRows').innerHTML = '<tr><td colspan="6"><div class="ws-state">Preview the report for the selected section and period.</div></td></tr>';
         GetElement('reportRows').removeAttribute('aria-busy');
     }
@@ -181,6 +203,7 @@
         }
         const REQUEST = ++STATE.request;
         ClearError('reportsError');
+        GetElement('reportDetails').hidden = true;
         GetElement('reportRows').setAttribute('aria-busy', 'true');
         try 
         {
@@ -189,13 +212,14 @@
             {
                 return;
             }
-            GetElement('reportPreviewTitle').textContent = DATA.section.unit_name + ' ? ' + (DATA.report_type === 'daily' ? DisplayDate(DATA.date_from) + ' ? ' + DisplayDate(DATA.date_to) : DisplayDate(DATA.week_start) + ' ? ' + DisplayDate(DATA.week_end));
+            GetElement('reportPreviewTitle').textContent = DATA.section.unit_name + ' · ' + (DATA.report_type === 'daily' ? DisplayDate(DATA.date_from) + ' – ' + DisplayDate(DATA.date_to) : DisplayDate(DATA.week_start) + ' – ' + DisplayDate(DATA.week_end));
             if (DATA.report_type === 'weekly') 
             {
                 GetElement('reportWeek').value = DATA.week_start;
             }
-            GetElement('reportRows').innerHTML = DATA.reports.map(r => `<tr><td><strong>${ESC(r.employee.employee_name)}</strong><small>${ESC(r.employee.employee_id)}</small></td><td>${ESC(r.employee.report_name)}</td><td>${r.log_count ?? '?'}</td><td>${Hours(r.work_hours)}</td><td>${DATA.report_type === 'daily' ? Hours(r.leave_hours) : '?'}</td><td>${DATA.report_type === 'weekly' ? `<button type="button" class="btn btn-sm" data-summary="${r.employee.user_id}">View Summary</button>` : 'One employee per worksheet'}</td></tr>`).join('');
-            GetElement('reportCount').textContent = DATA.reports.length + ' personnel / worksheets';
+            GetElement('reportRows').innerHTML = DATA.reports.map(r => `<tr><td><strong>${ESC(r.employee.employee_name)}</strong><small>${ESC(r.employee.employee_id)}</small></td><td>${ESC(r.employee.report_name)}</td><td>${r.log_count ?? '—'}</td><td>${Hours(r.work_hours)}</td><td>${DATA.report_type === 'daily' ? Hours(r.leave_hours) : '—'}</td><td><button type="button" class="btn btn-sm" data-report="${Number(r.employee.user_id)}">View Report</button></td></tr>`).join('');
+            GetElement('reportCount').textContent = DATA.reports.length + ' employee reports';
+            RenderReports(DATA);
         }
         catch (e) 
         {
@@ -280,6 +304,17 @@
         if (B.dataset.summary) 
         {
             WeeklySummary(B.dataset.summary);
+        }
+        if (B.dataset.report)
+        {
+            const report = GetElement('employeeReport' + B.dataset.report);
+            if (report)
+            {
+                report.open = true;
+                const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.dataset.motion === 'off';
+                report.scrollIntoView({behavior: reduced ? 'instant' : 'smooth', block: 'start'});
+                report.querySelector('summary').focus({preventScroll: true});
+            }
         }
     });
     async function Init() 
