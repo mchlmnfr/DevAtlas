@@ -91,8 +91,9 @@ class LeaveRequests
         }
         $first = new DateTimeImmutable(DailyLogs::Date($month.'-01'));
         $last = $first->modify('last day of this month');
-        $from = $first->modify('-'.((int)$first->format('N') - 1).' days')->format('Y-m-d');
-        $to = $last->modify('+'.(7 - (int)$last->format('N')).' days')->format('Y-m-d');
+        // Calendar display weeks start on Sunday; working-day rules remain separate.
+        $from = $first->modify('-'.(int)$first->format('w').' days')->format('Y-m-d');
+        $to = $last->modify('+'.(6 - (int)$last->format('w')).' days')->format('Y-m-d');
         $department = (int)($data['department_id'] ?? $profile['department_id'] ?? 0);
         if (!Permissions::IsAdmin() && $department !== (int)($profile['department_id'] ?? 0))
         {

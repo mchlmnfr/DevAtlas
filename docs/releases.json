@@ -1,5 +1,16 @@
 [
   {
+    "id": "2026-11-12.28",
+    "order": 28,
+    "date": "2026-11-12",
+    "title": "Correct weekday alignment in the leave calendar",
+    "changes": [
+      "The leave calendar date range and weekday headings now use Sunday through Saturday consistently. November 13, 2026 appears under Friday.",
+      "Existing calendar layouts are aligned using each cell’s actual date, retaining leave previews, birthday cards, day selection and existing event handlers when calendar files come from different patch versions. Sunday and Saturday remain visually distinct from working days.",
+      "Working-day leave calculations and approval rules are preserved. Includes the compact View options controls from release 2026-11-12.27; no database migration is required."
+    ]
+  },
+  {
     "id": "2026-11-12.27",
     "order": 27,
     "date": "2026-11-12",
