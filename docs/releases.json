@@ -1,5 +1,18 @@
 [
   {
+    "id": "2026-11-13.29",
+    "order": 29,
+    "date": "2026-11-13",
+    "title": "Cleaner controls, stable tables and automatic notifications",
+    "changes": [
+      "Leaves now shows a calendar button with the month name and year, opening a grid of months and a year dropdown. The raw YYYY-MM field is no longer an editable textbox; existing calendar arrows, saved views and month limits continue to work. Explicit month links take priority over saved filters.",
+      "Active-filter tags now sit beneath the relevant filter fields, with a quieter outline style. Pages without a common filter panel keep the summary inside View options, clearing the space above module titles.",
+      "Removed the extra Expand editor and Copy buttons beneath text areas and inside SweetAlert notifications. Table rows no longer flash changed-row highlights or fade again when refreshed; other interface transitions remain available.",
+      "Notifications and informational alerts close automatically after four seconds (six seconds for errors), without OK, close, or extra helper buttons. Hovering no longer stops their timer. Action confirmations still require an explicit choice.",
+      "Choosing a month refreshes the calendar. Calendar month arrows are excluded from table pagination restoration, preventing an unexpected month jump when returning to Leaves. Keyboard controls, Escape, outside-click dismissal, mobile sizing and read-only states are supported. No database migration is required."
+    ]
+  },
+  {
     "id": "2026-11-12.28",
     "order": 28,
     "date": "2026-11-12",

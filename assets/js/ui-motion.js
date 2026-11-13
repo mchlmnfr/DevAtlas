@@ -18,14 +18,14 @@
     let scheduled = false;
     const mode = () => reduced.matches ? 'off' : (root.dataset.motion || 'standard');
     const allowed = el => !el.closest('dialog, [role="dialog"], .swal2-container, [data-no-motion], template') && el.getClientRects().length;
-    function play(el, index = 0, row = false) {
+    function play(el, index = 0) {
         if (seen.has(el)) return;
         seen.add(el);
         if (mode() === 'off' || typeof el.animate !== 'function' || !allowed(el)) return;
         const subtle = mode() === 'subtle';
-        const frames = subtle || row ? [{ opacity: .45 }, { opacity: 1 }]
+        const frames = subtle ? [{ opacity: .45 }, { opacity: 1 }]
             : [{ opacity: .35, transform: 'translateY(6px)' }, { opacity: 1, transform: 'translateY(0)' }];
-        const animation = el.animate(frames, { duration: subtle ? 130 : row ? 160 : 240,
+        const animation = el.animate(frames, { duration: subtle ? 130 : 240,
             delay: Math.min(index, 5) * (subtle ? 8 : 22), easing: 'cubic-bezier(.2,.7,.2,1)' });
         running.add(animation);
         animation.finished.catch(() => {}).finally(() => running.delete(animation));
@@ -37,9 +37,7 @@
             if (seen.has(el) || !allowed(el)) return;
             if (intersection) intersection.observe(el); else play(el, i);
         });
-        // Fade only a few newly rendered rows; large inventories stay responsive.
-        if (node.matches('tbody')) [...node.children].slice(0, 8).forEach((el, i) => play(el, i, true));
-        else if (node.matches('tr') && node.parentElement?.matches('tbody') && node.sectionRowIndex < 8) play(node, node.sectionRowIndex, true);
+        // Keep table rows stable during refreshes; motion belongs to the surrounding cards.
     }
     function update() {
         if (mode() === 'off') {
