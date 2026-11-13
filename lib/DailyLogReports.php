@@ -96,13 +96,11 @@ class DailyLogReports
             if ($type === 'daily')
             {
                 $report['log_count'] = count($report['logs']);
-                unset($report['logs']);
             }
             else
             {
                 $report['work_hours'] = $report['totals']['total'];
                 $report['leave_hours'] = 0;
-                unset($report['rows'],$report['totals']);
             }
         }
         unset($report);

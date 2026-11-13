@@ -19,7 +19,7 @@
         <div>
             <div class="ws-eyebrow">TEAM MONITORING</div>
             <h2>Reports</h2>
-            <p>Export your section's daily logs or weekly summaries. One Excel workbook, one worksheet for every employee.</p>
+            <p>View your section's daily logs and weekly summaries here. Expand an employee report to read its details, or export a copy to Excel.</p>
         </div><button
             type="button"
             class="btn"
@@ -124,7 +124,7 @@
                 <thead>
                     <tr>
                         <th>Employee</th>
-                        <th>Report / Sheet Name</th>
+                        <th>Report Name</th>
                         <th>Entries</th>
                         <th>Work Hours</th>
                         <th>Leave / UT Hours</th>
@@ -140,6 +140,15 @@
                 </tbody>
             </table>
         </div>
+    </section>
+    <section class="ws-card report-details" id="reportDetails" aria-labelledby="reportDetailsTitle" hidden>
+        <div class="ws-card-heading">
+            <div>
+                <h3 id="reportDetailsTitle">Employee reports</h3>
+                <p>Expand a name to read the full report for the selected section and period.</p>
+            </div>
+        </div>
+        <div id="reportDetailsRows"></div>
     </section>
 </div>
 

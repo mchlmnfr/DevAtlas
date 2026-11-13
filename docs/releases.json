@@ -1,5 +1,17 @@
 [
   {
+    "id": "2026-11-13.30",
+    "order": 30,
+    "date": "2026-11-13",
+    "title": "Preserved daily-log approvals and reports you can read on screen",
+    "changes": [
+      "Adding or correcting a submitted daily log keeps earlier approved entries in the same week approved, including their reviewer, timestamp, comments and version. Weekly decisions apply to pending submissions; explicitly returning a fully approved week remains available for corrections.",
+      "Reports now includes expandable employee reports with daily planned tasks, actual activities, hours, status, remarks and review details, plus weekly activity/classification breakdowns and approved leave. Preview uses Reports view permission; Excel export remains optional.",
+      "Daily work logs cannot be filed for future dates, whether saved as drafts or submitted, created individually or through the existing batch function. The date picker and server enforce today in the system business timezone. Leave requests and report date filters retain their existing date ranges.",
+      "No database migration is required."
+    ]
+  },
+  {
     "id": "2026-11-13.29",
     "order": 29,
     "date": "2026-11-13",

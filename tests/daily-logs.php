@@ -206,14 +206,18 @@ try
     $new = DailyLogs::Save($db, $employee, array_replace($work, ['activity_date' => '2026-10-30','duration_hours' => 1]));
     DlActor($reviewer);
     $reopened = WeeklyLogReview::Get($db, $reviewer, $employee, '2026-10-26');
-    DlCheck($reopened['status'] === 'Submitted' && count(array_filter($reopened['logs'], fn ($l) => $l['status'] === 'Reviewed')) === 0, 'A new submission invalidates approval for the whole week.');
+    DlCheck($reopened['status'] === 'Submitted' && count(array_filter($reopened['logs'], fn ($l) => $l['status'] === 'Reviewed')) === 6, 'Only the additional submission needs approval; earlier entries remain approved.');
+    DlCheck(array_values(array_filter($reopened['logs'], fn ($l) => (int)$l['log_id'] !== $new)) === $approved['logs'], 'Adding a log preserves original approval comments, reviewer, timestamps and versions.');
+    DlCheck(DailyLogs::WeeklySummary($db, $reviewer, ['user_id' => $employee,'week_start' => '2026-10-26'], true, true)['totals']['total'] == 28, 'Previously approved work remains in the report while the additional entry is pending.');
+    DlReject(fn () => DailyLogs::Review($db, $reviewer, ['items' => [['user_id' => $employee,'week_start' => '2026-10-26','token' => $approved['token']]]]), 'An additional submission invalidates an older review snapshot without undoing approvals.');
     DlReject(fn () => DailyLogs::Review($db, $reviewer, ['items' => [['user_id' => $employee,'week_start' => '2026-10-26','token' => $reopened['token']]],'decision' => 'Returned']), 'Returning a week requires a comment.');
     DailyLogs::Review($db, $reviewer, ['items' => [['user_id' => $employee,'week_start' => '2026-10-26','token' => $reopened['token']]],'decision' => 'Returned','review_comment' => 'Correct weekly details']);
     $returned = WeeklyLogReview::Get($db, $reviewer, $employee, '2026-10-26');
-    DlCheck(count(array_filter($returned['logs'], fn ($l) => $l['status'] === 'Returned')) === 7, 'Returning one week returns all its work entries together.');
+    DlCheck(count(array_filter($returned['logs'], fn ($l) => $l['status'] === 'Returned')) === 1, 'Returning an additional submission leaves earlier approved work untouched.');
+    DlCheck(array_values(array_filter($returned['logs'], fn ($l) => (int)$l['log_id'] !== $new)) === $approved['logs'], 'Returning pending work preserves all earlier approval metadata.');
     DlCheck(LeaveRequests::Get($db, $reviewer, $leaveId)['status'] === 'Reviewed', 'Returning a work week preserves its independent leave approval.');
     DlActor($employee);
-    foreach ($returned['logs'] as $log)
+    foreach (array_filter($returned['logs'], fn ($l) => $l['status'] === 'Returned') as $log)
     {
         $log['status'] = 'Submitted';
         DailyLogs::Save($db, $employee, $log);
@@ -222,6 +226,20 @@ try
     $pending = WeeklyLogReview::Get($db, $reviewer, $employee, '2026-10-26');
     DlCheck($pending['status'] === 'Submitted', 'Corrected entries can be resubmitted for one fresh weekly decision.');
     DailyLogs::Review($db, $reviewer, ['items' => [['user_id' => $employee,'week_start' => '2026-10-26','token' => $pending['token']]]]);
+    $afterAdditionalApproval = WeeklyLogReview::Get($db, $reviewer, $employee, '2026-10-26');
+    DlCheck(array_values(array_filter($afterAdditionalApproval['logs'], fn ($l) => (int)$l['log_id'] !== $new)) === $approved['logs'], 'Approving corrected additional work preserves the original entry approvals.');
+    DailyLogs::Review($db, $reviewer, ['items' => [['user_id' => $employee,'week_start' => '2026-10-26','token' => $afterAdditionalApproval['token']]],'decision' => 'Returned','review_comment' => 'Explicitly reopen the approved week for correction']);
+    $explicitReturn = WeeklyLogReview::Get($db, $reviewer, $employee, '2026-10-26');
+    DlCheck(count(array_filter($explicitReturn['logs'], fn ($l) => $l['status'] === 'Returned')) === 7, 'An explicit return of a fully approved week still reopens its work for correction.');
+    DlActor($employee);
+    foreach ($explicitReturn['logs'] as $log)
+    {
+        $log['status'] = 'Submitted';
+        DailyLogs::Save($db, $employee, $log);
+    }
+    DlActor($reviewer);
+    $resubmitted = WeeklyLogReview::Get($db, $reviewer, $employee, '2026-10-26');
+    DailyLogs::Review($db, $reviewer, ['items' => [['user_id' => $employee,'week_start' => '2026-10-26','token' => $resubmitted['token']]]]);
     DlActor($employee);
     $a = DailyLogs::Save($db, $employee, array_replace($work, ['activity_date' => '2026-11-02']));
     $b = DailyLogs::Save($db, $employee, array_replace($work, ['activity_date' => '2026-11-09']));
@@ -237,6 +255,29 @@ try
     $ownWeek = WeeklyLogReview::Get($db, $reviewer, $reviewer, '2026-11-02');
     DlReject(fn () => DailyLogs::Review($db, $reviewer, ['items' => [['user_id' => $reviewer,'week_start' => $ownWeek['week_start'],'token' => $ownWeek['token']]]]), 'Reviewers cannot approve their own week.');
     $detail = DailyLogReports::Daily($db, $reviewer, ['unit_id' => $unit,'date_from' => '2026-10-26','date_to' => '2026-11-01']);
+    $dailyPreview = DailyLogReports::Preview($db, $reviewer, ['report_type' => 'daily','unit_id' => $unit,'date_from' => '2026-10-26','date_to' => '2026-11-01']);
+    $employeePreview = array_values(array_filter($dailyPreview['reports'], fn ($r) => $r['employee']['user_id'] == $employee))[0];
+    DlCheck($employeePreview['logs'] && $employeePreview['log_count'] === count($employeePreview['logs']) && isset($employeePreview['logs'][0]['planned_task'],$employeePreview['logs'][0]['actual_activity']), 'Daily preview includes the full report contents without an export.');
+    DlCheck(!in_array('Draft', array_column($employeePreview['logs'], 'status'), true), 'On-screen reports never include private drafts.');
+    $weeklyPreview = DailyLogReports::Preview($db, $reviewer, ['report_type' => 'weekly','unit_id' => $unit,'week_start' => '2026-10-26']);
+    DlCheck(count($weeklyPreview['reports'][0]['rows']) === count(DailyLogs::SUMMARY_ACTIVITIES) && isset($weeklyPreview['reports'][0]['totals']['total']), 'Weekly preview retains the same activity and classification breakdown used by Excel.');
+    $db->query("UPDATE role_permissions SET is_allowed=FALSE WHERE role_key='reviewer' AND module='reports' AND permission='export'");
+    Permissions::Reset();
+    DlCheck(DailyLogReports::Preview($db, $reviewer, ['report_type' => 'daily','unit_id' => $unit,'date_from' => '2026-10-26','date_to' => '2026-11-01'])['reports'] !== [], 'Reports view access supports full preview without export access.');
+    DlActor($outsider);
+    DlReject(fn () => DailyLogReports::Preview($db, $outsider, ['report_type' => 'daily','unit_id' => $unit,'date_from' => '2026-10-26','date_to' => '2026-11-01']), 'Full report previews cannot cross section boundaries.');
+    DlActor($employee);
+    $today = (new DateTimeImmutable('today', new DateTimeZone('Asia/Manila')))->format('Y-m-d');
+    $tomorrow = (new DateTimeImmutable($today, new DateTimeZone('Asia/Manila')))->modify('+1 day')->format('Y-m-d');
+    DlCheck(DailyLogs::Normalize(array_replace($work, ['activity_date' => $today]))['activity_date'] === $today, 'Today remains a valid work date.');
+    foreach (['Draft','Submitted'] as $futureStatus)
+    {
+        DlReject(fn () => DailyLogs::Save($db, $employee, array_replace($work, ['activity_date' => $tomorrow,'status' => $futureStatus])), 'Future work cannot be saved as '.$futureStatus.'.');
+    }
+    $beforeFutureEdit = DailyLogs::Get($db, $employee, $draft);
+    DlReject(fn () => DailyLogs::Save($db, $employee, array_replace($beforeFutureEdit, ['activity_date' => $tomorrow])), 'Existing drafts cannot be moved into the future.');
+    DlCheck(DailyLogs::Get($db, $employee, $draft) === $beforeFutureEdit, 'Rejected future edits leave the original draft unchanged.');
+    DlCheck(DailyLogs::Date($tomorrow) === $tomorrow && DailyLogs::Normalize(array_replace($leave, ['activity_date' => $tomorrow]))['activity_date'] === $tomorrow, 'Leave and report date parsing still accept future dates.');
     $detailBook = DailyLogsWorkbook::Build($detail);
     DlCheck($detailBook->getSheetByName('EFIXTURE')->getCell('E6')->getDataType() === 's', 'Detailed report still treats activity text as literal text.');
     $detailBook->disconnectWorksheets();
