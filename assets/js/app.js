@@ -199,14 +199,11 @@ const AT = (() =>
             position: 'top-end',
             titleText: MESSAGE,
             showConfirmButton: false,
-            timer: 4500,
+            showCancelButton: false,
+            showCloseButton: false,
+            timer: TYPE === 'error' ? 6000 : 4000,
             timerProgressBar: true,
-            returnFocus: false,
-            didOpen: popup => 
-            {
-                popup.addEventListener('mouseenter', Swal.stopTimer);
-                popup.addEventListener('mouseleave', Swal.resumeTimer);
-            }
+            returnFocus: false
         }).finally(() => 
         {
             isToastActive = false;
@@ -292,7 +289,11 @@ const AT = (() =>
             }
             [type] || 'Information',
             text: String(message),
-            confirmButtonText: 'OK'
+            showConfirmButton: false,
+            showCancelButton: false,
+            showCloseButton: false,
+            timer: type === 'error' ? 6000 : 4000,
+            timerProgressBar: true
         });
     }
     function OpenModal(id) 
